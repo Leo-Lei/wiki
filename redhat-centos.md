@@ -34,11 +34,11 @@ hostnamectl set-hostname <hostname>
 
 
 # yum安装openjdk
-## 安装JRE:
+### 安装JRE:
 ```bash
 yum install java-1.8.0-openjdk.x86_64
 ```
-## 安装JDK:
+### 安装JDK:
 ```bash
 yum install java-1.8.0-openjdk-devel.x86_64
 ```
