@@ -17,7 +17,7 @@ description: MySql
 | ---------------------------------------------------------------------------------- | -------------------------------- |
 | `mysql -h localhost -P 3306 -uroot -p123456`                                       | 连接mysql的server                 |
 | `mysql -h localhost -P 3306 -uroot -p'1*2@3&456'`                                  | 连接mysql的server,密码有特殊字符    |
-| `mysql -h localhost -uroot -p123456 < /opt/my.sql`                                 | 执行sql文件                       |
+| `mysql -h localhost -uroot -p123456 -Ddb < /opt/my.sql`                            | 执行sql文件                       |
 | `mysql> source /some/path/foo.sql`                                                 | 执行foo.sql文件                   |
 | `mysql> show variables like '%char%'`                                              | 查看mysql字符集                   |
 | `mysql> create user 'pig'@'localhost' identified by '123456'`                      | 创建一个只能在本地登录的用户         |
