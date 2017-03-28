@@ -11,6 +11,8 @@ description: The tutoria will show you how to use Gradle to build your project.
 ---
 
 
-|                    command                                |   desp                           |            Sample                                                             |
-| --------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `gradle dependencyInsight --dependency <dependency>`      | 查看某一个特定依赖                  | `gradle -q webapp:dependencyInsight --dependency groovy`                      |
+|                    command                                       |   desp                           | 
+| ---------------------------------------------------------------- | -------------------------------- | 
+| `gradle -q webapp:dependencyInsight --dependency groovy`         | 查看某一个特定依赖                  | 
+| `gradle build -x test `                                          | skip test                        |
+
