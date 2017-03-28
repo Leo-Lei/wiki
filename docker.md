@@ -80,8 +80,7 @@ docker容器命令
 | `docker cp container:/opt/doc /home/doc`                                  | 拷贝文件                                      |
 | `docker cp /home/doc container:/opt/doc`                                  | 拷贝文件                                      |
 | `docker exec -it mysql:5.7.16 apt-get install -y vim`                     | 进入容器执行命令                               |
-
-
+| `docker exec -it my_container /bin/bash`                                  | 进入容器                                      |
 
 # Dockerfile command
 
