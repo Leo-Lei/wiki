@@ -106,9 +106,9 @@ server {
 ```
 
 
-```
+```bash
 #user  nobody;
-worker_processes  1;
+worker_processes  2;
 
 #error_log  logs/error.log;
 #error_log  logs/error.log  notice;
@@ -118,35 +118,7 @@ worker_processes  1;
 
 events {
     use epoll;
-    worker_connections  102400;
-}
-
-stream {
-
-    upstream lock {
-        #least_conn;
-        hash $remote_addr consistent;
-        server lock.hellotech.com.cn:29121 weight=5;
-        server 192.168.128.7:29121 max_fails=3 fail_timeout=30s;
-        server unix:/tmp/lock3;
-        #######server lock.hellotech.com.cn:29121 weight=5;
-        #######server 192.168.128.8:29121 max_fails=3 fail_timeout=30s;
-        #######server unix:/tmp/lock3;
-    }
-
-    server {
-        listen 29121;
-        proxy_connect_timeout 60s;
-        proxy_timeout 120s;
-        proxy_pass lock;
-    }
-
-
-   ####server {
-   ####    #listen [::1]:29121;
-   ####    listen 192.168.128.7:29121;
-   ####    proxy_pass unix:/tmp/stream.socket;
-   ####}
+    worker_connections  3096;
 }
 
 http {
@@ -157,18 +129,14 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    log_format  app   '"$remote_addr" "$remote_user" "[$time_local]" "$request" "$status" "$body_bytes_sent" "$http_referer" "$http_user_agent" "$request_method $scheme://$host$request_uri" "$host" "$http_x_forwarded_for" "$request_time" "$remote_port" "$upstream_response_time" "$http_x_readtime" "$uri" "$upstream_status" "$upstream_addr"';
-
+    log_format	app   '"$remote_addr" "$remote_user" "[$time_local]" "$request" "$status" "$body_bytes_sent" "$http_referer" "$http_user_agent" "$request_method $scheme://$host$request_uri" "$host" "$http_x_forwarded_for" "$request_time" "$remote_port" "$upstream_response_time" "$http_x_readtime" "$uri" "$upstream_status" "$upstream_addr"';
 
     sendfile       on;
     tcp_nopush     on;
     tcp_nodelay    on;
 
     keepalive_timeout  60;
-    open_file_cache max=102400 inactive=20s;
-    open_file_cache_valid 30s;
-    open_file_cache_min_uses 1;
-
+    server_tokens     off;
 
     gzip               on;
     gzip_vary          on;
@@ -198,57 +166,40 @@ http {
     fastcgi_cache_valid 200 302 1h;
     fastcgi_cache_valid 301 1d;
     fastcgi_cache_valid any 1m;
-
     upstream APP_bff {
         #sticky;
         least_conn;
-        server 192.168.128.1:20202;
-        server 192.168.128.2:20202;
+        server 172.16.128.10:20202;
     }
 
     upstream Console_bff {
         #sticky;
         least_conn;
-        server 192.168.128.1:20203;
-        server 192.168.128.2:20203;
+        server 172.16.128.17:8080;
     }
 
-    upstream dubbo-admin {
-        #sticky;
-        least_conn;
-        server 192.168.128.1:20200;
-    }
 
-    upstream dubbo-monitor {
-        #sticky;
-        least_conn;
-        server 192.168.128.3:8283;
-    }
 
-    upstream disconf {
-        server 192.168.128.2:20230;
-    }
-
-    server {
-        listen       80;
-        server_name  localhost;
-
-	location / {
-            root   html;
-            index  index.html index.htm;
-        }
-
-	error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-     }
-
+##    server {
+##        listen       80;
+##        server_name  localhost;
+##
+##	location / {
+##            root   html;
+##            index  index.html index.htm;
+##        }
+##
+##	error_page   500 502 503 504  /50x.html;
+##        location = /50x.html {
+##            root   html;
+##        }
+##     }
+##
 ###### APP_bff server
     server {
       listen       80;
-      server_name  app-bff.api.hellotech.com.cn app-api-test.hellotech.com;
-      access_log   logs/core.access.log  app;
+      server_name  app.api.hellotech.com app-api.hellotech.com;
+      access_log   logs/app.api.hellotech.com.access.log  app;
 
       location / {
         proxy_pass http://APP_bff;
@@ -258,11 +209,12 @@ http {
       }
     }
 
+
 ###### Console_bff server
     server {
       listen       80;
-      server_name  console-bff.api.hellotech.com.cn console-api-test.hellotech.com;
-      access_log   logs/auth.api.access.log  app;
+      server_name  console.api.hellotech.com console-api.hellotech.com;
+      access_log   logs/console.api.hellotech.com.access.log  app;
 
       location / {
         proxy_pass http://Console_bff;
@@ -272,62 +224,20 @@ http {
       }
     }
 
-########dubbo-admin
-    server {
-      listen       80;
-      server_name  dubboadmin.hellotech.com.cn;
-      access_log   logs/dubbo-admin.access.log  main;
+####------------------------Static-------WEB------------------#########
 
-      location / {
-        proxy_pass http://dubbo-admin;
-        proxy_set_header   Host             $host;
-        proxy_set_header   X-Real-IP        $remote_addr;
-        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-      }
-    }
-
-########dubbo-monitor
-    server {
-      listen       80;
-      server_name  dubbomonitor.hellotech.com.cn;
-      access_log   logs/dubbo-monitor.access.log  main;
-
-      location / {
-        proxy_pass http://dubbo-monitor;
-        proxy_set_header   Host             $host;
-        proxy_set_header   X-Real-IP        $remote_addr;
-        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-      }
-    }
-
-###------------------------------------------------WEB------------------#########
-
-#########static
-###    server {
-###      listen       80;
-###      server_name  static.hellotech.com.cn;
-###      access_log   logs/staticoss.access.log  main;
-###
-###      location / {
-###        proxy_pass http://hello-test.oss-cn-shanghai-internal.aliyuncs.com;
-###        proxy_set_header   Host             $host;
-###        proxy_set_header   X-Real-IP        $remote_addr;
-###        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-###      }
-###    }
-
-###console_web server
+#######OSS;download
     server {
         listen       80;
-        server_name  static-console.hellotech.com.cn;
-        access_log   logs/console.access.log  main;
+        server_name  download.hellotech.com;
+        access_log   logs/download.hellotech.com.access.log  app;
 
         location / {
-            root   static/console;
+            root   download;
             index  index.html;
-        }
+    }
         location ~ .*\.(gif|jpg|png|flv|ico|swf)(.*) {
-            root static/console;
+            root download;
             proxy_cache cache_one;
             proxy_cache_valid 200 302 1h;
             proxy_cache_valid 301 1d;
@@ -335,100 +245,41 @@ http {
             expires 3d;
         }
         location ~ .*\.(htm|html|css|js)(.*) {
-            root static/console;
+            root download;
             proxy_cache cache_one;
             proxy_cache_valid 200 302 1h;
             proxy_cache_valid 301 1d;
             proxy_cache_valid any 1m;
             expires 1d;
         }
+   }
 
-    }
-
-###console_web server
+####Static
     server {
         listen       80;
-        server_name  static-tools.hellotech.com.cn;
-        access_log   logs/console.access.log  main;
+        server_name  static-invite.hellotech.com;
+        access_log   logs/static-invite.hellotech.com.access.log  app;
 
         location / {
-            root   static;
+            root   Static/invite;
             index  index.html;
+    }
+        location ~ .*\.(gif|jpg|png|flv|ico|swf)(.*) {
+            root Static/invite;
+            proxy_cache cache_one;
+            proxy_cache_valid 200 302 1h;
+            proxy_cache_valid 301 1d;
+            proxy_cache_valid any 1m;
+            expires 3d;
         }
-   ##     location ~ .*\.(gif|jpg|png|flv|ico|swf)(.*) {
-   ##         root static;
-   ##         proxy_cache cache_one;
-   ##         proxy_cache_valid 200 302 1h;
-   ##         proxy_cache_valid 301 1d;
-   ##         proxy_cache_valid any 1m;
-   ##         expires 3d;
-   ##     }
-   ##     location ~ .*\.(htm|html|css|js)(.*) {
-   ##         root static;
-   ##         proxy_cache cache_one;
-   ##         proxy_cache_valid 200 302 1h;
-   ##         proxy_cache_valid 301 1d;
-   ##         proxy_cache_valid any 1m;
-   ##         expires 1d;
-   ##     }
-
-    }
-
-
-
-
-####invite_web server
-    server {
-        listen       80;
-        server_name  static-invite.hellotech.com.cn;
-        access_log   logs/invite.access.log  main;
-
-        location / {
-            root   static/invite;
-            index  index.html;
+        location ~ .*\.(htm|html|css|js)(.*) {
+            root Static/invite;
+            proxy_cache cache_one;
+            proxy_cache_valid 200 302 1h;
+            proxy_cache_valid 301 1d;
+            proxy_cache_valid any 1m;
+            expires 1d;
         }
-    ##    location ~ .*\.(gif|jpg|png|flv|ico|swf)(.*) {
-    ##        root static/invite;
-    ##        proxy_cache cache_one;
-    ##        proxy_cache_valid 200 302 1h;
-    ##        proxy_cache_valid 301 1d;
-    ##        proxy_cache_valid any 1m;
-    ##        expires 3d;
-    ##    }
-    ##    location ~ .*\.(htm|html|css|js)(.*) {
-    ##        root static/invite;
-    ##        proxy_cache cache_one;
-    ##        proxy_cache_valid 200 302 1h;
-    ##        proxy_cache_valid 301 1d;
-    ##        proxy_cache_valid any 1m;
-    ##        expires 1d;
-    ##    }
-
-    }
-
-
-#############disconf-test
-    server {
-        listen       80;
-        server_name  disconf-test.hellotech.com.cn;
-        access_log logs/disconf_access.log;
-        error_log logs/disconf_error.log;
-
-        location / {
-        root /opt/disconf/war/html;
-        if ($query_string) {
-            expires max;
-        }
-    }
-
-    location ~ ^/(api|export) {
-        proxy_pass_header Server;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
-        proxy_pass http://disconf;
-    }
    }
 }
 
