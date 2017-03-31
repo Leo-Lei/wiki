@@ -40,12 +40,6 @@ yum install nginx
 | `nginx -s stop`          | 停止nginx                          |
 | `nginx -s reload`        | reload配置                         |
 
-# 启动/停止/重新加载 nginx
-修改了nginx.conf文件后重新加载nginx配置:    
-```
-/usr/local/nginx/sbin/nginx -s reload
-```
-
 # nginx配置
 ```
 #user  nobody;
