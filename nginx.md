@@ -41,6 +41,10 @@ yum install nginx
 | `nginx -s reload`        | reload配置                         |
 
 # nginx配置
+如果是用yum安装的nginx，配置文件目录在`/etc/nginx`。主配置文件是`/etc/nginx/nginx.conf`，该文件会include`/etc/nginx/conf.d`目录中以`conf`结尾的文件。
+* `/etc/nginx/nginx.conf`:nginx全部配置。    
+* `/etc/nginx/conf.d/*.conf`: 每一个server的配置。    
+
 ```
 #user  nobody;
 worker_processes  1;
