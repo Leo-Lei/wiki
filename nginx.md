@@ -8,29 +8,8 @@ categories: Text Editor
 description: Nginx
 ---
 
-# Install
-* Download Nginx from [download page](http://nginx.org/en/download.html). For example, http://nginx.org/download/nginx-1.2.0.tar.gz.    
-* 解压缩tar文件。    
-* 进入解压目录    
-* 执行`./configure --without-http_rewrite_module`    
-* 执行`sudo make install`    
-* 执行 `sudo /usr/local/nginx/sbin/nginx`来启动nginx    
-* 执行 `sudo /usr/local/nginx/sbin/nginx -s stop`停止nginx    
-浏览器访问 localhost
-
-> ./configure: error: the HTTP rewrite module requires the PCRE library.
- 
-> You can either disable the module by using --without-http_rewrite_module
- 
-> option, or install the PCRE library into the system, or build the PCRE library
- 
-> statically from the source with nginx by using --with-pcre=<path> option.
-
-
-Official Red Hat/CentOS packages
-
-To add NGINX yum repository, create a file named /etc/yum.repos.d/nginx.repo and paste one of the configurations below:
-
+# Yum安装nginx
+yum默认源中是没有nginx的，需要我们自己添加nginx的yum源。创建文件`/etc/yum.repos.d/nginx.repo`。文件内容如下：
 CentOS:
 ```bash
 [nginx]
@@ -47,6 +26,19 @@ baseurl=http://nginx.org/packages/rhel/$releasever/$basearch/
 gpgcheck=0
 enabled=1
 ```
+然后就可以使用命令来安装nginx了
+```bash
+yum install nginx
+```
+
+
+# nginx命令
+
+|          command         |                                   |
+| ------------------------ | --------------------------------- |
+| `nginx`                  | 启动nginx                          |
+| `nginx -s stop`          | 停止nginx                          |
+| `nginx -s reload`        | reload配置                         |
 
 # 启动/停止/重新加载 nginx
 修改了nginx.conf文件后重新加载nginx配置:    
