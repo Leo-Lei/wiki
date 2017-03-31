@@ -82,7 +82,8 @@ http {
 }
 ```
 
-使用upstream，forward到后台服务
+### 转发到后台服务器，比如tomcat
+`/etc/nginx/config.d/app-api.conf`:
 ```bash
 upstream app-api {
         least_conn;
