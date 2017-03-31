@@ -45,6 +45,66 @@ yum install nginx
 * `/etc/nginx/nginx.conf`:nginx全部配置。    
 * `/etc/nginx/conf.d/*.conf`: 每一个server的配置。    
 
+`/etc/nginx/nginx.conf`
+```bash
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    log_format  app   '"$remote_addr" "$remote_user" "[$time_local]" "$request" "$status" "$body_bytes_sent" "$http_referer" "$http_user_agent" "$request_method $scheme://$host$request_uri" "$host" "$http_x_forwarded_for" "$request_time" "$remote_port" "$upstream_response_time" "$http_x_readtime" "$uri" "$upstream_status" "$upstream_addr"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+```
+
+使用upstream，forward到后台服务
+```bash
+upstream app-api {
+        least_conn;
+        server 172.31.10.10:8080;
+}
+
+server {
+    listen       80;
+    server_name  app-api.mycompany.com;
+
+    access_log  /var/log/nginx/app-api.mycompany.com.access.log  app;
+
+    location / {
+        proxy_pass http://app-api;
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+
 ```
 #user  nobody;
 worker_processes  1;
