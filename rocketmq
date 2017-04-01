@@ -8,9 +8,7 @@ categories: Java
 description: Rocket MQ
 ---
 
-
 # 安装RocketMQ
-[RocketMQ](https://github.com/apache/incubator-rocketmq)    
 
 ```bash
 git clone https://github.com/apache/incubator-rocketmq.git
