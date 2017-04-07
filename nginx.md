@@ -46,6 +46,8 @@ yum install nginx
 * `/etc/nginx/conf.d/*.conf`: 每一个server的配置。    
 
 `/etc/nginx/nginx.conf`
+
+###Nginx主配置
 ```bash
 user  nginx;
 worker_processes  1;
