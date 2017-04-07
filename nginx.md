@@ -47,7 +47,7 @@ yum install nginx
 
 `/etc/nginx/nginx.conf`
 
-###Nginx主配置
+### Nginx主配置
 ```bash
 user  nginx;
 worker_processes  1;
