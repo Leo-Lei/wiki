@@ -10,11 +10,11 @@ description: The tutoria will show you how to set up the Python environment.
 
 # PIP命令
 
-|                    Command                            |                 Desc                |
-| ----------------------------------------------------- | ----------------------------------- |
-| pip install Flask                                     | 安装包                               |
-| pip search yaml                                       | 搜索包                               |
-| pip install Flask --proxy="http://127.0.0.1:8080"     | 配置代理                             | 
+|                    Command                              |                 Desc                |
+| ------------------------------------------------------- | ----------------------------------- |
+| `pip install Flask`                                     | 安装包                               |
+| `pip search yaml`                                       | 搜索包                               |
+| `pip install Flask --proxy="http://127.0.0.1:8080"`     | 配置代理                             | 
 
 
 # pip安装的第三方包的安装路径
