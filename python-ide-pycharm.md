@@ -46,3 +46,39 @@ def f(param):
 
 You can get more detains from below link:
 [Type Hinting in PyCharm](https://www.jetbrains.com/pycharm/help/type-hinting-in-pycharm.html)
+
+
+
+# 添加python doc注释以支持pycharm的智能提示
+```python
+def f(param):
+   """
+   :type param: MyClass
+   :param param:
+   :return:
+   :rtype: int
+   """
+
+   return 10
+```
+
+
+```python
+def f(param):
+   """
+   :rtype: list[int]
+   """
+
+   return 10
+```
+
+```python
+def f(param):
+   """
+   :rtype: list[User]
+   """
+
+   users = []
+   users.append(User("tom"),User("jack"))
+   return users 
+```
