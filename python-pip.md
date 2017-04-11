@@ -8,6 +8,7 @@ categories: Python
 description: The tutoria will show you how to set up the Python environment.
 ---
 
+# PIP命令
 
 |                    Command                            |                 Desc                |
 | ----------------------------------------------------- | ----------------------------------- |
@@ -17,7 +18,7 @@ description: The tutoria will show you how to set up the Python environment.
 
 
 # pip安装的第三方包的安装路径
-
+安装路径是在`site-packages`中的。比如`C:\\Python27\\lib\\site-packages`.    
 ```bash
 $ python
 >>> import site;
@@ -27,7 +28,6 @@ $ python
 ```
 
 # pip离线安装包
-
 大致步骤如下:
 1. 创建一个目录作为pip repository，来保存第三方的包
 2. 使用PIP下载包到上一步中创建的pip repository。这时候需要机器是联网的。
