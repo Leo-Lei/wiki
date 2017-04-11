@@ -16,6 +16,7 @@ description: The tutoria will show you how to set up the Python environment.
 | `pip search yaml`                                       | 搜索包                               |
 | `pip install Flask --proxy="http://127.0.0.1:8080"`     | 配置代理                             | 
 
+> 注意：执行`pip install`命令时，可能会出现没有权限的错误，这时候就需要使用`sudo pip install`了。    
 
 # pip安装的第三方包的安装路径
 安装路径是在`site-packages`中的。比如`C:\\Python27\\lib\\site-packages`.    
