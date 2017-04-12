@@ -34,19 +34,6 @@ STAT items:2:evicted_unfetched 0
 STAT items:2:crawler_reclaimed 0
 STAT items:2:crawler_items_checked 0
 STAT items:2:lrutail_reflocked 0
-STAT items:4:number 1
-STAT items:4:age 302
-STAT items:4:evicted 0
-STAT items:4:evicted_nonzero 0
-STAT items:4:evicted_time 0
-STAT items:4:outofmemory 0
-STAT items:4:tailrepairs 0
-STAT items:4:reclaimed 0
-STAT items:4:expired_unfetched 0
-STAT items:4:evicted_unfetched 0
-STAT items:4:crawler_reclaimed 0
-STAT items:4:crawler_items_checked 0
-STAT items:4:lrutail_reflocked 0
 END
 quit
 Connection closed by foreign host.
