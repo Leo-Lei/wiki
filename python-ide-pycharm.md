@@ -72,6 +72,7 @@ def f(param):
    return 10
 ```
 > 注意， 注释在方法签名的下面，和Java,C#等静态语言把注释放方法签名签名是不一样的。    
+
 方法返回值类型是list:
 ```python
 def f(param):
