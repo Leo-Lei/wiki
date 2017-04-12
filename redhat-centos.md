@@ -8,6 +8,11 @@ categories: Java
 description: docker
 ---
 
+|               command                |                              |
+| ------------------------------------ | ---------------------------- |
+| `cat /etc/redhat-release`            | 显示系统版本                   |
+
+
 |             command          |               desc             |
 | ---------------------------- | ------------------------------ |
 | `yum install gcc`            | 安装gcc                        |
