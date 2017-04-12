@@ -17,6 +17,7 @@ description: docker
 | `yum info installed`         | 列出所有已安装的软件包信息         |
 | `yum list | grep gcc`        | 搜索可用的gcc包                 |
 | `yum info gcc`               | 显示安装包gcc的信息              |
+| `yum makecache`              | 更新yum缓存                     |
 
 # CentOS7 修改hostname
 
