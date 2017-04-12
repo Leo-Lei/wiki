@@ -81,6 +81,41 @@ miscellaneous:
         google_plus:
     links:
         Hexo: http://hexo.io
+        
+dockerfile:
+    zookeeper:
+        download_url: http://ftp.jaist.ac.jp/pub/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
+    disconf:
+        download_url: https://github.com/Leo-Lei/disconf/archive/2.6.36.1.zip
+        archive_top_dir: disconf-2.6.36.1
+        host: 172.31.10.10
+
+docker-registry: 172.31.16.140:5000
+
+mysql:
+    initial_users:
+        - user: qibeibike
+          password: qibeibike
+        - user: admin
+          password: admin
+
+rds-mysql-sync:
+    rds:
+        - name: rds1
+          backup_url: www.aliyun.com/foo.zip
+          server_id: 100
+          host: aaa.mysql.rds.aliyuncs.com:3306
+          user: admin
+          password: admin
+
+        - name: rds2
+          backup_url: www.aliyun.com/bar.zip
+          server_id: 200
+          host: bbb.mysql.rds.aliyuncs.com:3306
+          user: admin
+          password: admin
+    merge-mysql:
+        server_id: 300
 
 ```
 
