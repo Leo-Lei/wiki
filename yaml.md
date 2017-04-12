@@ -90,7 +90,7 @@ dockerfile:
         archive_top_dir: disconf-2.6.36.1
         host: 172.31.10.10
 
-docker-registry: 172.31.16.140:5000
+docker-registry: 192.168.10.10:5000
 
 mysql:
     initial_users:
