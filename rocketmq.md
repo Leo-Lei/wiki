@@ -32,7 +32,7 @@ cd target/apache-rocketmq-all/
 
 # Name Server
 ```bash
-[root@ip-172-31-19-214 bin]# bash mqadmin topicRoute -n 172.31.19.214:9876 -t qibei_user_invite
+[root@ip-172-31-19-214 bin] bash mqadmin topicRoute -n 172.31.19.214:9876 -t qibei_user_invite
 {
 	"brokerDatas":[
 		{
