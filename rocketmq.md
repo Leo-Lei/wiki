@@ -31,6 +31,14 @@ cd target/apache-rocketmq-all/
 
 
 
+# RocketMQ组件间通信关系
+* Producer和Name Server：每一个Producer会和Name Server集群中的某一台机器建立TCP连接，会从这台NameServer上拉取路由信息。
+* Producer和Broker：Producer和它要发送的topic相关的master类型的broker建立TCP连接。用于发送消息和心跳。Broker中会记录该Producer的信息，供查询使用。
+* Broker和Name Server：Broker(不管是master还是slave)会和每一台Name Server建立TCP连接。Broker在启动的时候会注册自己配置的topic信息到Name Server集群的每一台机器中。即每一台Name Server都有该broker的topic配置信息。
+* Consumer和Name Server：每一个Consumer会和Name Server集群中的某一台机器建立TCP连接，会从这台Name Server上拉取路由信息，进行负载均衡。
+* Consumer和Broker：Consumer可以和master或者slave的broker建立TCP连接来进行消费消息。Consumer也会向它所消费的Broker发送心跳信息，供Broker记录。
+
+
 
 # Name Server
 和kafka，hadoop中的zookeeper的角色类似。提供topic的路由信息，路由信息存储在内存中。Broker会定时发送路由信息到NameServer集群的所有机器。NameServer是无状态和相互独立的。
@@ -56,3 +64,14 @@ cd target/apache-rocketmq-all/
 	]
 }
 ```
+
+# Broker
+
+
+# Producer
+
+
+# Consumer
+
+
+
