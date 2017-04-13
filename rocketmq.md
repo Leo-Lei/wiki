@@ -69,7 +69,13 @@ cd target/apache-rocketmq-all/
 
 
 # Producer
-每个producer都需要属于一个group，这个group在事务消息时起到一些专用，其他时候用不到。
+Producer启动时，需要指定NameServer的地址，可以指定多个NameServer，比如
+```bash
+nohup sh bin/mqbroker -n localhost:9876 &
+```
+之后，Producer会***随机***与***其中一台***NameServer保持***长***连接。如果该NameServer不可用，会连接下一个。
+
+
 
 # Consumer
 每个Consumer都需要属于一个group。
