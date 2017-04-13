@@ -23,9 +23,9 @@ cd target/apache-rocketmq-all/
 # RocketMQ 架构
 ![https://static.oschina.net/uploads/img/201609/28105945_t8eA.png](https://static.oschina.net/uploads/img/201609/28105945_t8eA.png)
 1. Name Server集群: 就是注册中心。RocketMQ在注册中心没有使用第三方中间价，而是自己写代码实现的，代码行数才1000行。Producer，Consumer，Broker在启动时都需要向NameServer进行注册，NameServer之间不通讯。互不可见。
-2. Producer集群:拥有相同的ProducerGroup。一般情况下，Producer不必要有集群。
-3. Broker集群:一个集群有相同的BrokerClusterName,默认是DefaultCluster。一个集群下有多个master，每个master有多个slave。master和slave是一组，有相同的brokerName，不同的brokerId。master的brokerId是0，slave的brokerId大于0.master和slave之间进行同步复制或异步复制。
-4. Consumer集群:拥有相同的ConsumerGroupName。
+2. Producer集群: 消息的生产者。
+3. Broker集群: 提供消息的管理，存储，分发等功能，是消息队列的核心组件。
+4. Consumer集群: 消息的消费者。
 
 
 
