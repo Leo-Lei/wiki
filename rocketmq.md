@@ -69,10 +69,10 @@ cd target/apache-rocketmq-all/
 
 
 # Producer
-
+每个producer都需要属于一个group，这个group在事务消息时起到一些专用，其他时候用不到。
 
 # Consumer
-
+每个Consumer都需要属于一个group。
 
 
 # 消息的存储
