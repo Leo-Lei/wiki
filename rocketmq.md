@@ -22,3 +22,34 @@ cd target/apache-rocketmq-all/
 
 # RocketMQ 架构
 ![https://static.oschina.net/uploads/img/201609/28105945_t8eA.png](https://static.oschina.net/uploads/img/201609/28105945_t8eA.png)
+1. Name Server集群: 提供topic的路由信息。
+2. Producer集群:拥有相同的ProducerGroup。一般情况下，Producer不必要有集群。
+
+
+
+
+
+
+# Name Server
+```bash
+[root@ip-172-31-19-214 bin]# bash mqadmin topicRoute -n 172.31.19.214:9876 -t qibei_user_invite
+{
+	"brokerDatas":[
+		{
+			"brokerAddrs":{0:"172.31.10.10:10911"
+			},
+			"brokerName":"ip-172-31-10-10"
+		}
+	],
+	"filterServerTable":{},
+	"queueDatas":[
+		{
+			"brokerName":"ip-172-31-10-10",
+			"perm":6,
+			"readQueueNums":4,
+			"topicSynFlag":0,
+			"writeQueueNums":4
+		}
+	]
+}
+```
