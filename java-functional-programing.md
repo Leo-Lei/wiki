@@ -16,4 +16,5 @@ public interface Function<T, R> {
     R apply(T t);
 }
 ```
-如果一个函数式接口作为方法的参数，那么，在调用方法，给方法传参时，可以传入一个lambda表达式。
+如果一个函数式接口作为方法的参数，那么，在调用方法，给方法传参时，可以传入一个lambda表达式。    
+java的`java.util.function`包里包含了常用的一些函数式接口。
