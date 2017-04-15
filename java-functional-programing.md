@@ -8,7 +8,7 @@ categories: Java
 description: web-authentication
 ---
 
-# FunctionalInterface
+# 函数式接口
 如果一个接口有且仅有一个接口方法，那么这个接口就是函数式接口。JVM会自动认为这样的方法是函数式接口，或者我们也可以显式的指定该接口是函数式接口。
 ```java
 @FunctionalInterface
