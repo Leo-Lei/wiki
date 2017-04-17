@@ -9,7 +9,29 @@ description: spring
 ---
 
 # Java Code注入Bean
+`src/main/resources/applicationContext.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="com.leolei.rocketmq"/>
+    <context:property-placeholder location="classpath:mq.properties" ignore-unresolvable="true"/>
+</beans>
+```
+
+`src/main/resources/mq.properties`:
+```properties
+mq.producer.groupName=ProducerGroupName
+mq.consumer.groupName=ConsumerGroupName100
+mq.nameServer=localhost:9876
+mq.producer.instanceName=Producer
+mq.consumer.instanceName=Consumer
+```
+
+`MQConfiguration.java`:
 ```java
 package com.leolei.rocketmq;
 import org.springframework.beans.factory.annotation.Value;
