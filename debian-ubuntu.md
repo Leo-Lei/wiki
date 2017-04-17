@@ -92,8 +92,4 @@ case "$1" in
         exit 1
     ;;
 esac
-
-root@4615eb22c760:/etc/init
 ```
-
-
