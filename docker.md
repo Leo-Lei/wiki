@@ -7,37 +7,6 @@ tags:
 categories: Java
 description: docker
 ---
-
-# CentOS安装Docker
-1. 安装`yum-utils`，可以提供`yum-config-manager`命令：
-```bash
-sudo yum install -y yum-utils
-```
-2. 添加centos的docker repository
-```bash
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
-3. 安装docker
-```bash
-sudo yum makecache fast
-sudo yum install docker-ce
-```
-4. 启动Docker
-```bash
-sudo systemctl start docker
-```
-5. 检查Docker是否安装正确
-```bash
-docker run hello-world
-```
-
-# Mac安装Docker
-[Docker](https://www.docker.com)
-
-
-
 # Docker command
 
 docker hub相关
@@ -98,6 +67,33 @@ docker容器命令
 | `CMD ["sh","deploy/deploy.sh"]`                                           | 容器启动后执行命令                              |
 | `COPY hello.txt /root/data/hello.txt`                                     | 复制本地主机文件到容器中                         |
 
+# CentOS安装Docker
+1. 安装`yum-utils`，可以提供`yum-config-manager`命令：
+```bash
+sudo yum install -y yum-utils
+```
+2. 添加centos的docker repository
+```bash
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+```
+3. 安装docker
+```bash
+sudo yum makecache fast
+sudo yum install docker-ce
+```
+4. 启动Docker
+```bash
+sudo systemctl start docker
+```
+5. 检查Docker是否安装正确
+```bash
+docker run hello-world
+```
+
+# Mac安装Docker
+[Docker](https://www.docker.com)
 
 # Docker数据卷
 ## 将本地的一个目录挂载到容器中
