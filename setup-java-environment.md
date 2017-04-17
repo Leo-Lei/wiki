@@ -8,4 +8,11 @@ categories: Java
 description: The tutoria will show you how to set up a Hexo site and deply it to Github Page.
 ---
 
-In progress...
+
+# Install JDK / JRE
+
+|       Platform     |                                          |             |
+| ------------------ | ---------------------------------------- | ----------- |
+| Ubuntu, Debian     | `sudo apt-get install openjdk-8-jre`     | 安装JRE      |
+| Ubuntu, Debian     | `sudo apt-get install openjdk-8-jdk`     | 安装JDK      |
+
