@@ -117,4 +117,13 @@ docker run hello-world
 
 
 # Docker网络
+### Bridge
+```bash
+docker run --net=bridge ubuntu
+```
+Bridge模式是默认的
+### Host
+```bash
+docker run --net=host ubuntu
+```
 ![Docker网络模型](http://wiki.jikexueyuan.com/project/docker-technology-and-combat/images/network.png)
