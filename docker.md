@@ -121,9 +121,10 @@ docker run hello-world
 ```bash
 docker run --net=bridge ubuntu
 ```
-Bridge模式是默认的
+Bridge模式是默认的。Bridge模式下，每个容器都有自己的网络，IP是`172.17.0.X`。
 ### Host
 ```bash
 docker run --net=host ubuntu
 ```
+Host模式下，官方文档介绍说容器的网络配置和宿主机器是一样的，IP也是一样的。经测试，大多数情况下是这样的，当也出现了，如果宿主机器的网络环境比较复杂，会出现容器的网络配置，比如IP，和宿主机器是不一样的。具体原因不清楚。
 ![Docker网络模型](http://wiki.jikexueyuan.com/project/docker-technology-and-combat/images/network.png)
