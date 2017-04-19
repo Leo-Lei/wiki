@@ -35,15 +35,15 @@ mongo --host mongo-server:3717 -u root -p
 
 
 # mongo命令
-|                command                  |                                                       |
-| --------------------------------------- | ----------------------------------------------------- |
-| `show dbs`                              | `show databases`                                      |
-| `use <db_name>`                         | `use <db_name>`                                       |
-| `show collections`                      | `show tables`                                         |
-| `db.<foo>.find()`                       | `select * from foo`                                   |
-| `db.<foo>.find({id:1})`                 | `select * from foo where id = 1`                      |
-| `db.<foo>.find({id:1}).limit(10)`       | `select * from foo where id = 1 limit 10`             |
-| `db.<foo>.find({id:/123456/})`          | `select * from foo where id like '%123456%'`          |
-| `db.<foo>.count()`                      | `select count(*) from foo`                            |
-
-
+|                command                                      |                                                       |
+| ----------------------------------------------------------- | ----------------------------------------------------- |
+| `show dbs`                                                  | `show databases`                                      |
+| `use <db_name>`                                             | `use <db_name>`                                       |
+| `show collections`                                          | `show tables`                                         |
+| `db.foo.find()`                                             | `select * from foo`                                   |
+| `db.foo.find({id:1})`                                       | `select * from foo where id = 1`                      |
+| `db.foo.find({id:1}).limit(10)`                             | `select * from foo where id = 1 limit 10`             |
+| `db.foo.find({id:/123456/})`                                | `select * from foo where id like '%123456%'`          |
+| `db.foo.count()`                                            | `select count(*) from foo`                            |
+| `db.foo.update({},{$set:{aa:"bb"}},{multi:1})`              | 给foo集合所有记录添加一个新字段aa，值为bb                   |
+| `db.foo.update({id:/123/},{$set:{aa:"bb"}},{multi:1})`      | 给foo集合id模糊匹配123的记录添加一个新字段aa，值为bb         |
