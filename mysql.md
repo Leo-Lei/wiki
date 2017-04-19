@@ -552,3 +552,17 @@ Execute command `/usr/local/mysql/bin/mysqladmin -u root -p password <new_passwo
 `-d`:后台运行    
 `--name`:给容器指定一个名字，不然docker会随机分配一个name    
 `-v /root/docker.data/mysql:/var/lib/mysql`:将本地的`/root/docker.data/mysql`目录mount到容器的`/var/lib/mysql`目录。`/var/lib/mysql`是mysql存储数据的目录。
+
+
+# Mysql索引优化
+使用`explain`来查看mysql的执行计划，看看索引是不是会生效
+```sql
+explain select * from tb where name = 'foo' and age > 10;
+```
+
+
+
+
+
+
+
