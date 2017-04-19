@@ -32,3 +32,13 @@ yum install mongodb-org-shell      # 安装mongo客户端
 ```bash
 mongo --host mongo-server:3717 -u root -p
 ```
+
+
+# mongo命令
+|                command                  |                                             |
+| --------------------------------------- | ------------------------------------------- |
+| `show dbs`                              | 显示数据库列表                                 |
+| `use <db_name>`                         | 切换数据库                                    |
+| `show collections`                      | 显示集合，类似关系型数据库的表                    |
+
+
