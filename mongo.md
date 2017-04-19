@@ -27,3 +27,8 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 yum install mongodb-org            # 安装所有mongo的组件
 yum install mongodb-org-shell      # 安装mongo客户端
 ```
+
+# 连接mongodb
+```bash
+mongo --host mongo-server:3717 -u root -p
+```
