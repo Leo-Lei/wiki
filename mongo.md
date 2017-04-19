@@ -41,7 +41,7 @@ mongo --host mongo-server:3717 -u root -p
 | `use <db_name>`                             | 切换数据库                                                             |
 | `show collections`                          | 显示集合，类似关系型数据库的表                                             |
 | `db.<collection>.find()`                    | 查找集合的数据，由于没有条件，会列出所有数据                                 |
-| `db.<collection>.find({a:1})`               | collection中查找数据，字段id的值为1                                       |
-| `db.<collection>.find({a:1}).limit(10)`     | collection中查找数据，字段id的值为1,限制10条                               |
+| `db.<collection>.find({id:1})`               | collection中查找数据，字段id的值为1                                       |
+| `db.<collection>.find({id:1}).limit(10)`     | collection中查找数据，字段id的值为1,限制10条                               |
 | `db.<collection>.find({id:/123456/})`       | collection中查找数据，正则表达式`123456`模糊匹配                           |
 
