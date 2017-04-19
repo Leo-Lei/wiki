@@ -561,9 +561,15 @@ explain select * from tb where name = 'foo' and age > 10;
 ```
 ### like
 ```sql
+create index index_name on tb(name)
+```
+```sql
 select * from tb where name like '%admin%'     # 不使用索引
 select * from tb where name like '%admin'      # 不使用索引
 select * from tb where name like 'admin%'      # 使用索引
+```
+### in
+```
 ```
 
 
