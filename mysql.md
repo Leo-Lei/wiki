@@ -569,10 +569,20 @@ select * from tb where name like '%admin'      # 不使用索引
 select * from tb where name like 'admin%'      # 使用索引
 ```
 ### in
+```sql
+create index index_name on tb(name)
 ```
+```sql
+select * from tb where name in ('foo','bar')    # 使用索引
+```
+如果索引字段是str类型的，过滤时需要加上'',比如如果code是str类型的，建立了索引
+```
+select * from tb where code in ('100','200')    # 使用索引
+select * from tb where code in (100,200)        # 可能使用索引
 ```
 
 
+### 组合索引
 
 
 
