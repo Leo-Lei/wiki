@@ -559,6 +559,13 @@ Execute command `/usr/local/mysql/bin/mysqladmin -u root -p password <new_passwo
 ```sql
 explain select * from tb where name = 'foo' and age > 10;
 ```
+### like
+```sql
+select * from tb where name like '%admin%'     # 不使用索引
+select * from tb where name like '%admin'      # 不使用索引
+select * from tb where name like 'admin%'      # 使用索引
+```
+
 
 
 
