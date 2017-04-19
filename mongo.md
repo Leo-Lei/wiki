@@ -35,15 +35,15 @@ mongo --host mongo-server:3717 -u root -p
 
 
 # mongo命令
-|                command                      |                                               |                              |
-| ------------------------------------------- | --------------------------------------------- | ---------------------------- |
-| `show dbs`                                  | 显示数据库列表                                  |                              |
-| `use <db_name>`                             | 切换数据库                                     |                              |
-| `show collections`                          | 显示集合，类似关系型数据库的表                    |                              |
-| `db.<foo>.find()`                           | 查找集合的数据，由于没有条件，会列出所有数据         |                             |
-| `db.<foo>.find({id:1})`                     | collection中查找数据，字段id的值为1               |                            |
-| `db.<foo>.find({id:1}).limit(10)`           | collection中查找数据，字段id的值为1,限制10条       |                            |
-| `db.<foo>.find({id:/123456/})`              | collection中查找数据，正则表达式`123456`模糊匹配   |                             |
-| `db.<foo>.count()`                          | 显示数据条数                                    | `select count(*) from foo` |
+|                command                  |                                                       |
+| --------------------------------------- | ----------------------------------------------------- |
+| `show dbs`                              | `show databases`                                      |
+| `use <db_name>`                         | `use <db_name>`                                       |
+| `show collections`                      | `show tables`                                         |
+| `db.<foo>.find()`                       | `select * from foo`                                   |
+| `db.<foo>.find({id:1})`                 | `select * from foo where id = 1`                      |
+| `db.<foo>.find({id:1}).limit(10)`       | `select * from foo where id = 1 limit 10`             |
+| `db.<foo>.find({id:/123456/})`          | `select * from foo where id like '%123456%'`          |
+| `db.<foo>.count()`                      | `select count(*) from foo`                            |
 
 
