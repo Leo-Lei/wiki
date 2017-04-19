@@ -40,7 +40,7 @@ mongo --host mongo-server:3717 -u root -p
 | `show dbs`                                  | 显示数据库列表                                                          |
 | `use <db_name>`                             | 切换数据库                                                             |
 | `show collections`                          | 显示集合，类似关系型数据库的表                                             |
-| `db.<collection>.find()`                    | 对当前数据库的foo集合进行查找，由于没有条件，会列出所有数据                    |
-| `db.<collection>.find({a:1})`               | 对当前数据库的foo集合进行查找，条件是数据中有一个属性叫a，且a的值为1            |
-| `db.<collection>.find({a:1}).limit(10)`     | 对当前数据库的foo集合进行查找，条件是数据中有一个属性叫a，且a的值为1,限制10条     |
+| `db.<collection>.find()`                    | 查找集合的数据，由于没有条件，会列出所有数据                                 |
+| `db.<collection>.find({a:1})`               | 查找集合的数据，条件是数据中有一个属性叫a，且a的值为1                         |
+| `db.<collection>.find({a:1}).limit(10)`     | 查找集合的数据，条件是数据中有一个属性叫a，且a的值为1,限制10条                 |
 
