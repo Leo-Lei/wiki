@@ -19,7 +19,7 @@ description: The tutoria will describe the useage of Linux.
 |                           command                        |                                                        |
 | -------------------------------------------------------- | ------------------------------------------------------ |
 | `pwd`                                                    | print working directory                                | 
-| `cat app.log | less`                                     | 分页查看                                                | 
+| <code>cat app.log &#124; less</code>                     | 分页查看                                                | 
 | `cd <path/to/directory>`                                 | chande directory                                       | 
 
 ### Debina/Ubuntu命令
@@ -54,12 +54,12 @@ description: The tutoria will describe the useage of Linux.
 | `lsof -i:20880`                                          | 检查端口使用情况                                         |
 | `kill <process_id>`                                      | 杀死进程                                               |
 | `ssh admin@192.168.20.147`                               | SSH登陆到服务                                          |
-| `ps aux | grep rsyslog`                                  | 查看系统进程                                           | 
+| <code>ps aux &#124; grep rsyslog</code>                  | 查看系统进程                                           | 
 | `tar -cvf hello.tar /foo/bar`                            | 将目录/foo/bar压缩为hello.tar文件                      |
 | `tar -czvf hello.tar.gz /foo/bar`                        | 将目录/foo/bar压缩为hello.tar.gz文件                   |
 | `tar -xvf hello.tar -C /foo/bar`                         | 将hello.tar文件解压到/foo/bar目录                      |
 | `tar -xzvf hello.tar.gz -C /foo/bar`                     | 将hello.tar.gz文件解压到/foo/bar目录                   |
-| `tail -n400 hello.log | less`                            | 分页查看hello.log文件的最后400行                        |
+| <code>tail -n400 hello.log &#124; less</code>            | 分页查看hello.log文件的最后400行                        |
 | `find / -name hello`                                     | 在整个目录下搜索匹配hello的文件或文件夹                   |
 | `free -m`                                                | 查看系统内存使用情况，用M为单位显示                       |
 | `top`                                                    | 查看系统cpu，内存使用情况                               |
@@ -76,7 +76,7 @@ description: The tutoria will describe the useage of Linux.
 | `wget --no-check-certificate https://www.hello.com/world.zip`   | 下载文件                                      |
 | `who`                                                    | 查看当前系统的登陆用户                                 |
 | `w`                                                      | 查看当前系统的登陆用户                                 |
-| `yum list | grep mysql`                                  | 查看yum上可用的包                                     |
+| <code>yum list &#124; grep mysql</code>                  | 查看yum上可用的包                                     |
 
 
 ## rm
