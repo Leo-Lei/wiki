@@ -53,8 +53,8 @@ description: The tutoria will describe the useage of Linux.
 | `sudo -u my_name ls /home/comphope/hope`                 | super user do                                         | 
 | `lsof -i:20880`                                          | 检查端口使用情况                                         |
 | `kill <process_id>`                                      | 杀死进程                                               |
-| `ssh admin@192.168.20.147`                               | SSH登陆到服务                                          | 
-| `ps aux | grep rsyslog`                                  | 查看系统进程                                           |  
+| `ssh admin@192.168.20.147`                               | SSH登陆到服务                                          |
+| `ps aux | grep rsyslog`                                  | 查看系统进程                                           | 
 | `tar -cvf hello.tar /foo/bar`                            | 将目录/foo/bar压缩为hello.tar文件                      |
 | `tar -czvf hello.tar.gz /foo/bar`                        | 将目录/foo/bar压缩为hello.tar.gz文件                   |
 | `tar -xvf hello.tar -C /foo/bar`                         | 将hello.tar文件解压到/foo/bar目录                      |
