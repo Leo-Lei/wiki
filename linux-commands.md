@@ -77,7 +77,7 @@ description: The tutoria will describe the useage of Linux.
 | `who`                                                    | 查看当前系统的登陆用户                                 |
 | `w`                                                      | 查看当前系统的登陆用户                                 |
 | <code>yum list &#124; grep mysql</code>                  | 查看yum上可用的包                                     |
-
+| `du -ah /opt`                                                    | 查看文件夹及其子文件夹的大小                    |
 
 ## rm
 `rm` command has some options:
