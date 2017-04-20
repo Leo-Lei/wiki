@@ -12,7 +12,7 @@ description: The tutoria will describe the useage of Linux.
 |                           command                        |                                                        |
 | -------------------------------------------------------- | ------------------------------------------------------ |
 | `pwd`                                                    | print working directory                                | 
-| `cat app.log | less`                                     | 分页查看                                                | 
+| <code>cat app.log &#124; less</code>                     | 分页查看                                                |            
 | `cd <path/to/directory>`                                 | chande directory                                       | 
 
 ### CentOS／RedHat命令
