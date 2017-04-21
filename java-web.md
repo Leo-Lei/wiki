@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java web app structure
+title: Java web
 date: 2016-09-23 14:00:00
 tags:
 - Java
