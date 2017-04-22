@@ -19,7 +19,13 @@ description: web-authentication
 
 
 # jmap
-```
+```bash
 jmap -histo 4939
 ```
 > 使用jmap命令时，必须切换到进程属于的用户。
+
+
+```bash
+jmap -dump:format=b,file=/opt/app/heap.bin 12080
+```
+
