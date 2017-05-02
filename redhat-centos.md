@@ -78,3 +78,10 @@ WantedBy=multi-user.target
 
 [http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html)
 
+
+
+# yum epel
+如果yum官方的源里找不到我们需要的包，可以去该软件的官方文档查看，是否官方已提供repo，如果官方没有repo，我们还可以使用第三方的yum源。比如epel。
+```bash
+yum install epel-release
+```
