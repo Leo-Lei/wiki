@@ -52,3 +52,7 @@ mongo --host mongo-server:3717 -u root -p
 
 
 
+# mongo添加二维索引
+```bash
+db.device.ensureIndex({loc:"2dsphere"})
+```
