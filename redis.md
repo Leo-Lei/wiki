@@ -53,3 +53,13 @@ OK
 > exists mykey
 (integer) 0
 ```
+
+
+# yum安装redis-cli
+```bash
+yum install epel-release
+```
+
+```bash
+yum install redis-cli
+```
