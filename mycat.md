@@ -10,4 +10,4 @@ description: docker
 
 
 # Mycat
-[Mycat](http://www.mycat.org.cn)是一个开源的数据库分库分表中间件。基于阿里开园的Cobar产品研发。
+[Mycat](http://www.mycat.org.cn)是一个开源的数据库分库分表中间件。基于阿里开源的Cobar产品研发。
