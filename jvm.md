@@ -19,13 +19,18 @@ description: The tutoria will describe the useage of Linux.
 ```bash
 jmap -histo 4939
 ```
-> 使用jmap命令时，必须切换到进程属于的用户。
+> 注意:使用jmap命令时，必须`su - user_name`切换到进程属于的用户。
 
 
 ```bash
 jmap -dump:format=b,file=/opt/app/heap.bin 12080
 ```
 
+# jstat
+
+```bash
+jstat -gc 4399
+```
 
 # JVM参数
 
