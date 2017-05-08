@@ -15,10 +15,6 @@ description: The tutoria will describe the useage of Linux.
 3. java堆：堆分为新生代和老年代。新生代又分为：Eden，From Survivor，To Survivor。
 4. 方法区：是各个线程共享的。保存了类信息，常量，静态变量，编译器编译后的字节码等数据。
 
-
-
-
-
 # jmap
 ```bash
 jmap -histo 4939
@@ -29,6 +25,24 @@ jmap -histo 4939
 ```bash
 jmap -dump:format=b,file=/opt/app/heap.bin 12080
 ```
+
+
+# JVM参数
+
+|      option     |              Desc                  |      Default Value     |               Remark                         |
+| --------------- | ---------------------------------- | ---------------------- | -------------------------------------------- |
+| `-Xms`          | 初始堆大小                           | 物理内存的1/64(<1G)     | 空余堆内存小于40%时，JVM会增大heap直到-Xmx的最大值 |
+
+
+
+
+
+
+
+
+
+
+
 
 
 
