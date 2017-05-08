@@ -34,8 +34,9 @@ jmap -dump:format=b,file=/opt/app/heap.bin 12080
 | `-Xms1024m`                  | 初始堆大小                           |  默认空余堆内存小于40%时，JVM会增大heap直到-Xmx的最大值  |
 | `-Xmx2048m`                  | 最大堆大小                           | 默认空余堆内存大于70%时，JVM会减少堆直到-Xms的最小值     |
 | `-Xmn600m`                   | 年轻代大小(1.4 or later)             | 是eden + 2 survior space的大小。该参数同事设置了年轻代的初始大小和最大值，即固定了年轻代的大小。增大年轻代后，将会减小老年代大小。Sun官方推荐配置为整个堆的3/8 |
-| `-XX:NewSize`                | 年轻代初始化大小(for 1.3/1.4)         |                                                   |
+| `-XX:NewSize`                | 年轻代初始化大小(for 1.3/1.4)         | 版本比较低的jvm使用该参数，不建议高版本使用。高版本jvm使用`-Xmn`参数即可 |
 | `-XX:-UseAdaptiveSizePolicy` | 关闭自适应调整Eden和Survior空间的比例   | 如果使用的是ParallelGC作为GC算法，`-XX:SurvivorRatio`参数将不起作用。可以使用该参数将Eden和Surivor区的比例固定。    |                     
+| `-XX:SurvivorRatio=8`        | Eden和surivor的大小比例              | `-XX:SurvivorRatio=8`，表示Eden:From Surivor:To Surivor=8:1:1 |                                        
 
 
 
