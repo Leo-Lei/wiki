@@ -10,5 +10,14 @@ categories:
 description: MySql
 ---
 
-# Command    
-注:以`mysql`开头的表示在终端执行。以`mysql> `开头的表示在mysql命令行中执行。    
+
+在docker中运行tomcat容器
+```bash
+docker run --name tomcat -it -d -p 8080:8080  \
+-e JAVA_OPTS='-Xms800m -Xmx800m -Dlogs.dir=/opt/logs -Ddata.dir=/opt/data -Ddisconf.download.dir=/opt/data/disconf' \
+-v /opt/app:/usr/local/tomcat/webapps \
+-v /opt/logs:/opt/logs \
+-v /opt/data:/opt/data \
+tomcat
+```
+
