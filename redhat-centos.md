@@ -47,9 +47,8 @@ yum install java-1.8.0-openjdk.x86_64
 ### 安装JDK:
 ```bash
 yum install java-1.8.0-openjdk-devel.x86_64
+yum install java-1.8.0-openjdk-debug.x86_64
 ```
-
-
 
 # Systemd服务
 Systemd的服务的配置文件目录为：`/etc/systemd/system`    
