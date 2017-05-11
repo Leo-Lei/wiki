@@ -77,7 +77,16 @@ cd target/apache-rocketmq-all/
 1. 每个Broker有多台物理机，就是一个Master+多个Slave
 2. Master的BrokerId=0，Slave的BrokerId!=0
 
-
+Broker的启动配置:
+```bash
+brokerClusterName=DefaultCluster
+brokerName=broker-a
+brokerId=0
+deleteWhen=04
+fileReservedTime=48
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+```
 
 # Producer
 Producer启动时，需要指定NameServer的地址，可以指定多个NameServer，比如
