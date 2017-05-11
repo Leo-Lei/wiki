@@ -27,10 +27,6 @@ cd target/apache-rocketmq-all/
 3. Broker集群: 提供消息的管理，存储，分发等功能，是消息队列的核心组件。
 4. Consumer集群: 消息的消费者。
 
-
-
-
-
 # RocketMQ组件间通信关系
 * Producer和Name Server：每一个Producer会和Name Server集群中的某一台机器建立TCP连接，会从这台NameServer上拉取路由信息。
 * Producer和Broker：Producer和它要发送的topic相关的master类型的broker建立TCP连接。用于发送消息和心跳。Broker中会记录该Producer的信息，供查询使用。
@@ -77,8 +73,9 @@ cd target/apache-rocketmq-all/
 |  +--------------------+  +--------------------+ +--------------------+    |
 |                                                                           |
 +---------------------------------------------------------------------------+
-
 ```
+1. 每个Broker有多台物理机，就是一个Master+多个Slave
+2. Master的BrokerId=0，Slave的BrokerId!=0
 
 
 
