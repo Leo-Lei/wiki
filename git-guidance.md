@@ -13,7 +13,10 @@ description: The tutoria will describe the useage of git.
 | ------------------ | -------------------------------- | ------------------------------------------------------------ |
 | `reset`            | `reset <commit_id>`              | 将一个分支的HEAD重置到某个版本                                   |
 
-
+# yum安装git
+```bash
+yum install git
+```
 
 # 创建新仓库    
 * 新建文件夹`mk dir my_git_repo`    
