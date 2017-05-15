@@ -49,7 +49,7 @@ mongo --host mongo-server:3717 -u root -p
 | `db.foo.update({id:/123/},{$set:{aa:"bb"}},{multi:1})`      | 给foo集合id模糊匹配123的记录添加一个新字段aa，值为bb         |
 | `db.foo.update({},{$set:{aa:NumberInt(0)}},{multi:1})`      | 添加字段aa，类型为Int，值为0                              |
 | `db.foo.update({},{$unset:{aa:''}},{upsert:0,multi:1})`     | 删除字段aa                                              |
-
+| `db.foo.getIndexes()`                                       | 显示collection的索引                                    |
 
 
 # mongo添加二维索引
