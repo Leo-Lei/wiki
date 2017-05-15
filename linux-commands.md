@@ -79,6 +79,7 @@ description: The tutoria will describe the useage of Linux.
 | <code>yum list &#124; grep mysql</code>                  | 查看yum上可用的包                                     |
 | `du -ah /opt`                                            | 查看文件夹及其子文件夹的大小                             |
 | `date -s "2008-08-08 12:00:00"`                          | 修改时间                                             |
+| `clock -w`                                               | 把系统时间写入CMOS                                    |
 
 ## rm
 `rm` command has some options:
