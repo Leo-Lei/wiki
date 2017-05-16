@@ -11,11 +11,18 @@ description: docker
 
 # AWS的服务
 
-|      name     |                 Desc                       |    阿里云等价物   |
-| ------------- | ------------------------------------------ | --------------- |
-| `EC2`         | EC2=Elastic Compute Cloud                  | `ECS`           |
-| `S3`          |                                            | `OSS`           |
-| `CloudFront`  |                                            | `CDN`           |
+|       name      |                 Desc                       |    阿里云等价物   |
+| --------------- | ------------------------------------------ | --------------- |
+| `EC2`           | EC2=Elastic Compute Cloud                  | `ECS`           |
+| `S3`            |                                            | `OSS`           |
+| `CloudFront`    |                                            | `CDN`           |
+| `RDS`           | 关系型数据库                                 | `RDS`           |
+| `DynamoDB`      | 结构化数据库                                 | `OTS`           |
+| `ElasticCache`  | 缓存                                        | `OCS`           |
+| `VPC`           | Virtual private cloud                      | `VPC`           |
+| `Route53`       |                                            | `云解析`         |
+| `Cloud Watch`   |                                            | `云监控`         |
+| `SQS`           |                                            | `MQS`           |         
 
 # SSH连接EC2
 创建了一个新的EC2实例后，会要求生成一个密钥对。AWS会提示你下载私钥，公钥是直接保存在EC2机器上的。比如下载的文件是`aws-key.pem`
