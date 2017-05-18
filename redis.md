@@ -61,5 +61,5 @@ yum install epel-release
 ```
 
 ```bash
-yum install redis-cli
+yum install redis
 ```
