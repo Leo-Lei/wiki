@@ -10,24 +10,19 @@ description: web-authentication
 
 # Overview               
 
-# Install Zookeeper          
-Go to [Zookeeper website](https://zookeeper.apache.org/releases.html), and find the Download link. Then you can download the release package from download page.    
-The download package is in the format of `.tar.gz`, you can unpackage it on Windows, Mac or Linux platform.     
-**Configure Zookeeper**             
-Go to the `<zookeeper/conf>` directory of Zookeeper, there is a `zoo_sample.cfg` file. Rename it to `zoo.cfg` and Zookeeper will read it as the default configuration file.        
-Zookeeper can run as single node, or cluster.    
-**1. Single node configuration**:    
+# 安装 Zookeeper
+Zookeeper目前还没有提供yum安装的方式。所以，要下载zookeeper的二进制文件安装。
+
+
+# standalone部署
+进入`<zookeeper/conf>`目录, 有一个`zoo_sample.cfg` 文件. 将它重命名成`zoo.cfg`.        
 ```text
 tickTime=2000
 initLimit=10
 syncLimit=5
 dataDir=C:/zookeeper-data
 clientPort=2181
-```
-**2. Cluster configuration**:    
-To be added......      
-
-**Run Zookeeper**    
+```    
 1. Go to `<zookeeper>/bin` folder.    
 2. Run `zkServer.sh start` or `zkServer.cmd` to run Zookeeper server.    
 3. run `zkCli.sh -server 127.0.0.1:2181` or `zkCli.cmd` to run Zookeeper client.    
