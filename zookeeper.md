@@ -99,9 +99,9 @@ dataDir顾名思义就是Zookeeper保存数据的目录,默认情况下Zookeeper
 * clientPort=2181
 clientPort这个端口就是客户端（应用程序）连接Zookeeper服务器的端口,Zookeeper会监听这个端口接受客户端的访问请求。
 * server.A=B：C：D    
-server.1=edu-zk-01:2881:3881    
-server.2=edu-zk-02:2882:3882    
-server.3=edu-zk-03:2883:3883    
+server.1=192.168.1.81:2881:3881    
+server.2=192.168.1.82:2882:3882    
+server.3=192.168.1.83:2883:3883    
 A是一个数字,表示这个是第几号服务器；    
 B是这个服务器的IP地址（或者是与IP地址做了映射的主机名）；    
 C第一个端口用来集群成员的信息交换,表示这个服务器与集群中的Leader服务器交换信息的端口；    
