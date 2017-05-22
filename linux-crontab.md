@@ -31,3 +31,8 @@ crontab -e
 ```bash
 service crond restart
 ```
+# demo
+```bash
+# 每天晚上1点30分执行
+30 1 * * * /opt/delete_history_logs.py
+```
