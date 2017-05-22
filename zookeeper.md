@@ -134,6 +134,11 @@ echo 3 >> /opt/data/zookeeper/myid
 /opt/zookeeper/bin/zkServer.sh start
 ```
 
+### 4. 查看zookeeper的状态
+3台机器上，随便选一台，然后执行下面的命令:
+```bash
+/opt/zookeeper/bin/zkServer.sh status
+```
 
 # Zookeeper命令行接口
 ```bash
