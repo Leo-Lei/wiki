@@ -81,6 +81,14 @@ description: The tutoria will describe the useage of Linux.
 | `date -s "2008-08-08 12:00:00"`                          | 修改时间                                             |
 | `clock -w`                                               | 把系统时间写入CMOS                                    |
 
+# 时间函数
+
+|                           command                        |                                                        |
+| -------------------------------------------------------- | ------------------------------------------------------ |
+| `date -d '2 days' +%Y-%m-%d`                             | 显示2天后的日期，格式为2017-02-13                          | 
+| `date -d '2 days ago' +%Y-%m-%d`                         | 显示2天前的日期，格式为2017-02-13                          | 
+
+
 ## rm
 `rm` command has some options:
 * -r: Delete the directory recursively.
