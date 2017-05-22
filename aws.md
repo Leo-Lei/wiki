@@ -118,3 +118,9 @@ ssh root@12.34.56.78
 # AWS IAM
 
 
+
+
+
+
+
+另外mysql有RDS，redis和memcached有ElastiCache，mongodb有cloudformation搭建三个节点的集群，或者可以用托管的dynamodb数据库。消息中间件有kinesis和sqs，消息队列。
