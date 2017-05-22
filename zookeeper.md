@@ -39,7 +39,7 @@ Zookeeper集群的节点数量为奇数比较合适。
 
 ### 1.配置zoo.cfg
 将conf/zoo_sample.cfg重命名成conf/zoo.cfg。
-机器`192.168.1.81`的配置文件
+机器`192.168.1.81`的配置文件`conf/zoo.cfg`    
 ```conf
 tickTime=2000
 initLimit=10
@@ -55,7 +55,37 @@ server.2=192.168.1.82:2882:3882
 server.3=192.168.1.83:2883:3883
 ```
 
+机器`192.168.1.82`的配置文件`conf/zoo.cfg`    
+```conf
+tickTime=2000
+initLimit=10
+syncLimit=5
 
+dataDir=/opt/data/zookeeper
+dataLogDir=/opt/data/zookeeper/logs
+
+clientPort=2182
+
+server.1=192.168.1.81:2881:3881
+server.2=192.168.1.82:2882:3882
+server.3=192.168.1.83:2883:3883
+```
+
+机器`192.168.1.83`的配置文件`conf/zoo.cfg`    
+```conf
+tickTime=2000
+initLimit=10
+syncLimit=5
+
+dataDir=/opt/data/zookeeper
+dataLogDir=/opt/data/zookeeper/logs
+
+clientPort=2183
+
+server.1=192.168.1.81:2881:3881
+server.2=192.168.1.82:2882:3882
+server.3=192.168.1.83:2883:3883
+```
 
 
 
