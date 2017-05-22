@@ -120,6 +120,20 @@ echo 2 >> /opt/data/zookeeper/myid
 ```bash
 echo 3 >> /opt/data/zookeeper/myid 
 ```
+### 3. 启动zookeeper
+启动`192.168.1.81`上的zookeeper
+```bash
+/opt/zookeeper/bin/zkServer.sh start
+```
+启动`192.168.1.82`上的zookeeper
+```bash
+/opt/zookeeper/bin/zkServer.sh start
+```
+启动`192.168.1.83`上的zookeeper
+```bash
+/opt/zookeeper/bin/zkServer.sh start
+```
+
 
 # Zookeeper命令行接口
 ```bash
