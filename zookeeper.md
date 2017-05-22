@@ -107,6 +107,19 @@ B是这个服务器的IP地址（或者是与IP地址做了映射的主机名）
 C第一个端口用来集群成员的信息交换,表示这个服务器与集群中的Leader服务器交换信息的端口；    
 D是在leader挂掉时专门用来进行选举leader所用的端口。    
 
+### 2. 在dataDir=/opt/data/zookeeper下创建myid文件
+`192.168.1.81`
+```bash
+echo 1 >> /opt/data/zookeeper/myid 
+```
+`192.168.1.82`
+```bash
+echo 2 >> /opt/data/zookeeper/myid 
+```
+`192.168.1.83`
+```bash
+echo 3 >> /opt/data/zookeeper/myid 
+```
 
 # Zookeeper命令行接口
 ```bash
