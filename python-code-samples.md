@@ -36,14 +36,16 @@ def run():
     for (k, v) in history_logs.items():
         keep_days = v['keep_days']
         filename = v['filename']
-        for i in range(keep_days, 10):
+        for i in range(keep_days, 100):
             early_date = now + datetime.timedelta(days=-i)
             date_format_str = extract_date_from_filename(filename)
             early_date_str = early_date.strftime(date_format_str)  # the format like 20170317
-            real_filename = filename.replace('{' + date_format_str + '}', early_date_str)
-            cmd = "rm -rf {0}".format(os.path.join(root_path,real_filename))
-            print cmd
-            os.system(cmd)
+            real_filename = os.path.join(root_path,filename.replace('{' + date_format_str + '}', early_date_str))
+            cmd = "rm -rf {0}".format(real_filename)
+
+            if os.path.exists(real_filename):
+                print cmd
+                os.system(cmd)
 
 
 def extract_date_from_filename(filename):
@@ -54,6 +56,5 @@ def extract_date_from_filename(filename):
 
 if __name__ == '__main__':
     run()
-
 
 ```
