@@ -41,7 +41,7 @@ def run():
             date_format_str = extract_date_from_filename(filename)
             early_date_str = early_date.strftime(date_format_str)  # the format like 20170317
             real_filename = filename.replace('{' + date_format_str + '}', early_date_str)
-            cmd = "rm -rf {0}".format(real_filename)
+            cmd = "rm -rf {0}".format(os.path.join(root_path,real_filename))
             print cmd
             os.system(cmd)
 
