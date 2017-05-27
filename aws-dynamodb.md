@@ -12,5 +12,6 @@ description: docker
 
 # 链接
 * [new-geo-library-for-dynamodb/](https://aws.amazon.com/cn/blogs/aws/new-geo-library-for-dynamodb/)
+* [geo-library-for-amazon-dynamodb-part-1-table-structure/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-1-table-structure/)
 * [geo-library-for-amazon-dynamodb-part-4-put-geo-point/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-4-put-geo-point/)
 
