@@ -40,7 +40,81 @@ DynamoDB支持2种主键：
 }
 ```
 
-#  二维索引
+#  二级索引
+
+```text
+{
+    "Artist":"No One You Know",
+    "SongTitle":"My Dog Spot",
+    "AlbumTitle":"Hey Now",
+    "Genre":"Country",
+    "Price":1.98,
+    "Year":1984,
+    "CriticRating":8.4
+}
+
+
+{
+    "Artist":"No One You Know",
+    "SongTitle":"Somewhere Down the Road",
+    "AlbumTitle":"Somewhat Famous",
+    "Genre":"Country",
+    "Year":1984,
+    "CriticRating":8.4
+}
+
+
+{
+    "Artist":"The Acme Band",
+    "SongTitle":"Still in Love",
+    "AlbumTitle":"The Buck Starts Here",
+    "Genre":"Rock",
+    "Year":1984,
+    "Price":2.47,
+    "PromotionInfo":{
+        "RadioStationsPlaying":[
+            "KHCR",
+            "KQBX",
+            "WTNR",
+            "WJJH"
+        ],
+        "TourDates":{
+            "Seattle":"20150625",
+            "Cleveland":"20150630"
+        },
+        "Rotation":"Heavy"
+    }
+}
+
+{
+    "Artist":"The Acme Band",
+    "SongTitle":"Look Out, World",
+    "AlbumTitle":"The Buck Starts Here",
+    "Genre":"Country",
+    "Price":0.99
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
 
 
 
