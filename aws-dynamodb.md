@@ -17,8 +17,10 @@ description: Amazon DynamoDB
 * 主键：每个表都必须有主键。
 
 ### 主键
+每个表都必须有主键，在创建表的时候就要指定主键。    
 DynamoDB支持2种主键：
 1. 分区键。即主键只有一个字段。
+比如下面的PersonID:    
 ```json
 {
     "PersonID":100,
@@ -27,6 +29,7 @@ DynamoDB支持2种主键：
 }
 ```
 2. 分区键和排序键，称为复合主键。
+比如下面的Artist和SongTitle:
 ```json
 {
     "Artist":"No One You Know",
