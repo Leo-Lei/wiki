@@ -43,33 +43,36 @@ DynamoDB支持2种主键：
 #  二级索引
 
 ```text
-{
-    "Artist":"No One You Know",
-    "SongTitle":"My Dog Spot",
-    "AlbumTitle":"Hey Now",
-    "Genre":"Country",
-    "Price":1.98,
+
+                      Music                                                  GenreAlbumTitle
+
+{                                                                 {                       
+    "Artist":"No One You Know",                                       "AlbumTitle":"Hey Now",
+    "SongTitle":"My Dog Spot",                                        "Genre":"Country",
+    "AlbumTitle":"Hey Now",                                           "Artist":"No One You Know",
+    "Genre":"Country",                                                "SongTitle":"My Dog Spot"
+    "Price":1.98,                                                 }
     "Year":1984,
     "CriticRating":8.4
 }
 
 
-{
-    "Artist":"No One You Know",
-    "SongTitle":"Somewhere Down the Road",
-    "AlbumTitle":"Somewhat Famous",
-    "Genre":"Country",
-    "Year":1984,
+{                                                                 {
+    "Artist":"No One You Know",                                       "Genre":"Country",
+    "SongTitle":"Somewhere Down the Road",                            "AlbumTitle":"Somewhat Famous",
+    "AlbumTitle":"Somewhat Famous",                                   "Artist":"",
+    "Genre":"Country",                                                "SongTitle":"Somewhere Down the Road"
+    "Year":1984,                                                  }
     "CriticRating":8.4
 }
 
 
-{
-    "Artist":"The Acme Band",
-    "SongTitle":"Still in Love",
-    "AlbumTitle":"The Buck Starts Here",
-    "Genre":"Rock",
-    "Year":1984,
+{                                                                 {
+    "Artist":"The Acme Band",                                         "Genre":"",
+    "SongTitle":"Still in Love",                                      "AlbumTitle":"",
+    "AlbumTitle":"The Buck Starts Here",                              "Artist":"",
+    "Genre":"Rock",                                                   "SongTitle":""
+    "Year":1984,                                                  }
     "Price":2.47,
     "PromotionInfo":{
         "RadioStationsPlaying":[
@@ -86,42 +89,15 @@ DynamoDB支持2种主键：
     }
 }
 
-{
-    "Artist":"The Acme Band",
-    "SongTitle":"Look Out, World",
-    "AlbumTitle":"The Buck Starts Here",
-    "Genre":"Country",
-    "Price":0.99
+{                                                               {
+    "Artist":"The Acme Band",                                       "Genre":"",
+    "SongTitle":"Look Out, World",                                  "AlbumTitle":"",
+    "AlbumTitle":"The Buck Starts Here",                            "Artist":"",
+    "Genre":"Country",                                              "SongTitle":""
+    "Price":0.99                                                }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
-
-
-
-
-
-
-
 
 
 # 链接
