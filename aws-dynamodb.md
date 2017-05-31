@@ -10,34 +10,41 @@ description: Amazon DynamoDB
 
 
 
-# DynamoDB概念
+# DynamoDB基本概念
 * 表：类似于关系型数据库中的表
 * 项目： 类似于关系型数据库的行
 * 属性： 类似于关系型数据库的字段
 * 主键：每个表都必须有主键。
 
-### 主键
+# 主键
 每个表都必须有主键，在创建表的时候就要指定主键。    
 DynamoDB支持2种主键：
 1. 分区键。即主键只有一个字段。
-比如下面的PersonID:    
+比如下面`Person`表的`PersonID`:
 ```json
 {
     "PersonID":100,
-    "Name":"Smith",
-    "Phone":"12345"
+    "Name":"Smith",
+    "Phone":"12345"
 }
 ```
-2. 分区键和排序键，称为复合主键。
-比如下面的Artist和SongTitle:
+2. 分区键和排序键，称为复合主键
+比如下面`Music`表的`Artist`和`SongTitle`:
 ```json
 {
     "Artist":"No One You Know",
     "SongTitle":"Somewhere Down the Road",
     "AlbumTitle":"Somewhat Famous",
+    "Genre":"Country",
     "Year":1984
 }
 ```
+
+#  二维索引
+
+
+
+
 
 
 
