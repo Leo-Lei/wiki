@@ -41,6 +41,17 @@ DynamoDB支持2种主键：
 ```
 
 #  二级索引
+对于下面的Music表，主键是Artist分区键和SongTitle排序键。我们可以按Artist或者Artist和SongTitle查询数据。如果还想按Genre和AlbumTitle查询，可以在这些属性上创建一个索引，然后来进行查询。
+```json
+{
+    "Artist":"No One You Know",
+    "SongTitle":"Somewhere Down the Road",
+    "AlbumTitle":"Somewhat Famous",
+    "Genre":"Country",
+    "Year":1984
+}
+```
+创建的二级索引如下所示:
 
 ```text
 
