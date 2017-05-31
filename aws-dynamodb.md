@@ -42,7 +42,7 @@ DynamoDB支持2种主键：
 
 #  二级索引
 
-```text
+```json
 
                       Music                                                  GenreAlbumTitle
 
