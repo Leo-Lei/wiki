@@ -16,6 +16,26 @@ description: Amazon DynamoDB
 * 属性： 类似于关系型数据库的字段
 * 主键：每个表都必须有主键。
 
+### 主键
+DynamoDB支持2种主键：
+1. 分区键。即主键只有一个字段。
+```json
+{
+    "PersonID":100,
+    "Name":"Smith",
+    "Phone":"12345"
+}
+```
+2. 分区键和排序键，称为复合主键。
+```json
+{
+    "Artist":"No One You Know",
+    "SongTitle":"Somewhere Down the Road",
+    "AlbumTitle":"Somewhat Famous",
+    "Year":1984
+}
+```
+
 
 
 
