@@ -24,8 +24,8 @@ DynamoDB支持2种主键：
 ```json
 {
     "PersonID":100,
-    "Name":"Smith",
-    "Phone":"12345"
+    "Name":"Smith",
+    "Phone":"12345"
 }
 ```
 2. 分区键和排序键，称为复合主键
