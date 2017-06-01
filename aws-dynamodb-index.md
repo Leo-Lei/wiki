@@ -8,24 +8,14 @@ categories: Java
 description: Amazon DynamoDB
 ---
 
-
 # 全局二维索引
-
-
+分区键和排序键可以与基表的分区键和排序键不同。全局二维索引被视为“全局”，因为对索引执行的查询可以跨基表中所有分区的所有数据。
 
 # 本地二级索引
-
-
-
+分区键和基表相同，但排序键不同的索引。被视为本地，因为对索引执行的查询被限定为具有相同分区键的基表分区。
 
 
 
 # 链接
-* [Introduction.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Introduction.html)
-* [new-geo-library-for-dynamodb/](https://aws.amazon.com/cn/blogs/aws/new-geo-library-for-dynamodb/)
-* [geo-library-for-amazon-dynamodb-part-1-table-structure/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-1-table-structure/)
-* [geo-library-for-amazon-dynamodb-part-2-geodatamanagerconfiguration/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-2-geodatamanagerconfiguration/)
-* [geo-library-for-amazon-dynamodb-part-3-creating-amazon-dynamodb-tables/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-3-creating-amazon-dynamodb-tables/)
-* [geo-library-for-amazon-dynamodb-part-4-put-geo-point/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-4-put-geo-point/)
-* [DynamoDBLocal.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+[SecondaryIndexes.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/SecondaryIndexes.html)
 
