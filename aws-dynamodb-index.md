@@ -18,4 +18,4 @@ description: Amazon DynamoDB
 
 # 链接
 * [SecondaryIndexes.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/SecondaryIndexes.html)
-* [segmentfault-Amazon DynamoDB 入门5：索引创建及管理](https://segmentfault.com/a/1190000008232397)
+* [Amazon DynamoDB 入门5：索引创建及管理](https://segmentfault.com/a/1190000008232397)
