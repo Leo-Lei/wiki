@@ -18,6 +18,16 @@ description: Amazon DynamoDB Geo Library
 
 
 
+
+
+
+
+
+
+
+
+
+
 # 链接
 * [Introduction.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Introduction.html)
 * [new-geo-library-for-dynamodb/](https://aws.amazon.com/cn/blogs/aws/new-geo-library-for-dynamodb/)
