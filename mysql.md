@@ -486,14 +486,8 @@ open-files-limit = 8192
 default-character-set=utf8
 ```
 
-
-# Install 
-* Download MySql Community Edition from [MySql download page](http://dev.mysql.com/downloads/mysql/).     
-* Select to download the dmg file.     
-* Execute the dmg file to install MySql.    
-
-# Start MySql    
-Open "系统偏好设置". There should be a MySql item in the pannel. Click it and then start the MySql server.    
+# Mac 启动 MySql
+打开 "系统偏好设置". There should be a MySql item in the pannel. Click it and then start the MySql server.    
 
 # Reset the password    
 The MySql will be install at location `/usr/local/mysql`.    
