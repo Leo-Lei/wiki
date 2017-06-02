@@ -10,7 +10,7 @@ description: Amazon DynamoDB
 
 # 查询表和索引
 可以使用Query操作来查询表或二级索引。
-![Query支持查询表或二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-001.png)
+![Query支持查询表或二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-001.png)    
 查询二级索引：
-![Query查询二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-002.png)
+![Query查询二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-002.png)    
 
