@@ -12,3 +12,5 @@ description: Amazon DynamoDB
 可以使用Query操作来查询表或二级索引。
 
 ![Query支持查询表或二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-001.png)
+![Query查询二级索引](http://ohaq3i4w3.bkt.clouddn.com/dynamodb-query-002.png)
+
