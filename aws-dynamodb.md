@@ -119,4 +119,4 @@ DynamoDB支持2种主键：
 * [geo-library-for-amazon-dynamodb-part-3-creating-amazon-dynamodb-tables/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-3-creating-amazon-dynamodb-tables/)
 * [geo-library-for-amazon-dynamodb-part-4-put-geo-point/](https://aws.amazon.com/cn/blogs/mobile/geo-library-for-amazon-dynamodb-part-4-put-geo-point/)
 * [DynamoDBLocal.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
-
+* [JavaDocumentAPIItemCRUD.html](http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/JavaDocumentAPIItemCRUD.html)
