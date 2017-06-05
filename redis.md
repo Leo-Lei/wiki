@@ -9,6 +9,12 @@ description: web-authentication
 ---
 
 
+# 连接Redis
+```bash
+redis-cli -h 192.168.1.100 -p 6379
+```
+
+
 # Redis数据类型
 
 | type         |               Desc              |
