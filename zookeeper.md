@@ -156,4 +156,4 @@ Created app/app1
 # Resources
 
 [https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper)
-
+[http://www.cnblogs.com/zhangs1986/p/6564839.html?from=timeline](http://www.cnblogs.com/zhangs1986/p/6564839.html?from=timeline)
