@@ -13,7 +13,9 @@ description: web-authentication
 ```bash
 redis-cli -h 192.168.1.100 -p 6379
 ```
-
+```bash
+redis-cli -h 192.168.1.100 -p 6379 -a your_password
+```
 
 # Redis数据类型
 
