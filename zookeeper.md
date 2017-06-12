@@ -152,6 +152,28 @@ Created /app
 Created app/app1
 [zk: localhost:2181(CONNECTED) 4] rmr /app
 ```
+# zookeeper集群中的角色
+|             | 写?         | 读?           | 投票?              | 备注                |
+| ----------- | ----------- | ------------ | ------------------ | ------------------ |
+| leader      | Y           | Y            | Y                  |                    |
+
+
+
+
+
+
+# zookeeper 选举算法
+
+为什么需要leader？    
+如果有两个客户端同时向zookeeper节点A和B发起，请求。client1的请求是`set name=john`。client2的请求是'set name=tom'。在分布式的系统中，该如何处理这2个请求呢？这时候就需要有一个leader来进行决策。
+
+
+
+
+
+
+
+
 
 # Resources
 
