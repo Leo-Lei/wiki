@@ -32,14 +32,14 @@ clientPort=2181
 # Zookeeper的集群部署
 Zookeeper集群的节点数量为奇数比较合适。
 假设我们要搭建一个3个节点的集群。有3台机器：
-* 192.168.1.81     该机器上需要开放3个端口:2181,2881,3881
-* 192.168.1.82     该机器上需要开放3个端口:2182,2881,3881
-* 192.168.1.83     该机器上需要开放3个端口:2183,2881,3881
+* 192.168.1.100     该机器上需要开放3个端口:2181,2881,3881
+* 192.168.1.101     该机器上需要开放3个端口:2182,2881,3881
+* 192.168.1.102     该机器上需要开放3个端口:2183,2881,3881
 每台机器上都安装zookeeper。
 
 ### 1.配置zoo.cfg
 将conf/zoo_sample.cfg重命名成conf/zoo.cfg。
-机器`192.168.1.81`的配置文件`conf/zoo.cfg`    
+机器`192.168.1.100`的配置文件`conf/zoo.cfg`    
 ```conf
 tickTime=2000
 initLimit=10
@@ -50,12 +50,12 @@ dataLogDir=/opt/data/zookeeper/logs
 
 clientPort=2181
 
-server.1=192.168.1.81:2881:3881
-server.2=192.168.1.82:2882:3882
-server.3=192.168.1.83:2883:3883
+server.1=192.168.1.100:2881:3881
+server.2=192.168.1.101:2881:3881
+server.3=192.168.1.102:2881:3881
 ```
 
-机器`192.168.1.82`的配置文件`conf/zoo.cfg`    
+机器`192.168.1.101`的配置文件`conf/zoo.cfg`    
 ```conf
 tickTime=2000
 initLimit=10
@@ -66,12 +66,12 @@ dataLogDir=/opt/data/zookeeper/logs
 
 clientPort=2182
 
-server.1=192.168.1.81:2881:3881
-server.2=192.168.1.82:2882:3882
-server.3=192.168.1.83:2883:3883
+server.1=192.168.1.100:2881:3881
+server.2=192.168.1.101:2881:3881
+server.3=192.168.1.102:2881:3881
 ```
 
-机器`192.168.1.83`的配置文件`conf/zoo.cfg`    
+机器`192.168.1.102`的配置文件`conf/zoo.cfg`    
 ```conf
 tickTime=2000
 initLimit=10
@@ -82,9 +82,9 @@ dataLogDir=/opt/data/zookeeper/logs
 
 clientPort=2183
 
-server.1=192.168.1.81:2881:3881
-server.2=192.168.1.82:2882:3882
-server.3=192.168.1.83:2883:3883
+server.1=192.168.1.100:2881:3881
+server.2=192.168.1.101:2881:3881
+server.3=192.168.1.102:2881:3881
 ```
 
 参数说明:
@@ -99,9 +99,9 @@ dataDir顾名思义就是Zookeeper保存数据的目录,默认情况下Zookeeper
 * clientPort=2181
 clientPort这个端口就是客户端（应用程序）连接Zookeeper服务器的端口,Zookeeper会监听这个端口接受客户端的访问请求。
 * server.A=B：C：D    
-server.1=192.168.1.81:2881:3881    
-server.2=192.168.1.82:2881:3881    
-server.3=192.168.1.83:2881:3881    
+server.1=192.168.1.100:2881:3881    
+server.2=192.168.1.101:2881:3881    
+server.3=192.168.1.102:2881:3881    
 A是一个数字,表示这个是第几号服务器；    
 B是这个服务器的IP地址（或者是与IP地址做了映射的主机名）；    
 C第一个端口用来集群成员的信息交换,表示这个服务器与集群中的Leader服务器交换信息的端口；    
@@ -121,15 +121,15 @@ echo 2 >> /opt/data/zookeeper/myid
 echo 3 >> /opt/data/zookeeper/myid 
 ```
 ### 3. 启动zookeeper
-启动`192.168.1.81`上的zookeeper
+启动`192.168.1.100`上的zookeeper
 ```bash
 /opt/zookeeper/bin/zkServer.sh start
 ```
-启动`192.168.1.82`上的zookeeper
+启动`192.168.1.101`上的zookeeper
 ```bash
 /opt/zookeeper/bin/zkServer.sh start
 ```
-启动`192.168.1.83`上的zookeeper
+启动`192.168.1.102`上的zookeeper
 ```bash
 /opt/zookeeper/bin/zkServer.sh start
 ```
