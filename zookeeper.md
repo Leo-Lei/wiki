@@ -11,7 +11,7 @@ description: web-authentication
 # Overview               
 
 # 安装 Zookeeper
-Zookeeper目前还没有提供yum安装的方式。所以，要下载zookeeper的二进制文件安装。
+Zookeeper目前还没有提供yum安装的方式。所以，要下载zookeeper的二进制文件安装。安装过程就是将zookeeper的二进制文件解压到某个目录即可。
 
 
 # Zookeeper的Standalone部署
