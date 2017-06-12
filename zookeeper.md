@@ -45,8 +45,8 @@ tickTime=2000
 initLimit=10
 syncLimit=5
 
-dataDir=/opt/data/zookeeper
-dataLogDir=/opt/data/zookeeper/logs
+dataDir=/opt/data/zookeeper/data
+dataLogDir=/opt/data/zookeeper/log
 
 clientPort=2181
 
@@ -61,8 +61,8 @@ tickTime=2000
 initLimit=10
 syncLimit=5
 
-dataDir=/opt/data/zookeeper
-dataLogDir=/opt/data/zookeeper/logs
+dataDir=/opt/data/zookeeper/data
+dataLogDir=/opt/data/zookeeper/log
 
 clientPort=2182
 
@@ -77,8 +77,8 @@ tickTime=2000
 initLimit=10
 syncLimit=5
 
-dataDir=/opt/data/zookeeper
-dataLogDir=/opt/data/zookeeper/logs
+dataDir=/opt/data/zookeeper/data
+dataLogDir=/opt/data/zookeeper/log
 
 clientPort=2183
 
@@ -110,15 +110,15 @@ D是在leader挂掉时专门用来进行选举leader所用的端口。
 ### 2. 在dataDir=/opt/data/zookeeper下创建myid文件
 `192.168.1.81`
 ```bash
-echo 1 >> /opt/data/zookeeper/myid 
+echo 1 >> /opt/data/zookeeper/data/myid 
 ```
 `192.168.1.82`
 ```bash
-echo 2 >> /opt/data/zookeeper/myid 
+echo 2 >> /opt/data/zookeeper/data/myid 
 ```
 `192.168.1.83`
 ```bash
-echo 3 >> /opt/data/zookeeper/myid 
+echo 3 >> /opt/data/zookeeper/data/myid 
 ```
 ### 3. 启动zookeeper
 启动`192.168.1.100`上的zookeeper
