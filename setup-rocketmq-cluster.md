@@ -28,8 +28,8 @@ tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
 ```bash
 #所属集群名字
 brokerClusterName=rocketmq-cluster
-#broker名字，注意此处不同的配置文件填写的不一样
-brokerName=broker-a|broker-b
+#broker名字
+brokerName=broker-a
 #0 表示 Master，>0 表示 Slave
 brokerId=0
 #nameServer地址，分号分割
