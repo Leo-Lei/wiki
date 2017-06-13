@@ -18,7 +18,7 @@ yum install subversion
 # SVN仓库迁移
 ### 将准备迁移的仓库导出
 ```bash
-svnadmin dump my_repo > /opt/svn_dump
+svnadmin dump /opt/svn/my_repo > /opt/svn_dump
 ```
 ### 在新的服务器上创建目录，以保存仓库
 ```bash
