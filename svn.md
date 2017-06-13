@@ -24,7 +24,7 @@ svnadmin dump /opt/svn/my_repo > /opt/svn_dump
 ```bash
 svnadmin create /opt/svn/my_repo
 ```
-### 导入dump文件
+### 在新服务器上导入dump文件
 ```bash
 svnadmin load /opt/svn/my_repo < /opt/svn_dump
 ```
