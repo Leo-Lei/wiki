@@ -126,6 +126,12 @@ Topic是一类消息的统称，为了提高消息的写入和读取并发能力
 | NameServer1    | 192.168.1.101          |
 | NameServer2    | 192.168.1.102          |
 
+分别启动NameServer        
+```bash
+nohup sh mqnameserver &
+# 查看日志
+tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
+```
 
 
 
