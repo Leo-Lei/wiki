@@ -114,6 +114,13 @@ Topic是一类消息的统称，为了提高消息的写入和读取并发能力
 
 
 
+# broker负载均衡
+* 一个topic可以分布在多个broker上，一个broker可以配置多个topic。它们是多对多的关系。
+* 如果某个topic消息量很大，应该给它多配置几个队列。并尽量分布在不同的broker上。减轻某个broker的压力。
+* topic消息量都比较均匀的情况下，如果某个broker上队列越多，则该broker压力越大。
+
+# broker高可用性
+* 
 
 
 
