@@ -8,5 +8,11 @@ categories: VCS
 description: The tutoria will describe the useage of SVN.
 ---
 
-# SVN GUI tool
-Tortoise SVN
+
+# CentOS 安装SVN
+```bash
+yum install subversion
+```
+
+
+
