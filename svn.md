@@ -28,5 +28,4 @@ svnadmin create /opt/svn/my_repo
 ```bash
 svnadmin load /opt/svn/my_repo < /opt/svn_dump
 ```
-### 更改conf文件    
-将迁移的仓库的conf文件复制到新的服务器
+
