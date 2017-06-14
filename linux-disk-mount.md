@@ -14,7 +14,7 @@ description: The tutoria will describe the useage of Linux.
 3. 将分区挂载到某个目录
 
 # 查看是否已识别磁盘
-通过`fdisk -l`命令来查看磁盘是否已识别。
+通过`fdisk -l`命令来查看系统中当前连接的磁盘。
 ```bash
 fdisk -l
 
