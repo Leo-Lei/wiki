@@ -78,7 +78,7 @@ Last 扇区, +扇区 or +size{K,M,G} (2048-3221225471，默认为 3221225471)：
 将使用默认值 3221225471
 分区 1 已设置为 Linux 类型，大小设为 1.5 TiB
 ```
-# 保存分区
+# 输入`w`保存分区
 ```bash
 命令(输入 m 获取帮助)：w
 The partition table has been altered!
