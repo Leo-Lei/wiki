@@ -40,12 +40,12 @@ expect eof
 
 set port 22
 set user root
-set host 121.196.213.156
+set host 100.200.200.100
 set timeout -1
 
 spawn ssh $user@$host
 expect "*aliyun*"
-send "ssh root@172.16.128.30\r"
+send "ssh root@172.16.128.100\r"
 interact
 #expect "*@*"
 ```
