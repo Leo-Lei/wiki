@@ -142,10 +142,3 @@ UUID=41b13286-90d7-4c0f-9afb-ba92382eda59 /                       ext4    defaul
 ```
 
 
-
-
-
-
-
-
-
