@@ -137,4 +137,7 @@ sh mqadmin topicRoute –n 192.168.10.101:9876 –t mytopic
 ```bash
 sh mqadmin queryMsgById –n 192.168.10.101:9876 –i 0A2D2FA800002A9F0000000000000000
 ```
-
+查看集群消息
+```bash
+sh mqadmin clusterList -n 192.168.10.101:9876
+```
