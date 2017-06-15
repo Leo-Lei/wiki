@@ -119,9 +119,17 @@ Topic是一类消息的统称，为了提高消息的写入和读取并发能力
 * 如果某个topic消息量很大，应该给它多配置几个队列。并尽量分布在不同的broker上。减轻某个broker的压力。
 * topic消息量都比较均匀的情况下，如果某个broker上队列越多，则该broker压力越大。
 
-# broker高可用性
-* 
 
-
-
-
+# mqadmin
+创建topic
+```bash
+sh mqadmin updateTopic –n 192.168.10.101:9876;192.168.10.102:9876 –c DefaultCluster –t mytopic
+```
+查看topic列表
+```bash
+sh mqadmin topicList -n 192.168.10.101:9876
+```
+查看topic路由
+```bash
+sh mqadmin topicRoute –n 192.168.10.101:9876 –t mytopic
+```
