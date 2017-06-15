@@ -89,4 +89,13 @@ flushDiskType=ASYNC_FLUSH
 #拉消息线程池数量
 #pullMessageThreadPoolNums=128
 ```
+### 创建topic
+```bash
+sh mqadmin updateTopic -n 192.168.10.101:9876;192.168.10.102:9876 -c DefaultCluster -t mytopic
+```
+
+
+
+
+
 
