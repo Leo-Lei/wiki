@@ -133,3 +133,8 @@ sh mqadmin topicList -n 192.168.10.101:9876
 ```bash
 sh mqadmin topicRoute –n 192.168.10.101:9876 –t mytopic
 ```
+根据消息id查询消息
+```bash
+sh mqadmin queryMsgById –n 192.168.10.101:9876 –i 0A2D2FA800002A9F0000000000000000
+```
+
