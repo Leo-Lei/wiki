@@ -67,6 +67,10 @@ readonly = test2
 ```bash
 svnserv -d -r /opt/svn/repos/sample
 ```
+### 访问svn服务
+```bash
+svn://192.168.11.101
+```
 
 # SVN仓库迁移
 ### 将准备迁移的仓库导出
