@@ -122,9 +122,15 @@ Topic是一类消息的统称，为了提高消息的写入和读取并发能力
 
 # mqadmin
 创建topic
+在一个nameserver上创建topic
+```bash
+sh mqadmin updateTopic –n 192.168.10.101:9876 –c DefaultCluster –t mytopic
+```
+在多个nameserver上创建topic
 ```bash
 sh mqadmin updateTopic –n 192.168.10.101:9876;192.168.10.102:9876 –c DefaultCluster –t mytopic
 ```
+> 根据命令的提示，应该可以指定多个nameserver，但实际调用的时候却提示找不到命令`192.168.10.102`，不清楚什么原因
 查看topic列表
 ```bash
 sh mqadmin topicList -n 192.168.10.101:9876
