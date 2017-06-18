@@ -30,10 +30,10 @@ compile 'org.apache.rocketmq:rocketmq-client:4.1.0-incubating'
 
 
 # Name Server
-|      Name      |            ip          |
-| -------------- | ---------------------- |
-| NameServer1    | 192.168.1.101          |
-| NameServer2    | 192.168.1.102          |
+|      Name      |            ip           |
+| -------------- | ----------------------- |
+| NameServer1    | 192.168.10.101          |
+| NameServer2    | 192.168.10.102          |
 
 分别启动NameServer        
 ```bash
@@ -47,7 +47,7 @@ tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
 vim /opt/rocketmq/conf/2m-2s-sync/broker-a.properties
 
 brokerClusterName=DefaultCluster
-namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+namesrvAddr=192.168.10.101:9876;192.168.10.102:9876
 brokerName=broker-a
 brokerId=0
 
@@ -75,7 +75,7 @@ nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a.properties &
 vim /opt/rocketmq/conf/2m-2s-sync/broker-a-s.properties
 
 brokerClusterName=DefaultCluster
-namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+namesrvAddr=192.168.10.101:9876;192.168.10.102:9876
 brokerName=broker-a
 brokerId=1
 
@@ -103,7 +103,7 @@ nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a-s.properties &
 vim /opt/rocketmq/conf/2m-2s-sync/broker-b.properties
 
 brokerClusterName=DefaultCluster
-namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+namesrvAddr=192.168.10.101:9876;192.168.10.102:9876
 brokerName=broker-b
 brokerId=0
 
@@ -130,7 +130,7 @@ nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-b.properties &
 vim /opt/rocketmq/conf/2m-2s-sync/broker-b-s.properties
 
 brokerClusterName=DefaultCluster
-namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+namesrvAddr=192.168.10.101:9876;192.168.10.102:9876
 brokerName=broker-b
 brokerId=1
 
@@ -178,7 +178,7 @@ brokerName=broker-a
 #0 表示 Master，>0 表示 Slave
 brokerId=0
 #nameServer地址，分号分割
-namesrvAddr=172.31.28.73:9876;172.31.19.73:9876
+namesrvAddr=192.168.10.101:9876;192.168.10.102:9876
 #在发送消息时，自动创建服务器不存在的topic，默认创建的队列数
 #defaultTopicQueueNums=4
 #是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
