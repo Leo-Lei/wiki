@@ -9,7 +9,7 @@ description: Rocket MQ
 ---
 
 # RocketMQ版本
-版本为4.1.0
+版本为4.1.0    
 官方下载页面为:    
 [http://rocketmq.apache.org/dowloading/releases/](http://rocketmq.apache.org/dowloading/releases/)    
 二进制文件为:    
