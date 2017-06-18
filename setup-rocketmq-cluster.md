@@ -8,6 +8,12 @@ categories: Java
 description: Rocket MQ
 ---
 
+# RocketMQ版本
+版本为4.1.0        
+[http://rocketmq.apache.org/dowloading/releases/](http://rocketmq.apache.org/dowloading/releases/)
+[rocketmq-all-4.1.0-incubating-bin-release.zip](https://www.apache.org/dyn/closer.cgi?path=incubator/rocketmq/4.1.0-incubating/rocketmq-all-4.1.0-incubating-bin-release.zip)
+
+
 # 集群配置        
 * nameserver-01
 * nameserver-02
