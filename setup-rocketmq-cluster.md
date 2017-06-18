@@ -153,19 +153,18 @@ cd /opt/rocketmq/bin
 nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-b-s.properties &
 ```
 # 创建topic
-> 创建topic这个步骤是必须的
+> 创建topic这个步骤在线上环境是必须的
 ```bash
 sh mqadmin updateTopic -n 192.168.10.101:9876 -c DefaultCluster -t mytopic
 sh mqadmin updateTopic -n 192.168.10.102:9876 -c DefaultCluster -t mytopic
 ```
 
 # 创建consumer group
-> 创建consumer group的步骤是必须的
+> 创建consumer group的步骤在线上环境是必须的
 ```bash
 sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.101:9876
 sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.102:9876
 ```
-
 
 
 # Broker
