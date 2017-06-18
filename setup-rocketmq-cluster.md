@@ -50,10 +50,11 @@ fileReservedTime=48
 brokerRole=SYNC_MASTER
 flushDiskType=ASYNC_FLUSH
 ```
-
-
-
-
+启动broker
+```bash
+cd /opt/rocketmq/bin
+nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a.properties &
+```
 
 # Broker
 ```bash
