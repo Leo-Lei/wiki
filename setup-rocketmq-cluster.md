@@ -67,7 +67,7 @@ flushDiskType=ASYNC_FLUSH
 cd /opt/rocketmq/bin
 nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a.properties &
 ```
-> 注意，线上环境请一定设置autoCreateTopicEnable=false和autoCreateSubscriptionGroup=false。autoCreateTopicEnable默认值是true。如果为true，当发送一个topic=mytopic的消息时，如果broker中没有这个topic，则rockerMQ会自动创建topic，让消息可以正常发送到broker中并被消费。当rocketMQ只会将这个topic路由到集群中的某一个broker，后续的所有的该topic的消息都只会发送到该一个broker中，达不到负载均衡和fail over的效果。所以，线上环境我们必须要通过mqadmin工具手动的创建topic到集群中。只有这样才能达到负载均衡和高可用。不然集群是形同虚设的!!
+> 注意，线上环境请一定设置autoCreateTopicEnable=false和autoCreateSubscriptionGroup=false。autoCreateTopicEnable默认值是true。如果为true，当发送一个topic=mytopic的消息时，如果broker中没有这个topic，则rockerMQ会自动创建topic，让消息可以正常发送到broker中并被消费。当rocketMQ只会将这个topic路由到集群中的某一个broker，后续的所有的该topic的消息都只会发送到该一个broker中，达不到负载均衡和fail over的效果。所以，线上环境我们必须要通过mqadmin工具手动的创建topic到集群中。只有这样才能达到负载均衡和高可用。不然集群是形同虚设的!!所以一定要将autoCreateTopicEnable设置为false。
 
 
 # broker-a-slave
@@ -152,6 +152,21 @@ flushDiskType=ASYNC_FLUSH
 cd /opt/rocketmq/bin
 nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-b-s.properties &
 ```
+# 创建topic
+> 创建topic这个步骤是必须的
+```bash
+sh mqadmin updateTopic -n 192.168.10.101:9876 -c DefaultCluster -t mytopic
+sh mqadmin updateTopic -n 192.168.10.102:9876 -c DefaultCluster -t mytopic
+```
+
+# 创建consumer group
+> 创建consumer group的步骤是必须的
+```bash
+sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.101:9876
+sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.102:9876
+```
+
+
 
 # Broker
 ```bash
