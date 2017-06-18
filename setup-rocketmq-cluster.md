@@ -24,6 +24,29 @@ nohup sh mqnameserver &
 tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
 ```
 
+# broker-a-master
+```bash
+brokerClusterName=DefaultCluster
+namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+brokerName=broker-a
+brokerId=0
+
+#是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
+autoCreateTopicEnable=false
+#是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
+autoCreateSubscriptionGroup=false
+
+deleteWhen=04
+fileReservedTime=48
+
+brokerRole=SYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+```
+
+
+
+
+
 # Broker
 ```bash
 #所属集群名字
