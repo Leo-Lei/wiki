@@ -56,6 +56,48 @@ cd /opt/rocketmq/bin
 nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a.properties &
 ```
 
+# broker-a-slave
+```bash
+vim /opt/rocketmq/conf/2m-2s-sync/broker-a-s.properties
+
+brokerClusterName=DefaultCluster
+namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
+brokerName=broker-a
+brokerId=1
+
+
+#是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
+autoCreateTopicEnable=false
+#是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
+autoCreateSubscriptionGroup=false
+
+deleteWhen=04
+fileReservedTime=48
+
+
+brokerRole=SLAVE
+flushDiskType=ASYNC_FLUSH
+```
+启动broker
+```bash
+cd /opt/rocketmq/bin
+nohup mqbroker -c /opt/rocketmq/conf/2m-2s-sync/broker-a-s.properties &
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Broker
 ```bash
 #所属集群名字
