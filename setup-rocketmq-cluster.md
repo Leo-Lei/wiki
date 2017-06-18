@@ -9,7 +9,13 @@ description: Rocket MQ
 ---
 
 # 集群配置        
-* 2台Name Server
+* nameserver-01
+* nameserver-02
+* broker-a-master
+* broker-a-slave
+* broker-b-master
+* broker-b-slave
+
 
 # Name Server
 |      Name      |            ip          |
@@ -26,6 +32,8 @@ tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
 
 # broker-a-master
 ```bash
+vim /opt/rocketmq/conf/2m-2s-sync/broker-a.properties
+
 brokerClusterName=DefaultCluster
 namesrvAddr=172.31.24.81:9876;172.31.23.80:9876
 brokerName=broker-a
