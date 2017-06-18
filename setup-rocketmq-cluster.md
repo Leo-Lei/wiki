@@ -165,6 +165,8 @@ sh mqadmin updateTopic -n 192.168.10.102:9876 -c DefaultCluster -t mytopic
 sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.101:9876
 sh mqadmin updateSubGroup -g mygroup -c DefaultCluster -n 192.168.10.102:9876
 ```
+# 测试集群的高可用
+将某一个broker停掉，只要有一个broker在运行，应用依然可以正常的发送和消费消息。更细节的高可用测试还待测试。。。
 
 
 # Broker
@@ -232,13 +234,5 @@ flushDiskType=ASYNC_FLUSH
 #拉消息线程池数量
 #pullMessageThreadPoolNums=128
 ```
-### 创建topic
-```bash
-sh mqadmin updateTopic -n 192.168.10.101:9876;192.168.10.102:9876 -c DefaultCluster -t mytopic
-```
-
-
-
-
 
 
