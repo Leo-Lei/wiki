@@ -42,6 +42,8 @@ nohup sh mqnameserver &
 tail -f -n 500 $ROCKETMQ_HOME/logs/rocketmqlogs/namesrv.log
 ```
 
+> rocketMQ默认运行nameserver和broker的jvm的内存都设置的很大，是8G。所以，如果我们的机器内存没有8G，那么请修改`runserver.sh`和`runbroker.sh`中的jvm内存参数。不然无法启动rocketmq
+
 # broker-a-master
 ```bash
 vim /opt/rocketmq/conf/2m-2s-sync/broker-a.properties
