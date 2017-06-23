@@ -157,7 +157,9 @@ public class ProducerConsumerInJava {
                             } 
                             Random random = new Random(); 
                             int i = random.nextInt(); 
-                            System.out.println("Producing value : " + i); queue.add(i); queue.notifyAll(); 
+                            System.out.println("Producing value : " + i); 
+                            queue.add(i); 
+                            queue.notifyAll(); 
                         } 
                     } 
                 } 
@@ -191,7 +193,8 @@ public class ProducerConsumerInJava {
                             ex.printStackTrace(); 
                         } 
                     } 
-                    System.out.println("Consuming value : " + queue.remove()); queue.notifyAll(); 
+                    System.out.println("Consuming value : " + queue.remove());
+                    queue.notifyAll();
                 } 
             } 
         } 
