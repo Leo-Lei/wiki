@@ -583,5 +583,8 @@ select * from tb where code in (100,200)        # 可能使用索引
 
 
 
-
+# Mysql 查看binlog
+```bash
+mysqlbinlog --base64-output=decode-rows -v mysql-bin.001405 | less
+```
 
