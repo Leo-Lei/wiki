@@ -105,11 +105,8 @@ public class MyThreadPrinter implements Runnable {
 # wait
 当在一个对象的实例上调用wait()方法后，当前线程会变成等待状态。一直等到别的线程调用了这个对象实例的notify()方法。比如，线程T1中调用obj.wait()方法，那么线程T1就会进入等待状态。一段时间后，线程T2中调用了obj.notify()方法，这样，T1线程又可以继续执行了。这时，obj对象就成为多个线程间通信的手段。     
 关于wait的使用，注意以下几点:        
-* 
-
-
-
-
+* 必须在synchronized语句块中使用wait方法
+* wait方法内部会释放持有的obj的monitor，即释放obj的锁。
 
 
 # notify
