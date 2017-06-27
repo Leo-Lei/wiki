@@ -13,6 +13,13 @@ description: MySql
 
 
 
+```sql
+SELECT @@session.tx_read_only
+SET autocommit=1
+SET autocommit=0
+```
+
+
 
 
 
