@@ -21,8 +21,5 @@ SET autocommit=0
 
 
 
-
-
-
-
-
+# 资源
+[i-get-many-select-session-tx-read-only-would-one-do-the-same](https://stackoverflow.com/questions/32394729/i-get-many-select-session-tx-read-only-would-one-do-the-same/44043246#44043246)
