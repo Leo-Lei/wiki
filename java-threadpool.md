@@ -11,6 +11,11 @@ description: What is API and SPI.
 
 # ExecutorService
 
+|                         method                   |                                                      |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| void execute(Runable command)                    | 异步，在一个新线程中执行任务，无法得到任务的结果             |
+
+
 
 
 
