@@ -41,8 +41,7 @@ public class CallableAndFuture {
     }
 }
 ```
-
-
+可以使用ExecutorService来简化使用Future。
 ```java
 public class CallableAndFuture {
     public static void main(String[] args) {
