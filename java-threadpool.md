@@ -9,6 +9,18 @@ description: What is API and SPI.
 ---
 
 
+# ExecutorService
+
+
+
+
+
+# Execotors
+
+|               method               |       Return Value               |                                     |   
+| ---------------------------------- | -------------------------------- | ----------------------------------- |
+| newFixedThreadPool()               |                                  | 固定线程数量的线程池                    |
+
 
 
 
