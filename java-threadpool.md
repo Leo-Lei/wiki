@@ -20,7 +20,10 @@ description: What is API and SPI.
 |               method               |       Return Value               |                                     |   
 | ---------------------------------- | -------------------------------- | ----------------------------------- |
 | newFixedThreadPool()               |                                  | 固定线程数量的线程池                    |
-
+| newSingleThreadExecutor()          |                                  | 只有一个线程的线程池                    |
+| newCachedThreadPool()              |                                  | 可根据实际情况调整线程数的线程池          |
+| newScheduledThreadPool()           |                                  | 可执行定时任务的线程池                  |
+| newSingleThreadScheduledExecutor() |                                  | 一个线程，可执行定时任务                |
 
 
 
