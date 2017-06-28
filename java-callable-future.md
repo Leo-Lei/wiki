@@ -18,6 +18,13 @@ description: The series tutorial talk about the Java Concurrency programing mode
 | Runable             | 只有一个方法 void run()                   |
 | Callable<T>         | 只有一个方法 V call()                     | 
 
+# Future的一些方法
+
+|        method        |                                                    |
+| -------------------- | -------------------------------------------------- |
+| get                  | 获得异步执行的结果，当前线程会阻塞，直到任务返回结果.       |
+
+
 
 
 ```java
