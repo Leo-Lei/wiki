@@ -86,6 +86,21 @@ public class Main {
     }
 }
 ```
+5. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+```java
+public class A {
+    private static A instance = new A();
+    public A(){
+        System.out.println("A constructor ...");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Main Class main method ...");
+    }
+}
+```
 
 
 
