@@ -24,6 +24,7 @@ description: The tutoria will describe the useage of Linux.
 其实就2个问题：    
 1. 什么时候初始化    
 2. 初始化什么东西    
+
 先提出如下几个问题吧：   
 1. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
