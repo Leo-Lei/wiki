@@ -12,3 +12,10 @@ description: docker
 
 # MQTT
 Message Queuing Telemetry Transport, 消息队列遥测传输协议。
+
+# QOS
+Quality of Service
+* 0: 最多一次
+* 1: 最少一次
+* 2: 只一次
+
