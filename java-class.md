@@ -102,9 +102,71 @@ public class Main {
     }
 }
 ```
+6. 应用程序有且仅有三个类A,B和Main如下，程序的输出是什么样的？
+```java
+public class A {
+    private static A instance = new A();
+    public A(){
+        System.out.println("A constructor ...");
+    }
+}
+public class B {
+    private static A instance = new A();
+}
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Main Class main method ...");
+    }
+}
+```
+7. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+```java
+public class A {
+    private static A instance = new A();
+    public A(){
+        System.out.println("A constructor ...");
+    }
+}
 
+public class Main {
+    private static A;
+    public static void main(String[] args) {
+        System.out.println("Main Class main method ...");
+    }
+}
+```
+8. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+```java
+public class A {
+    private static A instance = new A();
+    public A(){
+        System.out.println("A constructor ...");
+    }
+}
 
+public class Main {
+    private static A = new A();
+    public static void main(String[] args) {
+        System.out.println("Main Class main method ...");
+    }
+}
+```
+6. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+```java
+public class A {
+    private static A instance = new A();
+    public A(){
+        System.out.println("A constructor ...");
+    }
+}
 
+public class Main {
+    private static A;
+    public static void main(String[] args) {
+        System.out.println("Main Class main method ...");
+    }
+}
+```
 
 
 
