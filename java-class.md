@@ -26,7 +26,7 @@ description: The tutoria will describe the useage of Linux.
 2. 初始化什么东西    
 
 先提出如下几个问题吧：   
-1. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     static {
@@ -40,8 +40,13 @@ public class Main {
     }
 }
 ```
+输出：
+```bash
+Main Class main method ...
+```
+是的，没有输出"class A static block ..."
 
-2. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     static {
@@ -57,7 +62,7 @@ public class Main {
 }
 ```
 
-3. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     static {
@@ -72,7 +77,7 @@ public class Main {
     }
 }
 ```
-4. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     static {
@@ -87,7 +92,7 @@ public class Main {
     }
 }
 ```
-5. 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有两个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     private static A instance = new A();
@@ -102,7 +107,7 @@ public class Main {
     }
 }
 ```
-6. 应用程序有且仅有三个类A,B和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有三个类A,B和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     private static A instance = new A();
@@ -119,7 +124,7 @@ public class Main {
     }
 }
 ```
-7. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     private static A instance = new A();
@@ -135,7 +140,7 @@ public class Main {
     }
 }
 ```
-8. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     private static A instance = new A();
@@ -151,7 +156,7 @@ public class Main {
     }
 }
 ```
-6. 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
+### 应用程序有且仅有2个类A和Main如下，程序的输出是什么样的？
 ```java
 public class A {
     private static A instance = new A();
@@ -167,9 +172,7 @@ public class Main {
     }
 }
 ```
-
-
-### 什么时候初始化类?
+# 什么时候初始化类?
 * 虚拟机启动时，包含有main方法的类
 * 创建某个类的新实例时。注包括new()，反射，克隆以及反序列化等。
 * 调用了某个类的静态方法时
@@ -177,6 +180,6 @@ public class Main {
 * 调用java API中的某些反射方法时，比如类Class中的方法或java.lang.reflect包中的方法
 * 初始化某个类的子类时（某个类初始化时，要求它的父类要已经初始化了）
 
-### 类初始化时，初始化什么东西
+# 类初始化时，初始化什么东西
 * 初始化类的静态字段和静态快，按照类中声明的顺序来依次执行
 
