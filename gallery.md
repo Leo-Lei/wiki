@@ -19,32 +19,6 @@ photos:
 - ...
 ```
 <!-- more -->
-and enable `lightgallery` plugin in your `_config.yml`:
-```diff
-# Plugins
-plugins:
-+   lightgallery: true # options: true, false
-    google_analytics: # enter the tracking ID for your Google Analytics
-    ...
-```
-
-You can also add photos between text to create another gallery like this:
-
-![Lion](https://www.hdwallpapers.net/previews/lion-453.jpg)
-
-or this:
-
-![Red Panda](https://www.hdwallpapers.net/previews/red-panda-523.jpg)
-
-Finally, you can also use Justified Gallery to display you photos in a grid:
-
-```diff
-# Plugins
-plugins:
-+   justifiedgallery: true # options: true, false
-    google_analytics: # enter the tracking ID for your Google Analytics
-    ...
-```
 
 <div class="justified-gallery">
 ![Lake Prags - Italy Wallpaper](https://www.hdwallpapers.net/previews/lake-prags-italy-1053.jpg)
