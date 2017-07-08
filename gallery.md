@@ -14,12 +14,8 @@ tags:
 ---
 
 <div class="justified-gallery">
-![Car](http://ohaq3i4w3.bkt.clouddn.com/car-31.jpg)
 ![Car](http://ohaq3i4w3.bkt.clouddn.com/car-10.jpg)
 ![Car](http://ohaq3i4w3.bkt.clouddn.com/car-18.jpg)
 ![Car](http://ohaq3i4w3.bkt.clouddn.com/car-26.jpg)
 ![Car](http://ohaq3i4w3.bkt.clouddn.com/car-27.jpg)
-![Car](http://ohaq3i4w3.bkt.clouddn.com/car-18.jpg)
-![Car](http://ohaq3i4w3.bkt.clouddn.com/car-4.jpg)
-![Car](http://ohaq3i4w3.bkt.clouddn.com/car-9.jpg)
 </div>
