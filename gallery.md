@@ -12,7 +12,7 @@ photos:
 - http://ohaq3i4w3.bkt.clouddn.com/car-18.jpg
 - http://ohaq3i4w3.bkt.clouddn.com/car-31.jpg
 - http://ohaq3i4w3.bkt.clouddn.com/car-4.jpg
-- http://ohaq3i4w3.bkt.clouddn.com/car-9.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-9.jpg    
 tags:
 ---
 To add a photo gallery placeholder to your post, just add the following lines to your front-matter:
