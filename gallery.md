@@ -5,6 +5,14 @@ photos:
 - https://www.hdwallpapers.net/previews/water-plant-close-up-979.jpg
 - https://www.hdwallpapers.net/previews/winter-day-at-yosemite-national-park-971.jpg
 - https://www.hdwallpapers.net/previews/vatnajokull-national-park-iceland-899.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-10.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-18.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-26.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-27.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-18.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-31.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-4.jpg
+- http://ohaq3i4w3.bkt.clouddn.com/car-9.jpg
 tags:
 ---
 To add a photo gallery placeholder to your post, just add the following lines to your front-matter:
