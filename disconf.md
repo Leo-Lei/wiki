@@ -14,7 +14,7 @@ Disconf的wiki主页：
 
 但是在使用的过程中，发现Disconf有几个不足：
 * 不支持中文标点，和特殊字符，比如¥
-* 不支持springboot项目
+* 不支持springboot项目以可自行JAR的方式运行（主要是从Disconf下载文件到本地的目录权限问题）
 
 我自己对Disconf的源码进行了一些修改，以支持上面的功能，详情请参考我的Github：
 [https://github.com/Leo-Lei/disconf](https://github.com/Leo-Lei/disconf)
