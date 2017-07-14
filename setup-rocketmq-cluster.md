@@ -1,6 +1,6 @@
 ---
 layout: post
-title: RocketMQ
+title: Setup RocketMQ Cluster
 date: 2017-07-07 20:05:00
 tags:
 - docker
