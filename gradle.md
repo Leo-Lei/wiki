@@ -33,14 +33,6 @@ repositories {
 dependencies {
     testCompile 'junit:junit:4.12'
 }
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
- 
-artifacts {
-    archives sourcesJar
-}
 //发布构件
 uploadArchives{
 	repositories{
