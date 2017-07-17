@@ -9,6 +9,10 @@ description: elk
 ---
 
 
+|                     command                    |                      Desc                      |
+| ---------------------------------------------- | ---------------------------------------------- |
+| `curl 'localhost:9200/_cat/indices?v'`         | 查看所有elk索引                                  |
+| `curl 'localhost:9200/_cat/indices?v'`         | 查看所有elk索引                                  |
 
 
 
