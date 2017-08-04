@@ -71,7 +71,7 @@ public class MQConfiguration {
 
 
 
-|      annotation     |                                                                                 |
+|      annotation     |                            desc                                                 |
 | ------------------- | ------------------------------------------------------------------------------- |
 | `@Primary`          | 在@Autowired的时候，如果一个type有多个实现，可以通过@Primary，告诉Spring优先选择该组件。  |
 
