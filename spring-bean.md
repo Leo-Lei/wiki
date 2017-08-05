@@ -65,3 +65,39 @@ public class DefaultServiceLocator {
     <bean id="foo" class="x.y.Foo"/>
 </beans>
 ```
+# xml文件，使用setter-based依赖注入
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- setter injection using the nested ref element -->
+    <property name="beanOne">
+        <ref bean="anotherExampleBean"/>
+    </property>
+
+    <!-- setter injection using the neater ref attribute -->
+    <property name="beanTwo" ref="yetAnotherBean"/>
+    <property name="integerProperty" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+```java
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+    private YetAnotherBean beanTwo;
+    private int i;
+
+    public void setBeanOne(AnotherBean beanOne) {
+        this.beanOne = beanOne;
+    }
+
+    public void setBeanTwo(YetAnotherBean beanTwo) {
+        this.beanTwo = beanTwo;
+    }
+
+    public void setIntegerProperty(int i) {
+        this.i = i;
+    }
+}
+```
