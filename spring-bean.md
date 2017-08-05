@@ -107,6 +107,6 @@ public class ExampleBean {
 <bean name="not.lazy" class="com.foo.AnotherBean"/>
 ```
 当spring的ApplicationContext启动后，如果没有lazy-init的单例的bean，会立即被创建。如果有lazy-init，会在第一次被请求的时候被创建。大部分的bean都不是lazy-init的，可以尽快的发现spring bean的配置上的错误，比如某个bean没有被注入。
-
+> 如果一个lazy-init的bean是另一个单例的非lazy-init的bean的依赖，spring的ApplicationContext启动时，也会立即创建lazy-init的bean。因为spring必须要配置单例的bean的依赖。
 
 
