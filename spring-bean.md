@@ -51,3 +51,4 @@ public class DefaultServiceLocator {
     }
 }
 ```
+> 一个factory bean可以有多个factory method。
