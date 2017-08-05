@@ -101,3 +101,12 @@ public class ExampleBean {
     }
 }
 ```
+# lazy init
+```xml
+<bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/>
+<bean name="not.lazy" class="com.foo.AnotherBean"/>
+```
+当spring的ApplicationContext启动后，如果没有lazy-init的bean，会立即被创建。如果有lazy-init，会在第一次被请求的时候被创建。大部分的bean都不是lazy-init的，可以尽快的发现spring bean的配置上的错误，比如某个bean没有被注入。
+
+
+
