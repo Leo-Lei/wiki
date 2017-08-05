@@ -56,12 +56,12 @@ public class DefaultServiceLocator {
 # 为bean指定constructor-arg
 ```xml
 <beans>
-    <bean id="foo" class="x.y.Foo">
-        <constructor-arg ref="bar"/>
-        <constructor-arg ref="baz"/>
+    <bean id="exampleBean" class="examples.ExampleBean">
+        <constructor-arg name="years" value="7500000"/>
+        <constructor-arg name="ultimateAnswer" value="42"/>
+        <constructor-arg name="foo" ref="foo"/>
     </bean>
 
-    <bean id="bar" class="x.y.Bar"/>
-    <bean id="baz" class="x.y.Baz"/>
+    <bean id="foo" class="x.y.Foo"/>
 </beans>
 ```
