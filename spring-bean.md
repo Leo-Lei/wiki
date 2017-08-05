@@ -52,3 +52,16 @@ public class DefaultServiceLocator {
 }
 ```
 > 一个factory bean可以有多个factory method。
+
+# 为bean指定constructor-arg
+```xml
+<beans>
+    <bean id="foo" class="x.y.Foo">
+        <constructor-arg ref="bar"/>
+        <constructor-arg ref="baz"/>
+    </bean>
+
+    <bean id="bar" class="x.y.Bar"/>
+    <bean id="baz" class="x.y.Baz"/>
+</beans>
+```
