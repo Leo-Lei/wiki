@@ -25,3 +25,8 @@ description: Java NIO
 通过Selector可以在一个线程中处理多个Channel，且是非阻塞的。    
 向Selector注册一个或多个Channel，注册的时候，提供一些Selector需要监听的事件。
 
+
+
+
+# Buffer
+
