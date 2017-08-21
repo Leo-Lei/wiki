@@ -12,6 +12,6 @@ description: Lucene
 
 |                type            |                                                                           |
 | ------------------------------ | ------------------------------------------------------------------------- |
-| `Field.Index.ANALYZED`         | 建立索引，并进行分词                                                         |
-| `Field.Index.NOT_ANALYZED`     | 建立索引，当不进行分词。即不使用analyzer分析，将整体作为一个token，常用于精确匹配    |
+| `Field.Index.ANALYZED`         | 建立索引，并进行分词                                                          |
+| `Field.Index.NOT_ANALYZED`     | 建立索引，当不进行分词。即不使用analyzer分析，作为一个整体被搜索，不能进行部分搜索     |
 
