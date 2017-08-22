@@ -24,6 +24,10 @@ redemptionPeriod
 clientTransferProhibited
 
 
+## 1. 确认Route 53 支持待转移的顶级域名
+## 2. 转移DNS服务到Route 53
+
+
 
 
 
