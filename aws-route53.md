@@ -32,3 +32,8 @@ clientTransferProhibited
 
 
 
+
+
+# Resources
+[http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html](http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html)
+[http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/MigratingDNS.html](http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/MigratingDNS.html)
