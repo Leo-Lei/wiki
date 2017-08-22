@@ -34,6 +34,16 @@ clientTransferProhibited
 
 
 
+# S3 + Route 53实现自定义域托管静态站点
+
+在S3上创建一个存储桶，将其托管为一个静态站点，这样，S3会为存储桶生成一个终端节点，类似于：
+`http://www.example.com.s3-website-us-west-2.amazonaws.com/#/`。在浏览器中就可以通过该url来访问静态站点了。
+
+
+
+
+
+
 # Resources
 [http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html](http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html)
 [http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/MigratingDNS.html](http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/MigratingDNS.html)        
