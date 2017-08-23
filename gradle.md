@@ -10,24 +10,23 @@ categories:
 description: The tutoria will show you how to use Gradle to build your project.
 ---
 
-
-
-
 |                    option                    |   desp                           | 
 | -------------------------------------------- | -------------------------------- | 
 | `-q`                                         | 关闭一些task打印的log              | 
 
 
-显示build相关信息
+显示build相关信息    
+
 |                    command                                       |   desp                           | 
 | ---------------------------------------------------------------- | -------------------------------- | 
 | `gradle -q projects`                                             | 列出所有项目                       | 
-| `gradle tasks`                                                   | 列出所有task                      |
-| `gradle help --task libs`                                        | 显示task的详细信息                 |
-| `gradle dependencies`                                            | 显示依赖                          |
+| `gradle tasks`                                                   | 列出所有task                       |
+| `gradle help --task libs`                                        | 显示task的详细信息                  |
+| `gradle dependencies`                                            | 显示依赖                           |
 
 
 构建相关的命令
+
 |                    command                                       |   desp                           | 
 | ---------------------------------------------------------------- | -------------------------------- | 
 | `gradle -q webapp:dependencyInsight --dependency groovy`         | 查看某一个特定依赖                  | 
