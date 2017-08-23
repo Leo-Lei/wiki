@@ -11,11 +11,35 @@ description: The tutoria will show you how to use Gradle to build your project.
 ---
 
 
+
+
+|                    option                    |   desp                           | 
+| -------------------------------------------- | -------------------------------- | 
+| `-q`                                         | 关闭一些task打印的log              | 
+
+
+
+
+
+
+
 |                    command                                       |   desp                           | 
 | ---------------------------------------------------------------- | -------------------------------- | 
 | `gradle -q webapp:dependencyInsight --dependency groovy`         | 查看某一个特定依赖                  | 
 | `gradle build -x test`                                           | skip test                        |
 | `gradle build -Pfoo=bar`                                         | 指定自定义参数                     |
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
