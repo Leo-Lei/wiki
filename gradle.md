@@ -17,13 +17,14 @@ description: The tutoria will show you how to use Gradle to build your project.
 
 显示build相关信息    
 
-|                    command                                       |   desp                               | 
-| ---------------------------------------------------------------- | ------------------------------------ | 
-| `gradle -q projects`                                             | 列出所有项目                           | 
-| `gradle tasks`                                                   | 列出所有task                           |
-| `gradle help --task libs`                                        | 显示task的详细信息                      |
-| `gradle dependencies`                                            | 显示root project的依赖                 |
-| `gradle api:dependencies`                                        | 显示api project的依赖                  |
+|                    command                                       |   desp                                     | 
+| ---------------------------------------------------------------- | ------------------------------------------ | 
+| `gradle -q projects`                                             | 列出所有项目                                 | 
+| `gradle tasks`                                                   | 列出所有task                                |
+| `gradle help --task libs`                                        | 显示task的详细信息                           |
+| `gradle dependencies`                                            | 显示root project的依赖                      |
+| `gradle api:dependencies`                                        | 显示api project的依赖                       |
+| `gradle api:dependencies -- configuration testCompile`           | 显示api project的依赖,只显示testCompile的    |
 
 
 构建相关的命令
