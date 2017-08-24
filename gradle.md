@@ -25,13 +25,13 @@ description: The tutoria will show you how to use Gradle to build your project.
 | `gradle dependencies`                                            | 显示root project的依赖                      |
 | `gradle api:dependencies`                                        | 显示api project的依赖                       |
 | `gradle api:dependencies -- configuration testCompile`           | 显示api project的依赖,只显示testCompile的    |
+| `gradle -q webapp:dependencyInsight --dependency groovy`         | 查看某一个特定依赖                           | 
 
 
 构建相关的命令
 
 |                    command                                       |   desp                           | 
 | ---------------------------------------------------------------- | -------------------------------- | 
-| `gradle -q webapp:dependencyInsight --dependency groovy`         | 查看某一个特定依赖                  | 
 | `gradle build -x test`                                           | skip test                        |
 | `gradle build -Pfoo=bar`                                         | 指定自定义参数                     |
 
