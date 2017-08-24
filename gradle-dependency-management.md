@@ -22,6 +22,8 @@ repositories {
 dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
     testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile 'org.hibernate:hibernate-core:3.6.7.Final'
+    compile('org.hibernate:hibernate-core:3.6.7.Final')
 }
 ```
 
