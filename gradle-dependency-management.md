@@ -11,10 +11,19 @@ description: The tutoria will show you how to use Gradle to build your project.
 ---
 
 
+# 声明依赖
+```groovy
+apply plugin: 'java'
 
+repositories {
+    mavenCentral()
+}
 
-
-
+dependencies {
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+```
 
 
 # Gradle发布构件
