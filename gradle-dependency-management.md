@@ -16,7 +16,9 @@ description: The tutoria will show you how to use Gradle to build your project.
 apply plugin: 'java'
 
 repositories {
-    mavenCentral()
+    mavenCentral()       // 使用maven中央仓库
+    jcenter()            // 使用jcenter仓库
+    maven { url "http://100.50.36.60:8087/nexus/content/groups/public/" }
 }
 
 dependencies {
@@ -26,6 +28,10 @@ dependencies {
     compile('org.hibernate:hibernate-core:3.6.7.Final')
 }
 ```
+
+
+
+
 
 
 # Gradle发布构件
