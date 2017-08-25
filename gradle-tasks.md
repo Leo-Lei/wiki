@@ -10,6 +10,15 @@ categories:
 description: The tutoria will show you how to use Gradle to build your project.
 ---
 
+构建的一些参数
+
+|                    option                                        |   desp                                       | 
+| ---------------------------------------------------------------- | -------------------------------------------- | 
+| `gradle build -x test`                                           | skip test                                    |
+| `gradle build -Pfoo=bar`                                         | 指定自定义参数                                  |
+| `gradle --debug build`                                           | 打印执行task时的debug信息                       |
+| `gradle --rerun-tasks build`                                     | 强制执行task，gradle会skip掉up-to-date的task    |
+
 
 # Tasks
 
