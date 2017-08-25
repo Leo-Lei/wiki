@@ -63,18 +63,18 @@ jacocoTestCoverageVerification {
 ```bash
 gradle --rerun-tasks test jacocoTestReport
 ```
-> jacocoTestReport不会随着build这个task一起执行，需要单独执行
-> 添加`--rerun-tasks`是为了让Gradle强制执行task，Gradle默认会跳过up-to-date的task
-> 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestReport这个task
+> jacocoTestReport不会随着build这个task一起执行，需要单独执行            
+> 添加`--rerun-tasks`是为了让Gradle强制执行task，Gradle默认会跳过up-to-date的task               
+> 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestReport这个task          
 
 
 ### 检查单元测试覆盖率是否达标
 ```bash
 gradle --rerun-tasks test jacocoTestCoverageVerification
 ```
-> `jacocoTestCoverageVerification`不会随着`build`这个task一起执行，需要单独执行
-> 添加`--rerun-tasks`是为了让Gradle强制执行task，Gradle默认会跳过up-to-date的task
-> 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestCoverageVerification这个task
+> `jacocoTestCoverageVerification`不会随着`build`这个task一起执行，需要单独执行              
+> 添加`--rerun-tasks`是为了让Gradle强制执行task，Gradle默认会跳过up-to-date的task                
+> 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestCoverageVerification这个task             
 
 
 ### 多模块项目使用jacoco
