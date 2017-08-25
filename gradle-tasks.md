@@ -35,3 +35,36 @@ I'm Gradle
 ```
 
 
+
+### 向已存在的task添加行为
+```groovy
+task hello {
+    doLast {
+        println 'Hello Earth'
+    }
+}
+hello.doFirst {
+    println 'Hello Venus'
+}
+hello.doLast {
+    println 'Hello Mars'
+}
+hello {
+    doLast {
+        println 'Hello Jupiter'
+    }
+}
+```
+
+Output:
+
+```groovy
+> gradle -q hello
+Hello Venus
+Hello Earth
+Hello Mars
+Hello Jupiter
+```
+
+
+
