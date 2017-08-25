@@ -11,7 +11,8 @@ description: The tutoria will show you how to use Gradle to build your project.
 ---
 
 # 环境
-* Gradle版本4.1(Gradle 2.X测试过是不能使用该插件的)
+* Gradle版本4.1
+> Gradle 2.14.1测试过是不能使用该插件的
 
 
 # build.gradle
