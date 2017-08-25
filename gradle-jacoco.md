@@ -77,3 +77,10 @@ gradle --rerun-tasks test jacocoTestCoverageVerification
 > 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestCoverageVerification这个task
 
 
+### 多模块项目使用jacoco
+多模块的project，如果在根目录下执行`jacocoTestCoverageVerification`的task，不会有任何效果，因为根项目下没有java类，所以单元测试覆盖率肯定不会失败的。    
+需要在各个子项目中添加jacoco插件。
+
+
+
+
