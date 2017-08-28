@@ -11,11 +11,11 @@ description: docker
 
 # 域名级别
 
-|   Level          |              Desc                                        |
-| ---------------- | -------------------------------------------------------- |
-| 顶级域名          | `.com`,`.net`,`.cn`,gov.cn等为顶级域名                      |
-| 一级域名          | abc.com,example.cn,beijing.gov.cn等为一级域名               |
-| 二级域名          | www.abc.com,news.example.cn,www.beijing.gov.cn为二级域名    |
+|   Level          |              Desc                                                 |
+| ---------------- | ----------------------------------------------------------------- |
+| 顶级域名          | `.com`,`.net`,`.cn`,gov.cn等为顶级域名                              |
+| 一级域名          | `abc.com`,`example.cn`,`beijing.gov.cn`等为一级域名                 |
+| 二级域名          | `www.abc.com`,`news.example.cn`,`www.beijing.gov.cn`为二级域名      |
 
 
 
