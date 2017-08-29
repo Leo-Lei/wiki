@@ -15,7 +15,7 @@ description: AWS Route 53
 1. 在S3上创建存储桶，存储桶的名字必须是和域名一样，是console.abc.com。
 2. 将静态站点的文件都上传至S3的console.abc.com存储桶中
 3. 设置console.abc.com存储桶可以公共读
-4. 编辑console.abc.com存储桶的属性，设置静态站点
+4. 编辑console.abc.com存储桶的属性，启动静态站点托管功能。
 5. 在Route 53上建立一个域abc.com。AWS会自动为该域创建一些DNS服务器。
 6. 在Route 53上建立一个A记录，alias选择Yes，alias type选择S3上对应的存储桶。
 7. 进入aliyun控制台，为abc.com添加一个NS记录，记录值指向AWS的Route 53的DNS服务器地址。
