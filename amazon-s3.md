@@ -19,6 +19,7 @@ description: AWS Route 53
 5. 在Route 53上建立一个域abc.com。AWS会自动为该域创建一些DNS服务器。
 6. 在Route 53上建立一个A记录，alias选择Yes，alias type选择S3上对应的存储桶。
 7. 进入aliyun控制台，为abc.com添加一个NS记录，记录值指向AWS的Route 53的DNS服务器地址。
+8. 等待几分钟，让改动生效，然后在浏览器中输入console.abc.com就可以访问托管在Route53上的静态站点了
 
 # Resources
 [http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html](http://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html)
