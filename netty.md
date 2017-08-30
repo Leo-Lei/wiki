@@ -34,6 +34,18 @@ description: The post will introduce a text editor Atom.
 这是一个特殊的Handler，功能是初始化多个Handler。handler()和childHandler()方法并不能多次调用以达到增加多个Handler的目的，所以引入了ChannelInitializer。
 
 
+```java
+b.childHandler(new ChannelInitializer<SocketChannel>() {
+         @Override
+         public void initChannel(SocketChannel ch) throws Exception {
+             ChannelPipeline p = ch.pipeline();
+             p.addLast(new DecoderHandler());   // 解码处理器
+             p.addLast(new EncoderHandler());   // 编码处理器
+             p.addLast(threadPool, new ComputeWithSqlHandler());   // 附带SQL查询的计算
+         }
+    });
+```
+
 
 
 
