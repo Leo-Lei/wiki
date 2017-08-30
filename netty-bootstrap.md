@@ -70,8 +70,8 @@ public class DiscardServer {
     }
 
     public void run() throws Exception{
-        EventLoopGroup bossGroup = new NioEventLoopGroup();               // main Reactor，接收客户端请求
-        EventLoopGroup workerGroup = new NioEventLoopGroup();             // sub Reactor，处理客户端请求 
+        EventLoopGroup bossGroup = new NioEventLoopGroup();         // main Reactor，接收客户端请求
+        EventLoopGroup workerGroup = new NioEventLoopGroup();       // sub Reactor，处理客户端请求 
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup,workerGroup)
