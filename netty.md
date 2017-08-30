@@ -16,6 +16,17 @@ description: The post will introduce a text editor Atom.
 # ServerBootStrap
 为了帮助用户快速构建基于Netty的服务，Netty提供了两个启动器ServerBootstrap和Bootstrap，分别用于启动服务端和客户端程序。
 
+|          method                 |                                                  |
+| ------------------------------- | ------------------------------------------------ |
+| group(EventLoopGroup...)        | 指定一个或多个Reactor                              |
+
+
+
+
+
+
+
+
 
 ```java
 package com.leibangzhu.netty.sample;
