@@ -10,11 +10,11 @@ description: The post will introduce a text editor Atom.
 
 
 
-# NioEventLoopGroup
-代表一个线程池来处理客户端发起的IO请求。
+# EventLoopGroup
+是Netty实现的线程池接口。一般的应用中都会使用两个线程池：bossGroup和workderGroup，分别对应Reactor模式中的mainReactor和subReactor，其中boss专门用于接收客户端连接，workder用于处理IO事件。
 
 # ServerBootStrap
-一个工具类，来创建一个Server
+为了帮助用户快速构建基于Netty的服务，Netty提供了两个启动器ServerBootstrap和Bootstrap，分别用于启动服务端和客户端程序。
 
 
 ```java
