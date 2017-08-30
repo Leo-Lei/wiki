@@ -51,12 +51,12 @@ public class DiscardServer {
                             ch.pipeline().addLast(new DiscardServerHandler());
                         }
              })
-             .option(ChannelOption.SO_BACKLOG,128)
-             .childOption(ChannelOption.SO_KEEPALIVE,true);
-            
-            ChannelFuture f = b.bind(port).sync();
-
-            f.channel().closeFuture().sync();
+             .option(ChannelOption.SO_BACKLOG,128)             // 设置TCP参数
+             .childOption(ChannelOption.SO_KEEPALIVE,true);
+            // 绑定到本地端口等待客户端连接
+            ChannelFuture f = b.bind(port).sync();
+            // 等待接收客户端连接的Channel被关闭
+            f.channel().closeFuture().sync();
         }finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
