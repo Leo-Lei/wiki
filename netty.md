@@ -27,6 +27,16 @@ description: The post will introduce a text editor Atom.
 ### handler
 默认情况下，mainReactor中已经添加了acceptor处理器，所以无需再指定。
 
+
+# Handler
+
+### ChannelInitializer
+这是一个特殊的Handler，功能是初始化多个Handler。handler()和childHandler()方法并不能多次调用以达到增加多个Handler的目的，所以引入了ChannelInitializer。
+
+
+
+
+
 # Netty的demo
 
 ```java
