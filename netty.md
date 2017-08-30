@@ -16,11 +16,16 @@ description: The post will introduce a text editor Atom.
 # ServerBootStrap
 为了帮助用户快速构建基于Netty的服务，Netty提供了两个启动器ServerBootstrap和Bootstrap，分别用于启动服务端和客户端程序。
 
-|          method                 |                      Desc                        |
-| ------------------------------- | ------------------------------------------------ |
-| group(EventLoopGroup...)        | 指定一个或多个Reactor                              |
-| channel(Channel)                | 指定一个Channel工厂                                |
+|          method                 |                      Desc                    |
+| ------------------------------- | -------------------------------------------- |
+| group(EventLoopGroup...)        | 指定一个或多个Reactor                          |
+| channel(Channel)                | 指定一个Channel工厂                            |
+| option(Key,Value)               | 指定TCP相关的参数以及Netty自定义的参数            |
+| childHandler()                  | 指定subReactor中的处理器                       |
+| handler()                       | 指定mainReactor的处理器                        |
 
+### handler
+默认情况下，mainReactor中已经添加了acceptor处理器，所以无需再指定。
 
 # Netty的demo
 
