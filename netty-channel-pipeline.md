@@ -87,3 +87,22 @@ public class InboundHandlerA implements ChannelInboundHandler {
  
 
 
+
+
+
+
+# 使用自定义线程池来执行比较耗时的Handler
+```java
+static final EventExecutorGroup group = new DefaultEventExecutorGroup(16);
+...
+ChannelPipeline pipeline = ch.pipeline();
+// 简单非阻塞业务，可以使用I/O线程执行
+pipeline.addLast("decoder", new MyProtocolDecoder());
+pipeline.addLast("encoder", new MyProtocolEncoder());
+// 复杂耗时业务，使用新的线程池
+pipeline.addLast(group, "handler", new MyBusinessLogicHandler());
+```
+Netty的原则是不阻塞I/O线程。I／O线程即我们在BootStrap中指定的workerGroup，也即Reactor模式中的subReactor。如果handler中车处理比较耗时，应该使用一个自定义的线程池来处理handler。
+
+
+
