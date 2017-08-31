@@ -22,6 +22,8 @@ description: The post will introduce a text editor Atom.
 
 ### getter方法
 
+|          method                     |                      Desc                    |
+| ----------------------------------- | -------------------------------------------- |
 | EventLoop eventLoop()               | 获取注册到的EventLoop                          |
 | Channel parent()                    | 父类channel                                   |
 
