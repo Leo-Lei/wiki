@@ -52,3 +52,38 @@ public class InboundHandlerA implements ChannelInboundHandler {
     }
 ```
 
+
+# 入站事件
+
+入站事件一般由I／O线程触发。
+
+|             event             |                                           |
+| ----------------------------- | ----------------------------------------- |
+| ChannelRegistered()           | channel注册到EventLoop                     |
+| ChannelActive()               | channel激活                                |
+| ChannelRead(Object)           | channel读取到数据                           |
+| ChannelReadComplete           | channel读取数据完毕                         |
+| ExceptionCaught(Throwable)    | 捕获到异常                                  |
+| UserEventTriggered(Object)    | 用户自定义事件                               |
+| ChannelWritablilityChanged()  | channel可写性改变，由写高低位控制              |
+| ChannelInactive()             | Channel不再激活                             |
+| ChannelUnregistered()         | channel从EventLoop中注销                    |
+
+
+# 出站事件
+
+出站事件一般由用户触发
+
+|                          event                          |                                           |
+| ------------------------------------------------------- | ----------------------------------------- |
+| bind(SocketAddress, ChannelPromise)                     | 绑定到本地地址                              |
+| connect(SocketAddress, SocketAddress, ChannelPromise)   | 连接一个远程机器                             |
+| write(Object, ChannelPromise)                           | 写数据，写到Netty出站缓冲区                   |
+| flush()                                                 | flush数据，实际执行底层写                     |
+| read()                                                  | 读数据                                      |
+| disconnect(ChannelPromise)                              | 断开连接                                     |
+| close(ChannelPromise)                                   | 关闭channel                                 |
+| deregister(ChannelPromise)                              | 从EventLoop注销channel                      |
+ 
+
+
