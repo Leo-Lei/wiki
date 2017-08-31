@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Netty BootStrap
+title: Netty Channel
 date: 2016-11-16 10:20:00
 tags:
 - Atom
