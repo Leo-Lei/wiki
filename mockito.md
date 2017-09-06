@@ -8,6 +8,15 @@ categories: Java
 description: mockito
 ---
 
+Mockito可以mock:    
+* public方法
+
+
+Mockito不能mock:        
+* static方法
+* final方法
+* private方法
+
 
 # 创建Mock对象
 ```java
