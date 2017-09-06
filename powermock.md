@@ -8,6 +8,11 @@ categories: Java
 description: PowerMock
 ---
 
+环境：    
+* Mockito 2.8.x 
+* PowerMock 1.7.1 
+* Junit 4.4及以上
+
 
 ```groovy
 dependencies {
