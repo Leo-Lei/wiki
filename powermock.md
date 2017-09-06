@@ -75,8 +75,8 @@ public class FooTest {
     @Test
     @PrepareForTest(Bar.class)
     public void test(){
-        Bar mockBar = PowerMockito.mock(Bar.class);
-        Foo foo = new Foo();
+        Bar mockBar = PowerMockito.mock(Bar.class);    // 使用PowerMockito.mock(),而不是原生的mockito的mock方法
+        Foo foo = new Foo();
         PowerMockito.when(mockBar.isAlive()).thenReturn(true);
         System.out.println(foo.isAlive(mockBar));
     }
