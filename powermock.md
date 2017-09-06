@@ -118,6 +118,41 @@ public class FooTest {
 }
 ```
 
+# mock private方法
+mock private方法的时候，我们会创建一个真实的对象，然后希望mock它的某些private方法。        
+```java
+public class Foo {
+    public boolean isAlive0(){
+        return isAlive();
+    }
+
+    private boolean isAlive(){
+        return false;
+    }
+}
+```
+
+```java
+@RunWith(PowerMockRunner.class)
+public class FooTest {
+
+    @Test
+    @PrepareForTest(Foo.class)
+    public void test() throws Exception {
+        Foo foo = PowerMockito.spy(new Foo());
+        PowerMockito.when(foo,"isAlive").thenReturn(true);
+        boolean b = foo.isAlive0();
+        System.out.println(b);
+        PowerMockito.verifyPrivate(foo,times(1)).invoke("isAlive");
+    }
+}
+```
+
+
+
+
+
+
 
 
 
