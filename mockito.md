@@ -184,3 +184,22 @@ public void test(){
 }
 ```
 
+
+# 同一个方法执行多次时，返回不同的值
+```java
+IHelloService helloService = mock(IHelloService.class);
+
+when(helloService.sayHello())
+        .thenReturn("11")
+        .thenReturn("22")
+        .thenReturn("33");
+
+System.out.println(helloService.sayHello());
+System.out.println(helloService.sayHello());
+System.out.println(helloService.sayHello());
+```
+
+
+
+
+
