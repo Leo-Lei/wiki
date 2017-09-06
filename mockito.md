@@ -198,7 +198,12 @@ System.out.println(helloService.sayHello());
 System.out.println(helloService.sayHello());
 System.out.println(helloService.sayHello());
 ```
-
+输出:        
+```text
+11
+22
+33
+```
 
 
 
