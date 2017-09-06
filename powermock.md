@@ -22,3 +22,34 @@ dependencies {
     testCompile("org.powermock:powermock-api-mockito2:1.7.1")
 }
 ```
+
+
+# mock方法内部new出来的对象
+
+```java
+public class FileFinder {
+    public boolean exists(String path){
+        File file = new File(path);
+        return file.exists();
+    }
+}
+```
+
+```java
+@RunWith(PowerMockRunner.class)
+public class FileFinderTest {
+
+    @Test
+    @PrepareForTest(FileFinder.class)
+    public void test() throws Exception {
+        File mockFile = mock(File.class);
+        when(mockFile.exists()).thenReturn(true);
+        FileFinder fileFinder = new FileFinder();
+        PowerMockito.whenNew(File.class).withArguments("bbb").thenReturn(mockFile);
+        //PowerMockito.when(mockFile.exists()).thenReturn(true);
+        boolean b = fileFinder.exists("bbb");
+        System.out.println(b);
+    }
+}
+```
+
