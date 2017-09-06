@@ -83,3 +83,43 @@ public class FooTest {
 }
 
 ```
+
+# mock static方法
+```java
+public class Foo {
+    public boolean isAlive(){
+        return Bar.isAlive();
+    }
+}
+```
+
+```java
+public class Bar {
+    public static boolean isAlive(){
+        // do something
+        return false;
+    }
+}
+```
+
+```java
+@RunWith(PowerMockRunner.class)
+public class FooTest {
+
+    @Test
+    @PrepareForTest(Bar.class)
+    public void test(){
+        //Bar mockBar = PowerMockito.mock(Bar.class);
+        Foo foo = new Foo();
+        PowerMockito.mockStatic(Bar.class);
+        PowerMockito.when(Bar.isAlive()).thenReturn(true);
+        System.out.println(foo.isAlive());
+    }
+}
+```
+
+
+
+
+
+
