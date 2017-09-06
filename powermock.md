@@ -17,8 +17,8 @@ description: PowerMock
 ```groovy
 dependencies {
     testCompile("junit:junit:4.11")
-    testCompile("org.mockito:mockito-core:2.8.47)
-    testCompile("org.powermock:powermock-module-junit4:1.7.1)
-    testCompile("org.powermock:powermock-api-mockito2:1.7.1)
+    testCompile("org.mockito:mockito-core:2.8.47")
+    testCompile("org.powermock:powermock-module-junit4:1.7.1")
+    testCompile("org.powermock:powermock-api-mockito2:1.7.1")
 }
 ```
