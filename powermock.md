@@ -53,3 +53,33 @@ public class FileFinderTest {
 }
 ```
 
+
+# mock final方法
+```java
+public class Foo {
+    public boolean isAlive(Bar bar){
+        return bar.isAlive();
+    }
+}
+
+public class Bar {
+    public final boolean isAlive(){
+        // do something
+        return false;
+    }
+}
+
+@RunWith(PowerMockRunner.class)
+public class FooTest {
+
+    @Test
+    @PrepareForTest(Bar.class)
+    public void test(){
+        Bar mockBar = PowerMockito.mock(Bar.class);
+        Foo foo = new Foo();
+        PowerMockito.when(mockBar.isAlive()).thenReturn(true);
+        System.out.println(foo.isAlive(mockBar));
+    }
+}
+
+```
