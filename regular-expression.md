@@ -8,6 +8,14 @@ categories: Linux
 description: The tutoria will describe the useage of Linux.
 ---
 
+
+
+|          expression        |                                                   |
+| -------------------------- | ------------------------------------------------- |
+| `^(?!ab)[a-z]+$`           | 匹配不以ab开头的                                    |
+
+
+
 # 1. Metacharacter
 
 | Code    |             Description                       |      Syntax                            |
