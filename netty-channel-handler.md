@@ -16,8 +16,15 @@ description: The post will introduce a text editor Atom.
 | ----------------------------------- | -------------------------------------------- |
 | ChannelInboundHandler               | 拦截和处理入站事件                              |
 | ChannelOutboundHandler              | 拦截和处理出站事件                              |
+| ChannelInboundHandlerAdaptor        |                                              |
+| SimpleChannelInboundHandler         |                                              |
 
 
 
+
+# ChannelInboundHandlerAdaptor
+
+
+# SimpleChannelInboundHandler
 
 
