@@ -51,9 +51,9 @@ public static <T> byte[] serialize(T obj) {
 public static <T> T deserialize(byte[] data, Class<T> cls) {
     try {
         T message = objenesis.newInstance(cls);        //使用objenesis实例化一个类的对象
-        Schema<T> schema = getSchema(cls);             
-        ProtostuffIOUtil.mergeFrom(data, message, schema);
-        return message;
+        Schema<T> schema = getSchema(cls);             //通过对象的类构建对应的schema
+        ProtostuffIOUtil.mergeFrom(data, message, schema);   //使用给定的schema将byte数组和对象合并，并返回
+        return message;
     } catch (Exception e) {
         throw new IllegalStateException(e.getMessage(), e);
     }
