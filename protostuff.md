@@ -36,12 +36,12 @@ Protostuff主页:[http://www.protostuff.io/](http://www.protostuff.io/)
 ```java
 @SuppressWarnings("unchecked")
 public static <T> byte[] serialize(T obj) {
-    Class<T> cls = (Class<T>) obj.getClass();
-    LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
-    try {
-        Schema<T> schema = getSchema(cls);
-        return ProtostuffIOUtil.toByteArray(obj, schema, buffer);
-    } catch (Exception e) {
+    Class<T> cls = (Class<T>) obj.getClass();            //获得对象的Class
+    LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);  //使用LinkedBuffer分配一块默认大小的buff空间
+    try {
+        Schema<T> schema = getSchema(cls);               //通过对象的Class构建对应的Schema
+        return ProtostuffIOUtil.toByteArray(obj, schema, buffer);  //使用给定的Schema将对象序列化为一个byte数组
+    } catch (Exception e) {
         throw new IllegalStateException(e.getMessage(), e);
     } finally {
         buffer.clear();
@@ -50,8 +50,8 @@ public static <T> byte[] serialize(T obj) {
 
 public static <T> T deserialize(byte[] data, Class<T> cls) {
     try {
-        T message = objenesis.newInstance(cls);
-        Schema<T> schema = getSchema(cls);
+        T message = objenesis.newInstance(cls);        //使用objenesis实例化一个类的对象
+        Schema<T> schema = getSchema(cls);             
         ProtostuffIOUtil.mergeFrom(data, message, schema);
         return message;
     } catch (Exception e) {
