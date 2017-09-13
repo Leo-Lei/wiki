@@ -78,7 +78,8 @@ uploadArchives{
 
 
 
-
+# Gradle和IDEA版本
+遇到过比较旧版本的IDEA对Gradle支持不好的情况。建议使用最新版本的IDEA。
 
 # Reference
 [https://docs.gradle.org/current/userguide/userguide.html](https://docs.gradle.org/current/userguide/userguide.html)
