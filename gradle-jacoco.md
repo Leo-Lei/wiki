@@ -81,12 +81,9 @@ gradle --rerun-tasks test jacocoTestCoverageVerification
 ```bash
 gradle --rerun-tasks test service:jacocoTestCoverageVerification build
 ```
-这样会执行整个项目的test，service项目的jacoco，所有项目的build
+这样会执行整个项目的test，service项目的jacoco，所有项目的build。如果
 
 ### 多模块项目使用jacoco
 多模块的project，如果在根目录下执行`jacocoTestCoverageVerification`的task，不会有任何效果，因为根项目下没有java类，所以单元测试覆盖率肯定不会失败的。          
 需要在各个子项目中添加jacoco插件。
-
-
-
 
