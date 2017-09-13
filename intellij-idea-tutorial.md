@@ -23,3 +23,8 @@ On Mac, open the dmg file, and drag the app file to the `Applicaiton` folder, th
 | Command                             |         Description                                                   |
 | ----------------------------------- | --------------------------------------------------------------------- |
 | `Alt` + `Insert`                    | Auto generate code, for example, constructor function.                |
+
+
+
+# 关掉method parameter hint
+Editor -> Appearance -> Show parameter name hints.
