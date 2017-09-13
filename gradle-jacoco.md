@@ -77,6 +77,11 @@ gradle --rerun-tasks test jacocoTestCoverageVerification
 > 添加`--rerun-tasks`是为了让Gradle强制执行task，Gradle默认会跳过up-to-date的task                
 > 先执行`test`的task是必须的，如果不先执行test，没有测试的源数据，jacoco会跳过jacocoTestCoverageVerification这个task             
 
+如果是多模块项目，比如有api和service两个模块，只有service模块有单元测试，那么可以在项目根目录执行命令:        
+```bash
+gradle --rerun-tasks test service:jacocoTestCoverageVerification build
+```
+这样会执行整个项目的test，service项目的jacoco，所有项目的build
 
 ### 多模块项目使用jacoco
 多模块的project，如果在根目录下执行`jacocoTestCoverageVerification`的task，不会有任何效果，因为根项目下没有java类，所以单元测试覆盖率肯定不会失败的。          
