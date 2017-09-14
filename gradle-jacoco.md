@@ -87,3 +87,5 @@ gradle --rerun-tasks test service:jacocoTestCoverageVerification build
 多模块的project，如果在根目录下执行`jacocoTestCoverageVerification`的task，不会有任何效果，因为根项目下没有java类，所以单元测试覆盖率肯定不会失败的。          
 需要在各个子项目中添加jacoco插件。
 
+# Reference
+[https://docs.gradle.org/4.1/userguide/jacoco_plugin.html](https://docs.gradle.org/4.1/userguide/jacoco_plugin.html)
