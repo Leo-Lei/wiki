@@ -23,10 +23,12 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:get -DartifactId=jersey
 ```
 
 # 3. Maven commands
-| task             |             Description                                       |      Syntax                                |
-| ---------------- | ------------------------------------------------------------- | ------------------------------------------ |
-| clean            | Clean the *target* folder.                                    | `mvn clean`                                |
-| install          | Install artifact(jar or war) to local maven repository.       | `mvn install`                              |
+
+| command                                                 |             Description                                       |                   
+| ------------------------------------------------------- | ------------------------------------------------------------- |
+| `mvn clean`                                             | Clean the *target* folder.                                    |
+| `mvn clean install`                                     | Install artifact(jar or war) to local maven repository.       |
+| `mvn dependency:tree -Dverbose -Dincludes=asm:asm`      | 检查maven依赖树                                                 |
 
 # 4. Maven dependency
 In the pom file, you can specify the dependency.
