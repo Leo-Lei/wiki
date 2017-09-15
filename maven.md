@@ -8,27 +8,20 @@ categories: Java
 description: The tutoria will describe the useage of Maven.
 ---
 
-# 1. Skip unit test
 
-To skip the entire unit test, uses argument `-Dmaven.test.skip=true`.
-
-```bash
-$ mvn install -Dmaven.test.skip=true
-$ mvn package -Dmaven.test.skip=true
-```
-
-# 2. Install component and all dependencied from command line
+# Install component and all dependencied from command line
 ```bash
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:get -DartifactId=jersey-servlet -DgroupId=com.sun.jersey -Dversion=1.19
 ```
 
-# 3. Maven commands
+# Maven commands
 
 | command                                                 |             Description                                       |                   
 | ------------------------------------------------------- | ------------------------------------------------------------- |
 | `mvn clean`                                             | Clean the *target* folder.                                    |
 | `mvn clean install`                                     | Install artifact(jar or war) to local maven repository.       |
 | `mvn dependency:tree -Dverbose -Dincludes=asm:asm`      | 检查maven依赖树                                                 |
+| `mvn install -Dmaven.test.skip=true`                    | 跳过单元测试                                                    |
 
 # 4. Maven dependency
 In the pom file, you can specify the dependency.
