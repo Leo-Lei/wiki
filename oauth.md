@@ -8,3 +8,9 @@ categories: Java
 description: Dubbo
 ---
 
+# OAuth
+* OAuth客户端:
+* 资源拥有方:
+* 验证服务器:
+* 资源服务器:
+
