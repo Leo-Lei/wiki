@@ -258,6 +258,34 @@ export JAVA_OPTS="$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/
 3. 运行/scripts/startup.sh文件
 
 
+### 运行Portal
+1. 将上面生成的zip文件拷贝到服务器，解压
+2. 修改/scripts/startup.sh文件
+修改日志的目录，不然有可能出现没有权限，或目录不存在的错误
+```bash
+## Adjust log dir if necessary
+LOG_DIR=/opt/logs
+```
+3. 运行/scripts/startup.sh文件
+
+### 应用程序使用Client
+1. 添加Maven依赖
+```groovy
+dependencies {
+    compile("com.ctrip.framework.apollo:apollo-client:0.9.0-SNAPSHOT")
+}
+```
+2. 运行应用程序
+在dev环境运行
+```bash
+java -jar -Denv=dev apollo-sample.jar
+```
+
+在pro环境运行
+```bash
+java -jar -Denv=pro apollo-sample.jar
+```
+
 
 
 
