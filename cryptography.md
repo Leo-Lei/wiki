@@ -8,6 +8,15 @@ categories: Text Editor
 description: The post will introduce a text editor Atom.
 ---
 
+
+|                |                |               |
+| -------------- | -------------- | ------------- |            
+| MD5            | 摘要算法        | 不能还原信息    |    
+
+
+
+
+
 # 一些相关的概念
 * 密码学(cryptography)：目的是通过将信息编码使其不可读，从而达到安全性。    
 * 明文(plain text)：发送人、接受人和任何访问消息的人都能理解的消息。    
@@ -20,6 +29,30 @@ description: The post will introduce a text editor Atom.
 * 密钥(key)：只有发送方和接收方理解的消息    
 * 对称密钥加密(Symmetric Key Cryptography)：加密与解密使用相同密钥。    
 * 非对称密钥加密(Asymmetric Key Cryptography)：加密与解密使用不同密钥。    
+
+# 对称加密
+
+
+
+
+# 非对称加密
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### MD5
