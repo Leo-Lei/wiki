@@ -9,7 +9,7 @@ description: The post will introduce a text editor Atom.
 ---
 
 
-|  算法           | 类型           | 是否能还原信息?  |
+|  算法           | 类型           | 是否可逆?  |
 | -------------- | -------------- | -------------- |            
 | MD5            | 摘要算法        |  N             |    
 | RSA            | 非对称加密       | Y             |         
