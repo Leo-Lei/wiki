@@ -61,7 +61,7 @@ tags:
 * 只需要打包一个client的jar，并且需要把这个jar上传到Maven私服中
 
 
-# 集群配置
+# 搭建Apollo集群
 如下是Apollo集群的部署情况：
 
 |    env    |  private ip:port      |  public ip:port     |          jar          |
@@ -76,31 +76,60 @@ tags:
 
 Apollo数据库部署情况：
 
-|     env    |                          jdbc                                            |
-| ---------- | ------------------------------------------------------------------------ |
-| dev        | jdbc:mysql://192.168.4.300:3306/ApolloConfigDB?characterEncoding=utf8    |
-| pro        | jdbc:mysql://172.16.128.200:3306/ApolloConfigDB?characterEncoding=utf8   |
-| dev        | jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8    |
+|     env    |                          jdbc                                            |  user  |         |
+| ---------- | ------------------------------------------------------------------------ | ------ | ------- |
+| dev        | jdbc:mysql://192.168.4.300:3306/ApolloConfigDB?characterEncoding=utf8    | dev    |  dev    |
+| pro        | jdbc:mysql://172.16.128.200:3306/ApolloConfigDB?characterEncoding=utf8   | pro    |  pro    |
+| dev        | jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8    | dev    |  dev    |
 
 
+### 构建dev环境的Config-Service和Admin-Service的JAR包
+1. 下载Apollo源码
+2. 编辑${Apollo}/scripts/build.sh
+```bash
+# apollo config db info
+apollo_config_db_url=jdbc:mysql://192.168.4.300:3306/ApolloConfigDB?characterEncoding=utf8
+apollo_config_db_username=dev
+apollo_config_db_password=dev
 
+# apollo portal db info
+apollo_portal_db_url=jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8
+apollo_portal_db_username=dev
+apollo_portal_db_password=dev
 
+# meta server url, different environments should have different meta server addresses
+dev_meta=http://192.168.4.100:8080
+fat_meta=http://someIp:8080
+uat_meta=http://anotherIp:8080
+pro_meta=http://11.22.33.44:1111
+```
+构建好的文件在如下位置：    
+* apollo-configservice/target/apollo-configservice-0.9.0-SNAPSHOT-github.zip
+* apollo-adminservice/target/apollo-adminservice-0.9.0-SNAPSHOT-github.zip
 
+### 构建pro环境的Config-Service和Admin-Service的JAR包
+1. 下载Apollo源码
+2. 编辑${Apollo}/scripts/build.sh
+```bash
+# apollo config db info
+apollo_config_db_url=jdbc:mysql://172.16.128.200:3306/ApolloConfigDB?characterEncoding=utf8
+apollo_config_db_username=dev
+apollo_config_db_password=dev
 
+# apollo portal db info
+apollo_portal_db_url=jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8
+apollo_portal_db_username=dev
+apollo_portal_db_password=dev
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# meta server url, different environments should have different meta server addresses
+dev_meta=http://192.168.4.100:8080
+fat_meta=http://someIp:8080
+uat_meta=http://anotherIp:8080
+pro_meta=http://11.22.33.44:1111
+```
+构建好的文件在如下位置：    
+* apollo-configservice/target/apollo-configservice-0.9.0-SNAPSHOT-github.zip
+* apollo-adminservice/target/apollo-adminservice-0.9.0-SNAPSHOT-github.zip
 
 
 
