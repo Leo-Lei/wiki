@@ -75,6 +75,7 @@ tags:
 我们选择将Portal部署在dev环境    
 
 Apollo数据库部署情况：
+
 |     env    |                          jdbc                                            |
 | ---------- | ------------------------------------------------------------------------ |
 | dev        | jdbc:mysql://192.168.4.300:3306/ApolloConfigDB?characterEncoding=utf8    |
