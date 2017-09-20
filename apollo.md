@@ -139,7 +139,17 @@ pro_meta=http://11.22.33.44:1111
 
 ### 构建Client的JAR包    
 Client的JAR包是需要上传到Maven私服的，比如Nexus。
-1. 编辑`.m2/settings.xml`文件,添加Nexus私服的相关信息
+在执行上面的build.sh文件时，会执行`mvn clean install`命令，将client的jar包安装到本地的maven仓库，可以自己编辑build.sh文件，将命令改成`mvn clean deploy`，同时在maven的setting.xml文件中配置相应的nexus私服信息。
+
+1. 编辑${Apollo}/build.sh文件，将`mvn clean install`改成`mvn clean deploy`    
+```bash
+echo "==== starting to build client ===="
+
+mvn clean deploy -DskipTests -pl apollo-client -am $META_SERVERS_OPTS
+
+echo "==== building client finished ===="
+```
+2. 编辑`.m2/settings.xml`文件,添加Nexus私服的相关信息
 ```xml
 <servers>
    <server>
@@ -195,6 +205,9 @@ Client的JAR包是需要上传到Maven私服的，比如Nexus。
       </profile>
   </profiles>
 ```
+
+3. 执行build.sh文件          
+build.sh脚本会构建client的 JAR包并上传到maven私服
 
 
 |   network       |          ip:port            |            jar              |        service              |
