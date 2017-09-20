@@ -28,6 +28,14 @@ tags:
 | dev        | jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8    | dev    |  dev    |
 
 
+# 执行数据库
+1. 执行${Apollo}/scripts/sql下的sql文件
+2. 配置PortalConfigDB
+```sql
+use ApolloPortalDB
+update ServerConfig set Value='dev,pro' where `Key`='apollo.portal.envs'
+```
+
 # 构建dev环境的Config-Service和Admin-Service的JAR包
 1. 下载Apollo源码
 2. 编辑${Apollo}/scripts/build.sh
