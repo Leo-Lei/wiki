@@ -1,6 +1,6 @@
 ---
-title: Apollo
-date: 2017-06-09 10:22:23
+title: Setup Apollo Cluster
+date: 2017-06-10 10:22:23
 categories:
 - Music
 tags:
