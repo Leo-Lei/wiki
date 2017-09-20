@@ -285,24 +285,3 @@ java -jar -Denv=dev apollo-sample.jar
 ```bash
 java -jar -Denv=pro apollo-sample.jar
 ```
-
-
-
-
-
-
-
-|   network       |          ip:port            |            jar              |        service              |
-| --------------- | --------------------------- | --------------------------- | --------------------------- |
-| local           | 192.168.4.100:8080          | config-service.jar          | Config Service: 8080        | 
-| local           | 192.168.4.100:8090          | admin-service.jar           | Admin Service: 8090         | 
-| aliyun vpc      | 172.168.128.100:8080        | config-service.jar          | Config Service: 8080        | 
-| aliyun vpc      | 172.168.128.100:8090        | admin-service.jar           | Admin Service: 8090         | 
-| local           | 192.168.4.101:8070          | portal.jar                  | Portal Service: 8070        | 
-
-
-|                |                         url                                           |   user    |   password   |
-| -------------- | --------------------------------------------------------------------- | --------- | ------------ |  
-| local          | jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8     |           |              |
-| vpc            | jdbc:mysql://aliyun.xxx:3306/ApolloConfigDB?characterEncoding=utf8    |           |              |
-| local          | jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8     |           |              |
