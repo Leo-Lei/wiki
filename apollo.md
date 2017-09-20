@@ -209,6 +209,60 @@ echo "==== building client finished ===="
 3. 执行build.sh文件          
 build.sh脚本会构建client的 JAR包并上传到maven私服
 
+### 运行dev环境的Config Service
+1. 将上面生成的zip文件拷贝到服务器，解压
+2. 修改/scripts/startup.sh文件
+修改日志的目录，不然有可能出现没有权限，或目录不存在的错误
+```bash
+## Adjust log dir if necessary
+LOG_DIR=/opt/logs
+```
+3. 运行/scripts/startup.sh文件
+
+### 运行dev环境的Admin Service
+1. 将上面生成的zip文件拷贝到服务器，解压
+2. 修改/scripts/startup.sh文件
+修改日志的目录，不然有可能出现没有权限，或目录不存在的错误
+```bash
+## Adjust log dir if necessary
+LOG_DIR=/opt/logs
+```
+3. 运行/scripts/startup.sh文件
+
+### 运行pro环境的Config Service
+1. 将上面生成的zip文件拷贝到服务器，解压
+2. 修改/scripts/startup.sh文件
+修改日志的目录，不然有可能出现没有权限，或目录不存在的错误
+```bash
+## Adjust log dir if necessary
+LOG_DIR=/opt/logs
+```
+Config Service在向Eureka注册的时候，需要将公网的ip和端口注册进去，而不能是内网的地址，需要设置`eureka.instance.homePageUrl`和`eureka.instance.preferIpAddress`参数    
+```bash
+export JAVA_OPTS="$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/heap_trace.txt -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/ -Deureka.instance.homePageUrl=http://11.22.33.44:1111 -Deureka.instance.preferIpAddress=true"
+```
+3. 运行/scripts/startup.sh文件
+
+### 运行pro环境的Admin Service
+1. 将上面生成的zip文件拷贝到服务器，解压
+2. 修改/scripts/startup.sh文件
+修改日志的目录，不然有可能出现没有权限，或目录不存在的错误
+```bash
+## Adjust log dir if necessary
+LOG_DIR=/opt/logs
+```
+Config Service在向Eureka注册的时候，需要将公网的ip和端口注册进去，而不能是内网的地址，需要设置`eureka.instance.homePageUrl`和`eureka.instance.preferIpAddress`参数    
+```bash
+export JAVA_OPTS="$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/heap_trace.txt -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/ -Deureka.instance.homePageUrl=http://11.22.33.44:2222 -Deureka.instance.preferIpAddress=true"
+```
+3. 运行/scripts/startup.sh文件
+
+
+
+
+
+
+
 
 |   network       |          ip:port            |            jar              |        service              |
 | --------------- | --------------------------- | --------------------------- | --------------------------- |
