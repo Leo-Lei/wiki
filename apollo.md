@@ -72,6 +72,15 @@ tags:
 | pro       | 172.16.128.100:8090   | 11.22.33.44:2222    | admin-service.jar     |
 | dev       | 192.168.4.200:8070    |                     | portal.jar            |
 
+我们选择将Portal部署在dev环境    
+
+Apollo数据库部署情况：
+|     env    |                          jdbc                                            |
+| ---------- | ------------------------------------------------------------------------ |
+| dev        | jdbc:mysql://192.168.4.300:3306/ApolloConfigDB?characterEncoding=utf8    |
+| pro        | jdbc:mysql://172.16.128.200:3306/ApolloConfigDB?characterEncoding=utf8   |
+| dev        | jdbc:mysql://192.168.4.300:3306/ApolloPortalDB?characterEncoding=utf8    |
+
 
 
 
