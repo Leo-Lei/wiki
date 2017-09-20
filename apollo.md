@@ -62,7 +62,7 @@ tags:
 
 
 # 搭建Apollo集群
-如下是Apollo集群的部署情况：
+### JAR部署情况：
 
 |    env    |  private ip:port      |  public ip:port     |          jar          |
 | --------- | --------------------- | ------------------- | --------------------- |
@@ -74,7 +74,7 @@ tags:
 
 我们选择将Portal部署在dev环境    
 
-Apollo数据库部署情况：
+### 数据库部署情况：
 
 |     env    |                          jdbc                                            |  user  |         |
 | ---------- | ------------------------------------------------------------------------ | ------ | ------- |
@@ -103,6 +103,7 @@ fat_meta=http://someIp:8080
 uat_meta=http://anotherIp:8080
 pro_meta=http://11.22.33.44:1111
 ```
+3. 执行${Apollo}/scripts/build.sh文件    
 构建好的文件在如下位置：    
 * apollo-configservice/target/apollo-configservice-0.9.0-SNAPSHOT-github.zip
 * apollo-adminservice/target/apollo-adminservice-0.9.0-SNAPSHOT-github.zip
@@ -127,10 +128,73 @@ fat_meta=http://someIp:8080
 uat_meta=http://anotherIp:8080
 pro_meta=http://11.22.33.44:1111
 ```
-构建好的文件在如下位置：    
+3. 执行${Apollo}/scripts/build.sh文件    
+构建好的文件在如下位置：    
 * apollo-configservice/target/apollo-configservice-0.9.0-SNAPSHOT-github.zip
 * apollo-adminservice/target/apollo-adminservice-0.9.0-SNAPSHOT-github.zip
 
+### 构建Portal的JAR包
+在上面执行build.sh文件的时候，也会同时生成Portal的JAR文件，在如下路径：
+* apollo-portal/target/apollo-portal-0.9.0-SNAPSHOT-github.zip
+
+### 构建Client的JAR包    
+Client的JAR包是需要上传到Maven私服的，比如Nexus。
+1. 编辑`.m2/settings.xml`文件,添加Nexus私服的相关信息
+```xml
+<servers>
+   <server>
+       <id>releases</id>
+       <username>admin</username>
+       <password>admin123</password>
+   </server>
+   <server>
+       <id>snapshots</id>
+       <username>admin</username>
+       <password>admin123</password>
+   </server>
+</servers>
+```
+
+```xml
+<profiles>
+      <profile>
+          <id>pnt</id>
+          <activation>
+              <jdk>1.8</jdk>
+          </activation>
+          <properties>
+              <releases.repo>http://${nexus_host}:${nexus_port}/nexus/content/repositories/releases</releases.repo>
+              <snapshots.repo>http://${nexus_host}:${nexus_port}/nexus/content/repositories/snapshots</snapshots.repo>
+          </properties>
+          <repositories>
+              <repository>
+                  <id>nexus</id>
+                  <name>local private nexus</name>
+                  <url>http://${nexus_host}:${nexus_port}/nexus/content/groups/public/</url>
+                  <releases>
+                      <enabled>true</enabled>
+                  </releases>
+                  <snapshots>
+                      <enabled>true</enabled>
+                  </snapshots>
+              </repository>
+          </repositories>
+          <pluginRepositories>
+              <pluginRepository>
+                  <id>nexus</id>
+                  <name>local private nexus</name>
+                  <url>http://${nexus_host}:${nexus_port}/nexus/content/groups/public/</url>
+                  <releases>
+                      <enabled>true</enabled>
+                  </releases>
+                  <snapshots>
+                      <enabled>true</enabled>
+                  </snapshots>
+              </pluginRepository>
+          </pluginRepositories>
+      </profile>
+  </profiles>
+```
 
 
 |   network       |          ip:port            |            jar              |        service              |
