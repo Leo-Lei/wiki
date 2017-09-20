@@ -15,6 +15,17 @@ tags:
 
 
 
+# 集群配置
+|    env    |  private ip:port      |  public ip:port     |          jar          |
+| --------- | --------------------- | ------------------- | --------------------- |
+| dev       | 192.168.4.100:8080    |                     | config-service.jar    |
+| dev       | 192.168.4.100:8090    |                     | admin-service.jar     |
+| pro       | 172.16.128.100:8080   | 11.22.33.44:1111    | config-service.jar    |
+| pro       | 172.16.128.100:8090   | 11.22.33.44:2222    | admin-service.jar     |
+
+
+
+
 
 
 
