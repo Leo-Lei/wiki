@@ -29,8 +29,10 @@ tags:
 
 
 # 执行数据库
-1. 执行${Apollo}/scripts/sql下的sql文件
-2. 配置PortalConfigDB
+1. 在dev环境执行${Apollo}/scripts/sql/apolloconfigdb.sql
+1. 在pro环境执行${Apollo}/scripts/sql/apolloconfigdb.sql
+3. 在dev环境执行${Apollo}/scripts/sql/apolloportaldb.sql.sql
+4. 配置ApolloPortalDB
 ```sql
 use ApolloPortalDB
 update ServerConfig set Value='dev,pro' where `Key`='apollo.portal.envs'
