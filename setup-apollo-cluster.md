@@ -232,11 +232,12 @@ dependencies {
 ```
 2. 运行应用程序
 在dev环境运行
+通过 -Dapp.id设置App ID，-Denv=dev设置环境
 ```bash
-java -jar -Denv=dev apollo-sample.jar
+java -jar -Denv=dev -Dapp.id=SampleApp apollo-sample.jar
 ```
 
 在pro环境运行
 ```bash
-java -jar -Denv=pro apollo-sample.jar
+java -jar -Denv=pro -Dapp.id=SampleApp apollo-sample.jar
 ```
