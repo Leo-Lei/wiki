@@ -8,13 +8,13 @@ tags:
 ---
 
 # Java Dynamic Proxy
-
+要代理的接口
 ```java
 public interface IHello {
     public String hello(String str);
 }
 ```
-
+真实的实现对象
 ```java
 public class Hello implements IHello {
 
@@ -25,7 +25,7 @@ public class Hello implements IHello {
     }
 }
 ```
-
+创建InvocationHandler实例
 ```java
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -53,7 +53,7 @@ public class DynamicProxy implements InvocationHandler {
 
 ```
 
-
+Client端使用动态代理
 ```java
 IHello realSubject = new Hello();
 
