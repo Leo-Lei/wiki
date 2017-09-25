@@ -25,12 +25,12 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 # kubernetes命令
 
-|              Command               |                   Desc                              |
-| ---------------------------------- | --------------------------------------------------- |
-| `kubectl get nodes`                | 显示所有nodes                                        |
-| `kubectl version`                  | 显示版本                                             |
-
-
+|              Command                                 |                   Desc                              |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| `kubectl get nodes`                                  | 显示所有nodes                                        |
+| `kubectl version`                                    | 显示版本                                             |
+| `kubectl get deployments`                            | 显示所有的deployments                                |
+| `kubectl run my-app --image=my-app:v1 --port=8080`   | 运行容器                                             |
 
 
 
