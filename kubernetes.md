@@ -17,7 +17,7 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 |            Term           |  Desc                                             |
 | ------------------------- | ------------------------------------------------- |
 | kubectl                   | Kubernetes命令行工具                                |
-| heapster                  |                                                   |
+| heapster                  | kubernetes默认监控系统                              |
 | kubernetes-dashboard      |                                                   |
 | monitoring-grafana        |                                                   |
 | monitoring-influxdb       |                                                   |
