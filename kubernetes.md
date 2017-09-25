@@ -23,6 +23,17 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 | monitoring-influxdb       |                                                   |
 
 
+|           Term            |                                 Desc                                |
+| ------------------------- | ------------------------------------------------------------------- |
+| `Pod`                     | 代表一个组，包含一个或多个容器，和这些容器共享的资源(volume,IP等)            |
+
+
+
+
+
+
+
+
 # kubernetes命令
 
 |              Command                                 |                   Desc                              |
