@@ -23,4 +23,9 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 | monitoring-influxdb       |                                                   |
 
 
+# kubernetes命令
+
+|              Command               |                   Desc                              |
+| ---------------------------------- | --------------------------------------------------- |
+| `kubectl get nodes`                | 显示所有nodes                                        |
 
