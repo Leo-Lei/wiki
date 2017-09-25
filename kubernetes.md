@@ -27,13 +27,6 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 | ------------------------- | ------------------------------------------------------------------- |
 | `Pod`                     | 代表一个组，包含一个或多个容器，和这些容器共享的资源(volume,IP等)            |
 
-
-
-
-
-
-
-
 # kubernetes命令
 
 |              Command                                 |                   Desc                              |
@@ -42,6 +35,22 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 | `kubectl version`                                    | 显示版本                                             |
 | `kubectl get deployments`                            | 显示所有的deployments                                |
 | `kubectl run my-app --image=my-app:v1 --port=8080`   | 运行容器                                             |
+
+
+
+
+
+# Pod
+
+> A Pod is a group of one or more application containers (such as Docker or rkt) and includes shared storage (volumes), IP address and information about how to run them.
+
+
+
+
+
+
+
+
 
 
 
