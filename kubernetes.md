@@ -34,4 +34,4 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 
 # Reference
-[kubernetes-interactional-tutorials/kubernetes-basics/deploy-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/)
+[kubernetes-interactive-tutorials/kubernetes-basics/deploy-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/)
