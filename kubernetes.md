@@ -14,7 +14,7 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 # Kubernetes一些概念
 
-|                 |                                                   |
+|     Term        |  Desc                                             |
 | --------------- | ------------------------------------------------- |
 | kubectl         | Kubernetes命令行工具                                |
 
