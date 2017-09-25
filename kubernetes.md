@@ -29,3 +29,9 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 | ---------------------------------- | --------------------------------------------------- |
 | `kubectl get nodes`                | 显示所有nodes                                        |
 
+
+
+
+
+# Reference
+[kubernetes-interactional-tutorials/kubernetes-basics/deploy-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/)
