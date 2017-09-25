@@ -28,6 +28,7 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 |              Command               |                   Desc                              |
 | ---------------------------------- | --------------------------------------------------- |
 | `kubectl get nodes`                | 显示所有nodes                                        |
+| `kubectl version`                  | 显示版本                                             |
 
 
 
