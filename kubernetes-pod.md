@@ -26,4 +26,5 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 
 # Reference
+[https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)
 [kubernetes-interactive-tutorials/kubernetes-basics/explore-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/)
