@@ -32,3 +32,13 @@ spec:
 
 ```
 
+
+```bash
+kubectl create -f docs/user-guide/nginx-deployment.yaml --record
+```
+
+```bash
+deployment "nginx-deployment" created
+```
+
+
