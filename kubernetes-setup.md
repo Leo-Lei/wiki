@@ -11,3 +11,6 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 # Setup Kubernetes
 
+
+# Reference
+[https://kubernetes.io/docs/setup/pick-right-solution/#custom-solutions](https://kubernetes.io/docs/setup/pick-right-solution/#custom-solutions)
