@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Kubernetes Labels and Selectors
+title: Kubernetes Labels, Selectors and Annotations
 date: 2017-07-09 11:10:00
 tags:
 - docker
@@ -41,6 +41,15 @@ tier notin (frontend, backend)      # 有key=tier，且value不等于frontend�
 partition                           # 有key=partition
 !partition                          # 没有key=partition
 ```
+
+
+# Annotation
+1. Key/Value对
+
+
+
+
+
 
 # Reference
 [kubernetes-interactive-tutorials/kubernetes-basics/explore-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/)
