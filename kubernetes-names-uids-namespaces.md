@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Kubernetes Names and UIDs
+title: Kubernetes Names, UIDs and Namespaces
 date: 2017-07-08 11:10:00
 tags:
 - docker
@@ -17,3 +17,6 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 # UIDS
 1. UID是Kubernetes生成的
 
+# Namespaces
+
+Nameapace是一个虚拟的Cluster。
