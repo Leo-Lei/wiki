@@ -42,3 +42,8 @@ deployment "nginx-deployment" created
 ```
 
 
+* apiVersion: 使用的Kubernetes API
+* kind: 创建的Object的类型
+* metadata: Object的唯一标识，包含name，UID，namespace等
+
+
