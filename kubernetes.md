@@ -13,16 +13,16 @@ banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 
 # kubernetes命令
 
-|              Command                                 |                   Desc                              |
-| ---------------------------------------------------- | --------------------------------------------------- |
-| `kubectl get nodes`                                  | 显示所有nodes                                        |
-| `kubectl version`                                    | 显示版本                                             |
-| `kubectl get deployments`                            | 显示所有的deployments                                |
-| `kubectl run my-app --image=my-app:v1 --port=8080`   | 运行容器                                             |
-| `kubectl get pods`                                   | 获取pod                                             |
-| `kubectl exec my_pod my_container env`               | 在容器中执行命令                                      |
-| `kubectl exec -it my_pod my_container bash`          | 在容器中开始一个bash session                          |
-
+|              Command                                               |                   Desc                              |
+| ------------------------------------------------------------------ | --------------------------------------------------- |
+| `kubectl get nodes`                                                | 显示所有nodes                                        |
+| `kubectl version`                                                  | 显示版本                                             |
+| `kubectl get deployments`                                          | 显示所有的deployments                                |
+| `kubectl run my-app --image=my-app:v1 --port=8080`                 | 运行容器                                             |
+| `kubectl get pods`                                                 | 获取pod                                             |
+| `kubectl exec my_pod my_container env`                             | 在容器中执行命令                                      |
+| `kubectl exec -it my_pod my_container bash`                        | 在容器中开始一个bash session                          |
+| `kubectl get pods -l 'env in (production,qa),tier in (frontend)'`  | 根据Label选择Pod                                     |
 
 
 # kubernetes
