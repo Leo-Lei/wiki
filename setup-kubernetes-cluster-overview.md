@@ -9,7 +9,23 @@ description: docker
 banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 ---
 
-# Overview
+# 集群组件和版本
+
+|    Component     |       Version     |
+| ---------------- | ----------------- |
+| Kubernetes       | 1.6.2             |
+| Docker           | 17.04.0-ce        |
+| Etcd             | 3.1.6             |
+| Flanneld         | vxlan网络          |
+
+
+
+
+
+
+
+# 机器
+
 
 |                 |                            |
 | --------------- | -------------------------- |
