@@ -80,6 +80,7 @@ description: The tutoria will describe the useage of Linux.
 | `du -ah /opt`                                            | 查看文件夹及其子文件夹的大小                             |
 | `du -sh /var/opt/*`                                      | 查看文件夹的大小，不包括子文件夹，避免输出信息太多           |
 | `date -s "2008-08-08 12:00:00"`                          | 修改时间                                             |
+| `ntpdate 1.cn.pool.ntp.org`                              | 从服务器同步系统时间                                   |
 | `clock -w`                                               | 把系统时间写入CMOS                                    |
 
 # 时间函数
