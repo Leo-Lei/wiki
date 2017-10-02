@@ -9,7 +9,6 @@ photos:
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili005.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili007.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili011.jpeg
-- http://ohaq3i4w3.bkt.clouddn.com/fanlili013.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili015.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili017.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili018.png
@@ -27,7 +26,6 @@ photos:
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili032.png
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili033.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili034.jpeg
-- http://ohaq3i4w3.bkt.clouddn.com/fanlili035.jpeg
 tags:
 ---
 
