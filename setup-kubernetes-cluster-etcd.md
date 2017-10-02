@@ -6,7 +6,6 @@ tags:
 - docker
 categories: Java
 description: docker
-banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 ---
 
 # 部署高可用etcd集群
@@ -38,6 +37,9 @@ $ export ETCD_NODES=etcd-host0=https://192.168.5.100:2380,etcd-host1=https://192
 $ # 导入用到的其它全局变量：ETCD_ENDPOINTS、FLANNEL_ETCD_PREFIX、CLUSTER_CIDR
 $ source /root/local/bin/environment.sh
 ```
+
+<!-- more -->
+
 3. 192.168.5.102机器
 ```bash
 $ export NODE_NAME=etcd-host2 # 当前部署的机器名称(随便定义，只要能区分不同机器即可)
