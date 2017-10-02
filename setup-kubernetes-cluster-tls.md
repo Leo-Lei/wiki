@@ -36,6 +36,9 @@ $ cd /root/local/ssl
 $ cfssl print-defaults config > config.json   # 可以不执行，只是生成一个默认的模板 
 $ cfssl print-defaults csr > csr.json         # 可以不执行，只是生成一个默认的模板
 ```
+
+<!-- more -->
+
 # 192.168.5.100创建CA（Certification Authority）
 ### 创建CA配置文件：
 ```bash
