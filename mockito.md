@@ -26,6 +26,7 @@ IHelloService mockService = mock(IHelloService.class);
 User mockUser = mock(User.class);
 ```
 
+<!-- more -->
 
 # 对mock对象进行stub
 ```java
