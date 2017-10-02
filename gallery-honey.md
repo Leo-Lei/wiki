@@ -8,8 +8,6 @@ photos:
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili004.png
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili005.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili007.jpeg
-- http://ohaq3i4w3.bkt.clouddn.com/fanlili008.jpeg
-- http://ohaq3i4w3.bkt.clouddn.com/fanlili010.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili011.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili013.jpeg
 - http://ohaq3i4w3.bkt.clouddn.com/fanlili015.jpeg
