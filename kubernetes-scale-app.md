@@ -6,7 +6,6 @@ tags:
 - docker
 categories: Java
 description: docker
-banner: http://ohaq3i4w3.bkt.clouddn.com/docker-01.png
 ---
 
 
