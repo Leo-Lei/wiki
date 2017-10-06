@@ -88,4 +88,6 @@ https://github.com/shadowsocks/ShadowsocksX-NG
 # Chrome浏览器插件SwitchOmega
 下载SwitchOmega插件。
 
+# GFW规则
+https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
 
