@@ -83,3 +83,9 @@ sudo ssserver -c /etc/shadowsocks.json -d start
 
 https://github.com/shadowsocks/ShadowsocksX-NG
 
+
+
+# Chrome浏览器插件SwitchOmega
+下载SwitchOmega插件。
+
+
