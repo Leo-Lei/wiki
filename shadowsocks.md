@@ -77,3 +77,9 @@ sudo ssserver -c /etc/shadowsocks.json -d start
 然后保存退出，这样，服务器上的操作就算完成了，接下来改对本地计算机进行操作了。
 
 
+
+
+# Shadowsocks的Mac客户端下载
+
+https://github.com/shadowsocks/ShadowsocksX-NG
+
