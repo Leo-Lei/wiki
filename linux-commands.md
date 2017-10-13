@@ -82,6 +82,7 @@ description: The tutoria will describe the useage of Linux.
 | `date -s "2008-08-08 12:00:00"`                          | 修改时间                                             |
 | `ntpdate 1.cn.pool.ntp.org`                              | 从服务器同步系统时间                                   |
 | `clock -w`                                               | 把系统时间写入CMOS                                    |
+| `iptables -L -nv`                                        | 查看iptables配置                                     |
 
 # 时间函数
 
