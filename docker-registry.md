@@ -18,7 +18,7 @@ description: docker
 
 # Docker镜像命名规则
 ***registry.domain.com/mycom/imagename:latest***，其中：
-1. registry.domain.com: 镜像所在服务地。
+1. registry.domain.com: 镜像所在服务地。如果没有指定，默认是dockerhub官方仓库的地址。
 2. mycom：镜像命名空间，比如可以是项目名或用户名。
 3. imagename：镜像名字
 4. latest：版本号
