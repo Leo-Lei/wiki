@@ -42,6 +42,10 @@ spec:
 ```
 
 
+# RC实现Pod动态扩容
 
-
+```bash
+$ kubectl scale rc redis-slave --replicas=3
+scaled
+```
 
