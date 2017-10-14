@@ -17,5 +17,75 @@ description: docker
 ![Kubernetes-label](https://d33wubrfki0l68.cloudfront.net/b964c59cdc1979dd4e1904c25f43745564ef6bee/f3351/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg)
 
 
+
+# 定义Service
+### 一个端口的Service
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  ports:
+  - port: 8080
+  selector:
+    tier: frontend
+```
+其中：
+* ports中表示，service将哪个端口的请求转发到Pod中的哪个端口。需要定义2个端口，port和targetPort，如果没有指定，默认targetPort和port相同。
+
+### 多个端口的Service
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  ports:
+  - port: 8080
+    name: service-port
+  - port: 8005
+    name: shutdown-port
+  selector:
+    tier: frontend
+```
+
+# 创建Service
+```bash
+kubectl create -f /some/path/some-service.yaml
+```
+
+# 查看Service
+```bash
+$ kubectl get svc tomcat-service -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-07-21T17:05:52z
+  name: tomcat-service
+  namespace: default
+  resourceVersion: "23964"
+  selfLink: /api/v1/namespaces/default/services/tomcat-service
+  uid: 61987d3c- 4f65- 11e6- a9d8- 000c29ed42c1
+spec:
+  clusterIP: 169.169.65.227
+  ports:
+  - port: 8080
+    portocol: TCP
+    targetPort: 8080
+  selector:
+    tier: frontend
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer:{}
+```
+其中：
+* targetPort：将Service的请求，转发到Pod的对应端口上。提供该服务的容器需要暴露该接口。
+
+
+
+
+
 # Reference
 [kubernetes-interactive-tutorials/kubernetes-basics/expose-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/)
