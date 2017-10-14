@@ -18,6 +18,30 @@ description: docker
 ![Pod](https://d33wubrfki0l68.cloudfront.net/fe03f68d8ede9815184852ca2a4fd30325e5d15a/98064/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg)
 
 
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myweb
+  labels:
+    name: myweb
+spec:
+  containers:
+  - name: myweb
+    image: kuberguide/tomcat-app:v1
+    ports:
+    - containerPort: 8080
+    env:
+    - name: MYSQL_SERVICE_HOST
+      value: 'mysql'
+    - nmae: MYSQL_SERVICE_PORT
+      value: '3306' 
+```
+
+
+
+
 # Pod特性
 1. 每个Pod包含一个或多个container
 2. 每个Node可以有一个或多个Pod
