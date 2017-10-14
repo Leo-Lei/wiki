@@ -51,4 +51,6 @@ volumes:
 ```
 ### gcePersistentDisk
 google的公有云提供的文件存储服务。
+### awsElasticBlockStore
+AWS的公有云提供的文件存储服务
 
