@@ -49,6 +49,9 @@ spec:
   selector:
     tier: frontend
 ```
+注意：
+* 多端口的服务中，给每个端口命名，是为了Kubernetes的服务发现机制。
+
 
 # 创建Service
 ```bash
