@@ -114,7 +114,11 @@ spec:
     tier: frontend
 ```
 然后通过<NodeIP>:31002来访问tomcat服务。    
-NodePort的实现
+NodePort的实现方式是在Kubernetes集群的每一个Node上为需要外部访问的Service开启一个对应的TCP监听端口，外部系统只需要使用任意一个Node IP + Node Port即可访问该Service，在任意的Node上运行netstat命令，可以看到Node Port被监听了。
+```bash
+$ netstat -tlp | grep 31002
+tcp6   0      0  [::]:  31002     [::]:*     LISTEN     1125/kube-proxy
+```
 
 
 # Reference
