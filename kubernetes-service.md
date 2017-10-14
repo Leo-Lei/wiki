@@ -16,19 +16,6 @@ description: docker
 
 ![Kubernetes-label](https://d33wubrfki0l68.cloudfront.net/b964c59cdc1979dd4e1904c25f43745564ef6bee/f3351/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg)
 
-# Service特性
-1. Service使用YAML或JSON格式来定义
-
-
-
-
-# 暴露Service
-
-
-
-
-
-
 
 # Reference
 [kubernetes-interactive-tutorials/kubernetes-basics/expose-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/)
