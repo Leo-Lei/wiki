@@ -18,6 +18,10 @@ description: docker
 
 
 
+# Service特点
+1. 每个Service都有一个唯一的Cluster IP，以及唯一的名字。IP是kubernetes自动分配的，名字是开发者自己定义的。
+2. Kubernetes提供了DNS插件，安装好DNS插件后，可以通过Service的名字找到Service的Cluster IP。
+
 # 定义Service
 ### 一个端口的Service
 ```yaml
