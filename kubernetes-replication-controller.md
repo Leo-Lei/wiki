@@ -55,6 +55,6 @@ scaled
 # Replication Controller的替换物
 Replication Controller是老版本的kubernetes使用的，推荐使用更强大的：
 * Replica Set       支持label selector的集合匹配语法
-* Deployment        可以查看Pod的部署进度
+* Deployment        可以查看Pod的部署进度,内部会创建Replica Set
 
 
