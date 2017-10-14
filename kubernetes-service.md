@@ -92,6 +92,11 @@ status:
 
 
 
+# 外部系统访问Service
+Cluster IP是属于Kubernetes集群内部的地址，无法再集群外部直接使用这个地址。有些时候，Kubernetes中的服务是要暴露给Kubernetes集群外部的应用或用户来访问的，比如web服务。有以下几种方式来访问Service：    
+1. 使用Node iP + NodePort
+2. 使用Load Balancer
+
 
 
 # Reference
