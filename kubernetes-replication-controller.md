@@ -49,6 +49,8 @@ $ kubectl scale rc redis-slave --replicas=3
 scaled
 ```
 
+# RC实现滚动升级
+通过改变RC里Pod模板中的镜像版本，实现Pod的滚动升级
 
 # Replication Controller的替换物
 Replication Controller是老版本的kubernetes使用的，推荐使用更强大的：
