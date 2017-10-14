@@ -25,7 +25,7 @@ Deployment内部会创建Replica Set来创建和管理Pod        
 5. 如果当前Deployment不稳定，可以回滚到一个早先的Deployment版本
 6. 挂起或恢复一个Deployment
 
-# Deployment的yaml定义
+# Deployment定义
 
 Deployment的定义和RC，Replica Set定义很类似，除了API声明与king等有所区别         
 ```yaml
@@ -80,18 +80,14 @@ spec:
 
 ```
 
+# 创建Deployment
 
 ```bash
-kubectl create -f docs/user-guide/nginx-deployment.yaml --record
-```
-
-```bash
+$ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
 deployment "nginx-deployment" created
 ```
 
-
-* apiVersion: 使用的Kubernetes API
-* kind: 创建的Object的类型
-* metadata: Object的唯一标识，包含name，UID，namespace等
-
-
+# 查看Deployment
+```bash
+$ kubectl get deployments
+```
