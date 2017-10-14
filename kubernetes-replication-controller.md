@@ -49,3 +49,10 @@ $ kubectl scale rc redis-slave --replicas=3
 scaled
 ```
 
+
+# Replication Controller的替换物
+Replication Controller是老版本的kubernetes使用的，推荐使用更强大的：
+* Replica Set
+* Deployment
+
+
