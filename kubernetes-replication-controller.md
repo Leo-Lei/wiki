@@ -1,0 +1,47 @@
+---
+layout: post
+title: Kubernetes Replication Controller
+date: 2017-07-08 11:20:00
+tags:
+- docker
+categories: Java
+description: docker
+---
+
+# Replication Controller
+
+Replication Controller(简称RC)是定义了一个期望的场景，声明某个Pod的副本数量在任意时刻都符合某个预期值。RC的定义包括如下部分：
+* 用于筛选目标Pod的Label Selector
+* Pod期待的副本数
+* 当Pod副本数量小于预期数量时，用于创建新Pod的Pod模板
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    tier: frontend
+  template:
+    metadata:
+      labels:
+        app: app-demo
+        tier: frontend
+    spec:
+      containers:
+      - name: tomcat-demo
+        image: tomcat
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
+```
+
+
+
+
+
