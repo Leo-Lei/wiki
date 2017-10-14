@@ -11,7 +11,9 @@ description: docker
 # Deployment
 
 Deployment是在Replication Controller之后引入的概念，可以把它看成是RC的一次升级。两者相识度超过90%。         
-Deployment相对于RC的升级:        
+### Deployment的一些特点
+Deployment内部会创建Replica Set来创建和管理Pod         
+### Deployment相对于RC的升级:       
 1. 可以看到Pod部署的进度。
 
 
@@ -22,9 +24,6 @@ Deployment相对于RC的升级:
 4. 更新Deploymnet以更新Pod来达到滚动升级
 5. 如果当前Deployment不稳定，可以回滚到一个早先的Deployment版本
 6. 挂起或恢复一个Deployment
-
-
-
 
 # Deployment的yaml定义
 
