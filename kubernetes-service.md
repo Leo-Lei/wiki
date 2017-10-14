@@ -98,6 +98,24 @@ Cluster IP是属于Kubernetes集群内部的地址，无法再集群外部直接
 2. 使用Load Balancer
 
 
+### Node IP + Node Port
+指定Service的spec.type为NodePort，手动指定nodePort的值。
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 31002
+  selector:
+    tier: frontend
+```
+然后通过<NodeIP>:31002来访问tomcat服务。    
+NodePort的实现
+
 
 # Reference
 [kubernetes-interactive-tutorials/kubernetes-basics/expose-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/)
