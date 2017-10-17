@@ -83,6 +83,8 @@ description: The tutoria will describe the useage of Linux.
 | `ntpdate 1.cn.pool.ntp.org`                              | 从服务器同步系统时间                                   |
 | `clock -w`                                               | 把系统时间写入CMOS                                    |
 | `iptables -L -nv`                                        | 查看iptables配置                                     |
+| `/usr/sbin/sestatus -v`                                  | 查看SELinux状态                                      |
+
 
 # 时间函数
 
