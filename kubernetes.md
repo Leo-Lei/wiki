@@ -19,6 +19,7 @@ description: docker
 | `kubectl get deployments`                                          | 显示所有的deployments                              |
 | `kubectl get pods`                                                 | 获取pod                                            |
 | `kubectl get pods -o wide`                                         | 获取pod                                            |
+| `kubectl get svc zookeeper -o yaml`                                | 获取service                                        |
 | `kubectl describe pods`                                            | 查看pod详情                                         |
 | `kubectl run my-app --image=my-app:v1 --port=8080`                 | 运行容器                                            |
 | `kubectl exec my_pod my_container env`                             | 在容器中执行命令                                     |
