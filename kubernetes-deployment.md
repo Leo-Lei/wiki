@@ -45,13 +45,13 @@ spec:
       labels:
         app: app-demo
         tier: frontend
-      spec:
-        containers:
-        - name: tomcat-demo
-          image: tomcat
-          imagePullPolicy: IfNotPresent
-          ports:
-          - containerPort: 8080
+    spec:
+      containers:
+      - name: tomcat-demo
+        image: tomcat
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
 
 ```
 
