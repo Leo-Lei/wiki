@@ -23,7 +23,7 @@ description: docker
 | `kubectl exec my_pod my_container env`                             | 在容器中执行命令                                      |
 | `kubectl exec -it my_pod my_container bash`                        | 在容器中开始一个bash session                          |
 | `kubectl get pods -l 'env in (production,qa),tier in (frontend)'`  | 根据Label选择Pod                                     |
-
+| `kubectl delete -f /opt/pod.json`                                     | 删除kubernetes对象                                   |
 
 # kubernetes
 [kubernetes](https://kubernetes.io/)
