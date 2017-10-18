@@ -12,18 +12,19 @@ description: docker
 
 # kubernetes命令
 
-|              Command                                               |                   Desc                              |
-| ------------------------------------------------------------------ | --------------------------------------------------- |
-| `kubectl get nodes`                                                | 显示所有nodes                                        |
-| `kubectl version`                                                  | 显示版本                                             |
-| `kubectl get deployments`                                          | 显示所有的deployments                                |
-| `kubectl get pods`                                                 | 获取pod                                             |
-| `kubectl describe pods`                                            | 查看pod详情                                             |
-| `kubectl run my-app --image=my-app:v1 --port=8080`                 | 运行容器                                             |
-| `kubectl exec my_pod my_container env`                             | 在容器中执行命令                                      |
-| `kubectl exec -it my_pod my_container bash`                        | 在容器中开始一个bash session                          |
-| `kubectl get pods -l 'env in (production,qa),tier in (frontend)'`  | 根据Label选择Pod                                     |
-| `kubectl delete -f /opt/pod.json`                                     | 删除kubernetes对象                                   |
+|              Command                                               |                   Desc                            |
+| ------------------------------------------------------------------ | ------------------------------------------------- |
+| `kubectl get nodes`                                                | 显示所有nodes                                      |
+| `kubectl version`                                                  | 显示版本                                           |
+| `kubectl get deployments`                                          | 显示所有的deployments                              |
+| `kubectl get pods`                                                 | 获取pod                                            |
+| `kubectl get pods -o wide`                                         | 获取pod                                            |
+| `kubectl describe pods`                                            | 查看pod详情                                         |
+| `kubectl run my-app --image=my-app:v1 --port=8080`                 | 运行容器                                            |
+| `kubectl exec my_pod my_container env`                             | 在容器中执行命令                                     |
+| `kubectl exec -it my_pod my_container bash`                        | 在容器中开始一个bash session                         |
+| `kubectl get pods -l 'env in (production,qa),tier in (frontend)'`  | 根据Label选择Pod                                    |
+| `kubectl delete -f /opt/pod.json`                                  | 删除kubernetes对象                                  |
 
 # kubernetes
 [kubernetes](https://kubernetes.io/)
