@@ -20,7 +20,10 @@ DNS插件不是必须的，但是强烈建议安装，可以说，在生产环�
 * kubedns-sa.yaml
 * kubedns-svc.yaml
 
+进入`kubernetes/cluster/addons/dns`目录，修改以上4个文件，然后再执行这些文件，就可以安装好DNS插件了。
+
 # 配置kube-dns ServiceAccount
+编辑`kubernetes/cluster/addons/dns/kubedns-sa.yaml`
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -34,7 +37,7 @@ metadata:
 
 
 # 配置kube-dns服务
-
+编辑`kubernetes/cluster/addons/dns/kubedns-svc.yaml`
 ```yaml
 apiVersion: v1
 kind: Service
@@ -60,6 +63,7 @@ spec:
 ```
 
 ### 配置kube-dns的Deployment
+编辑`kubernetes/cluster/addons/dns/kubedns-controller.yaml`
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -224,6 +228,7 @@ spec:
 * xuejipeng/k8s-dns-kube-dns-amd64:v1.14.1
 
 # kube-dns ConfigMap
+编辑`kubernetes/cluster/addons/dns/kubedns-cm.yaml`
 ```yaml
 apiVersion: v1
 kind: ConfigMap
