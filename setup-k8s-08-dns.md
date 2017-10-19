@@ -36,22 +36,6 @@ metadata:
 # 配置kube-dns服务
 
 ```yaml
-# Copyright 2016 The Kubernetes Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# __MACHINE_GENERATED_WARNING__
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -77,25 +61,6 @@ spec:
 
 ### 配置kube-dns的Deployment
 ```yaml
-# Copyright 2016 The Kubernetes Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Should keep target in cluster/addons/dns-horizontal-autoscaler/dns-horizontal-autoscaler.yaml
-# in sync with this file.
-
-# __MACHINE_GENERATED_WARNING__
-
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -253,6 +218,10 @@ spec:
 
 * --domain 为集群环境文档 变量 CLUSTER_DNS_DOMAIN 的值；
 * 使用系统已经做了 RoleBinding 的 kube-dns ServiceAccount，该账户具有访问 kube-apiserver DNS 相关 API 的权限；
+### 无法下载Docker镜像问题
+官方提供的dns插件中使用`gcr.io/google_containers/`，是google自己的镜像仓库的，由于某些原因，在大陆访问不了，所以必须要找一些可用的镜像。在DockerHub中有如下的仓库可以使用：
+* googlecontainer/k8s-dns-kube-dns-amd64
+* xuejipeng/k8s-dns-kube-dns-amd64:v1.14.1
 
 # kube-dns ConfigMap
 ```yaml
