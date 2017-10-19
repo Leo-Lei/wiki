@@ -248,9 +248,8 @@ $ kubectl create -f .
 ```
 
 # 检查DNS功能
-新建一个 Deployment
-```bash
-$ cat  my-nginx.yaml
+新建一个 Deployment,`my-nginx.yaml`
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -279,8 +278,8 @@ default       my-nginx               10.254.86.48     <none>        80/TCP      
 ```
 
 创建另一个 Pod，查看 /etc/resolv.conf 是否包含 kubelet 配置的 --cluster-dns 和 --cluster-domain，是否能够将服务 my-nginx 解析到上面显示的 Cluster IP 10.254.86.48
-```bash
-$ cat pod-nginx.yaml
+创建`pod-nginx.yaml`
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -291,6 +290,9 @@ spec:
     image: nginx:1.7.9
     ports:
     - containerPort: 80
+```
+
+```bash
 $ kubectl create -f pod-nginx.yaml
 $ kubectl exec  nginx -i -t -- /bin/bash
 root@nginx:/# cat /etc/resolv.conf
