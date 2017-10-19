@@ -8,6 +8,15 @@ categories: Java
 description: docker
 ---
 
+# 集群成员
+
+|      IP         |           Role          |      OS        |
+| --------------- | ----------------------- | -------------- |
+| 192.168.5.100   | k8s-Master,etcd-0       | CentOS 7       |
+| 192.168.5.101   | k8s-Node,  etcd-1       | CentOS 7       |
+| 192.168.5.102   | k8s-Node,  etcd-2       | CentOS 7       |
+| 192.168.5.103   | Docker Registry         | CentOS 7       |
+
 # 集群组件和版本
 
 |    Component     |       Version     |
@@ -15,25 +24,10 @@ description: docker
 | Kubernetes       | 1.6.2             |
 | Docker           | 17.04.0-ce        |
 | Etcd             | 3.1.6             |
-| Flanneld         | vxlan网络          |
+| Flanneld         | 0.7.1             |
 
-
-
-
-
-
-
-# 机器
-
-
-|                 |                            |
-| --------------- | -------------------------- |
-| 192.168.5.100   |                            |
-| 192.168.5.101   |                            |
-| 192.168.5.102   |                            |
-
-
-
+# 准备工作
+后续的部署过程中，会使用下面定义的全局环境变量，创建一个environment.sh文件，并将它拷贝到所有的Master和Node机器上。    
 environment.sh
 ```bash
 #!/usr/bin/bash
