@@ -161,3 +161,4 @@ https://192.168.5.101:2379 is healthy: successfully committed proposal: took = 1
 2017-09-27 17:52:33.996138 I | warning: ignoring ServerName for user-provided CA for backwards compatibility is deprecated
 https://192.168.5.102:2379 is healthy: successfully committed proposal: took = 2.413539ms
 ```
+三台etcd输出均为healthy时表示集群服务正常，(请忽略warning信息)。
