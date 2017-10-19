@@ -27,7 +27,14 @@ description: docker
 | Flanneld         | 0.7.1             |
 
 # 准备工作
-后续的部署过程中，会使用下面定义的全局环境变量，创建一个environment.sh文件，并将它拷贝到所有的Master和Node机器上。    
+### 关闭防火墙
+```bash
+systemctl disable firewalld
+systemctl stop firewalld
+```
+### 使用全局变量
+
+后续的部署过程中，会使用下面定义的全局环境变量，创建一个environment.sh文件，并将它拷贝到所有的Master和Node机器上。    
 environment.sh
 ```bash
 #!/usr/bin/bash
