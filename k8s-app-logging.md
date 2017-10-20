@@ -27,6 +27,8 @@ description: docker
 * Elastic Search和Kibana也是以容器的方式，运行在k8s集群中
 
 
+![k8s-logging-solution](http://ohaq3i4w3.bkt.clouddn.com/k8s-logging-solution.png)
+
 # 为什么是Filebeat，不是logstash
 * 运行Logstash会消耗500M内存
 * 运行Filebeat只消耗12M内存
