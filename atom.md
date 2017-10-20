@@ -11,17 +11,23 @@ description: The post will introduce a text editor Atom.
 # 1. Atom Basis
 [Atom](https://atom.io/) is a text editor, developed by Github.
 
-# 2. Base Atom Shortcuts
+# 2. Atom Commands
 
-| Command             |             Description                                  |      Remark                           |
-| ------------------- | -------------------------------------------------------- | ------------------------------------- |
-| `Cmd` + `N`         | Open new tab.                                            |                                       |
+| Command             |             Description                         | 
+| ------------------- | ----------------------------------------------- |
+| `Cmd` + `N`         | Open new tab.                                   |
+| `Ctrl`-`Shift`-`L`  | 设置当前文档的语言                                 |
 
-## 2.1 Multiple-Cursor and Multiple-Selection
-`Cmd`-Click: Add a new cursor at current place.
-`Cmd`-`Shift`-`L`: Change Multiple-Selection to Multiple-Selection.
-`Cmd`-`D`: Select the same text in the current document.
-`Ctrl`-`Cmd`-`G`: Select all the same text in the current document.
+### 多行选择
 
-## 2.2 Set Language Syntax
-`Ctrl`-`Shift`-`L`: Set the Language of current document.
+|           Command          |                 Description                     | 
+| -------------------------- | ----------------------------------------------- |
+| `Cmd` + `Shift` + `L`      | 将选中的多行内容，转化成多行选择模式                  |
+| `Cmd` + Click              | 在当前位置添加一个新的多行选择光标                    |
+| `Ctrl` + `Cmd` + `G`       | 在当前文档选择所有相同的文本                         |
+| `Ctrl` + `D`               | 在当前文档选择所有相同的文本                         |
+
+
+
+
+
