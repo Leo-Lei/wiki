@@ -26,7 +26,7 @@ description: docker
 | `kubectl exec -it my_pod my_container bash`                        | 在容器中开始一个bash session                         |
 | `kubectl get pods -l 'env in (production,qa),tier in (frontend)'`  | 根据Label选择Pod                                    |
 | `kubectl delete -f /opt/pod.json`                                  | 删除kubernetes对象                                  |
-| `kubectl get pods -n kube-system | grep dns`                       | 查看`kube-system`这个Namespace中的Pod                |
+| `kubectl get pods -n kube-system`                                  | 查看`kube-system`这个Namespace中的Pod                |
 
 # kubernetes
 [kubernetes](https://kubernetes.io/)
