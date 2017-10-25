@@ -11,14 +11,15 @@ description: docker
 
 # Lifecycle
 
-|                |                          |
+|     Event      |  Desc                    |
 | -------------- | ------------------------ |
 | `postStart`    | 容器创建之后               |
 | `preStop`      | 容器停止之前               |
 
-**lifecycle的使用场景:**
+# lifecycle的使用场景
 1. 容器优雅停止
 
+# Demo
 定义了一个容器，会监听Pod的一些事件，然后执行相应的命令
 ***lifecycle-events.yaml***
 ```yaml
