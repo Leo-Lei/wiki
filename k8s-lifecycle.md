@@ -40,3 +40,35 @@ spec:
           command: ["/usr/sbin/nginx","-s","quit"]
 ```
 
+
+```yaml
+kind: Deployment
+metadata:
+  name: nginx-demo
+  namespace: scm
+  labels:
+    app: nginx-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-demo
+    spec:
+      containers:
+      - name: nginx-demo
+        image: library/nginx-demo
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit
+              command: ["/usr/local/openresty/nginx/sbin/nginx","-s","quit"]
+        env:
+          - name: PROFILE
+            value: "test"
+        ports:
+          - name: http
+            containerPort: 8080
+```
+
