@@ -37,3 +37,17 @@ FROM <image>:<tag>
 * 切换目录用，相当于cd命令
 * 可以多次切换
 * 对RUN,CMD,ENTRYPOINT生效
+
+
+
+
+
+# CMD和entrypoint
+使用`--entrypoint=/bin/bash`来覆盖镜像中的entrypoint
+```bash
+docker run -it --entrypoint=/bin/bash 192.168.5.103:5000/qibei/springboot
+```
+
+
+
+
