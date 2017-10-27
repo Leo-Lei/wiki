@@ -86,6 +86,19 @@ description: The tutoria will describe the useage of Linux.
 | `/usr/sbin/sestatus -v`                                  | 查看SELinux状态                                      |
 
 
+
+***curl***
+|                                                         |                                    |
+| ------------------------------------------------------- | ---------------------------------- |
+| `curl -i www.sina.com`                                  | 显示头信息                           |
+| `curl -X POST --data "data=xxx" example.com/form.cgi`   | POST                               |
+
+
+
+
+
+
+
 # 时间函数
 
 |                           command                        |                                                        |
