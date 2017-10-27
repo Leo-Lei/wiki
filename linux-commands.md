@@ -88,7 +88,8 @@ description: The tutoria will describe the useage of Linux.
 
 
 ***curl***
-|                                                         |                                    |
+
+|                   Commands                              |      Usage                         |
 | ------------------------------------------------------- | ---------------------------------- |
 | `curl -i www.sina.com`                                  | 显示头信息                           |
 | `curl -X POST --data "data=xxx" example.com/form.cgi`   | POST                               |
