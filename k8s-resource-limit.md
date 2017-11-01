@@ -20,8 +20,9 @@ description: docker
 * spec.containers[].resources.limits.memory
 * spec.containers[].resources.requests.cpu
 * spec.containers[].resources.requests.memory
-
-
+其中:
+* request是Pod要求的最小的资源
+* limits是Pod能使用的最大的资源
 
 ```yaml
 apiVersion: v1
