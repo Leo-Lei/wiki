@@ -8,7 +8,7 @@ categories: Java
 description: docker
 ---
 
-# 给Pod添加资源限制
+# 资源限制
 当定义一个Pod的时候，可以指定每个容器可以使用多少的cpu和内存。
 使用场景:    
 1. 可以让scheduler更好的调度Pod到合适的Node节点。
@@ -16,10 +16,10 @@ description: docker
 
 可以添加如下的限制:
 
-* spec.containers[].resources.limits.cpu
-* spec.containers[].resources.limits.memory
-* spec.containers[].resources.requests.cpu
-* spec.containers[].resources.requests.memory
+* spec.containers[].resources.limits.cpu: cpu上限，可以短暂超过，容器也不会被停止
+* spec.containers[].resources.limits.memory: 内存上限，不可以超过；如果超过，容器可能会被终止或调度到其他资源充足的机器上
+* spec.containers[].resources.requests.cpu :最低CPU
+* spec.containers[].resources.requests.memory :最低内存
 其中:
 * request是Pod要求的最小的资源
 * limits是Pod能使用的最大的资源
