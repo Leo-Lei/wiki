@@ -54,3 +54,10 @@ spec:
         cpu: "500m"
 ```
 
+# cpu和内存单位说明
+
+|                      |                                                             |
+| -------------------- | ----------------------------------------------------------- |
+| 1 kb(Kilobyte)       | 1 kb(Kilobyte) = 1000 bytes = 8000 bits                     |
+| 1 Kib(kibibyte)      | 1 Kib(kibibyte) = 2^10 bytes = 1024 bytes = 8192 bits       |
+
