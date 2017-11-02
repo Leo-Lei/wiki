@@ -53,24 +53,13 @@ prometheus_local_storage_series_chunks_persisted_count 444
 # summary
 
 ```text
-# HELP prometheus_sd_azure_refresh_duration_seconds The duration of a Azure-SD refresh in seconds.
-# TYPE prometheus_sd_azure_refresh_duration_seconds summary
-prometheus_sd_azure_refresh_duration_seconds{quantile="0.5"} NaN
-prometheus_sd_azure_refresh_duration_seconds{quantile="0.9"} NaN
-prometheus_sd_azure_refresh_duration_seconds{quantile="0.99"} NaN
-prometheus_sd_azure_refresh_duration_seconds_sum 0
-prometheus_sd_azure_refresh_duration_seconds_count 0
-# HELP prometheus_sd_consul_rpc_duration_seconds The duration of a Consul RPC call in seconds.
-# TYPE prometheus_sd_consul_rpc_duration_seconds summary
-prometheus_sd_consul_rpc_duration_seconds{call="service",endpoint="catalog",quantile="0.5"} NaN
-prometheus_sd_consul_rpc_duration_seconds{call="service",endpoint="catalog",quantile="0.9"} NaN
-prometheus_sd_consul_rpc_duration_seconds{call="service",endpoint="catalog",quantile="0.99"} NaN
-prometheus_sd_consul_rpc_duration_seconds_sum{call="service",endpoint="catalog"} 0
-prometheus_sd_consul_rpc_duration_seconds_count{call="service",endpoint="catalog"} 0
-prometheus_sd_consul_rpc_duration_seconds{call="services",endpoint="catalog",quantile="0.5"} NaN
-prometheus_sd_consul_rpc_duration_seconds{call="services",endpoint="catalog",quantile="0.9"} NaN
-prometheus_sd_consul_rpc_duration_seconds{call="services",endpoint="catalog",quantile="0.99"} NaN
-prometheus_sd_consul_rpc_duration_seconds_sum{call="services",endpoint="catalog"} 0
-prometheus_sd_consul_rpc_duration_seconds_count{call="services",endpoint="catalog"} 0
+# HELP prometheus_target_interval_length_seconds Actual intervals between scrapes.
+# TYPE prometheus_target_interval_length_seconds summary
+prometheus_target_interval_length_seconds{interval="15s",quantile="0.01"} 14.997978115
+prometheus_target_interval_length_seconds{interval="15s",quantile="0.05"} 14.997978115
+prometheus_target_interval_length_seconds{interval="15s",quantile="0.5"} 14.999992755
+prometheus_target_interval_length_seconds{interval="15s",quantile="0.9"} 15.000945051
+prometheus_target_interval_length_seconds{interval="15s",quantile="0.99"} 15.002223278
+prometheus_target_interval_length_seconds_sum{interval="15s"} 7950.0376901510035
+prometheus_target_interval_length_seconds_count{interval="15s"} 530
 ```
-
