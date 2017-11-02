@@ -63,3 +63,35 @@ prometheus_target_interval_length_seconds{interval="15s",quantile="0.99"} 15.002
 prometheus_target_interval_length_seconds_sum{interval="15s"} 7950.0376901510035
 prometheus_target_interval_length_seconds_count{interval="15s"} 530
 ```
+
+
+# 注册Metrics
+
+```java
+static final Counter requests = Counter.build()
+   .name("my_library_requests_total").help("Total requests.").labelNames("path").register();
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
