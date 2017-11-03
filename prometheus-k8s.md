@@ -85,5 +85,13 @@ annotations:
   prometheus.io/scrape: "true"
   prometheus.io/port: "<your app port>"
 ```
-其它详细配置请看 这里。
+其它详细配置请看 [这里](https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml)。
+
+
+
+
+# Resources
+* [https://coreos.com/blog/monitoring-kubernetes-with-prometheus.html](https://coreos.com/blog/monitoring-kubernetes-with-prometheus.html)
+
+* [https://xizhibei.github.io/2017/08/19/deploy-prometheus-in-k8s/](https://xizhibei.github.io/2017/08/19/deploy-prometheus-in-k8s/)
 
