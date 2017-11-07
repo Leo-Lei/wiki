@@ -69,3 +69,11 @@ String result = subject.hello("world");
 System.out.println(result);
 ```
 
+
+
+
+
+# 其他动态代理实现
+[Byte-Buddy](https://github.com/raphw/byte-buddy)
+
+
