@@ -26,7 +26,7 @@ ByteBuf的读写都有顺序读和顺序写。
 * readXXX：顺序读
 * getXXX:随机读
 * writeXXX:顺序写
-* setXXX:随机写
+* setXXX:随机写             
 顺序读和写，index是会变得。随机读和写，index不变
 
 |          method                          |                      Desc                                                |
