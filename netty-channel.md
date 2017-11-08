@@ -10,23 +10,15 @@ description: The post will introduce a text editor Atom.
 
 
 
-# Handler
-### 获取状态
+# Channel
 
-|          method                     |                      Desc                    |
-| ----------------------------------- | -------------------------------------------- |
-| boolean isOpen()                    | 是否打开                                      |
-| boolean isRegistered()              | 是否注册到一个EventLoop                        |
-| boolean isActive()                  | 是否激活                                      |
-| boolean isWritable()                | 是否可写                                      |
-
-### getter方法
-
-|          method                     |                      Desc                    |
-| ----------------------------------- | -------------------------------------------- |
-| EventLoop eventLoop()               | 获取注册到的EventLoop                          |
-| Channel parent()                    | 父类channel                                   |
-
-
+|          method                     |                      Desc                                 |
+| ----------------------------------- | --------------------------------------------------------- |
+| eventloop                           | 返回分配给Channel的EventLoop                                |
+| pipeline                            | 返回分配给Channel的ChannelPipeline                          |
+| isActive()                          | 是否激活                                                   |
+| localAddress                        | 返回本地的SockerAddress                                     |
+| remoteAddress                       | 返回远程的SockerAddress                                     |
+| write                               | 将数据写到远程节点，数据将被传递给ChannelPipeline              |
 
 
