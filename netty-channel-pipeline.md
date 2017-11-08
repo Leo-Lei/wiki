@@ -13,11 +13,7 @@ description: The post will introduce a text editor Atom.
 
 # Pipeline
 
-
 ```text
-
-
-
 +---+    +------------------------------------------------------------------------------------------------+
 |   |    |      +-------------------------+              +-------------------------+                      |
 |   |----|----->|  ChannelInboundHandler  |------------->|  ChannelInboundHandler  |----------------------|----->
@@ -35,28 +31,12 @@ description: The post will introduce a text editor Atom.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 # ChannelHandler
 
 |          handler                    |                      Desc                    |
 | ----------------------------------- | -------------------------------------------- |
 | ChannelInboundHandler               | 拦截和处理入站事件                              |
 | ChannelOutboundHandler              | 拦截和处理出站事件                              |
-
-
-
-
-
 
 
 # 事件在ChannelPipeline中流动
@@ -121,12 +101,6 @@ public class InboundHandlerA implements ChannelInboundHandler {
 | close(ChannelPromise)                                   | 关闭channel                                 |
 | deregister(ChannelPromise)                              | 从EventLoop注销channel                      |
  
-
-
-
-
-
-
 # 使用自定义线程池来执行比较耗时的Handler
 ```java
 static final EventExecutorGroup group = new DefaultEventExecutorGroup(16);
@@ -140,5 +114,8 @@ pipeline.addLast(group, "handler", new MyBusinessLogicHandler());
 ```
 Netty的原则是不阻塞I/O线程。I／O线程即我们在BootStrap中指定的workerGroup，也即Reactor模式中的subReactor。如果handler中车处理比较耗时，应该使用一个自定义的线程池来处理handler。
 
+# Netty发送消息
 
+1. 直接写到Channel中,消息会从channel-pipeline的尾端开始流动          
+2. 写入到ChannelHandlerContext,从channel pipeline的下一个handler开始流动
 
