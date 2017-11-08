@@ -60,3 +60,27 @@ public class GeneralInterceptor {
 * 注意@AllArguments, @Origin, Method的类是在哪个package下面的，classpath中会有多个相同名字的类        
 
         
+
+# 创建一个类
+```java
+public class Foo {
+    public String foo(){return null;}
+    public String bar(){return null;}
+    public String foo(Object o){return null;}
+}
+```
+```java
+Foo foo = new ByteBuddy()
+        .subclass(Foo.class)
+        .method(isDeclaredBy(Foo.class)).intercept(FixedValue.value("one"))
+        .method(named("foo")).intercept(FixedValue.value("two"))
+        .method(named("foo").and(takesArguments(1))).intercept(FixedValue.value("three"))
+        .make()
+        .load(getClass().getClassLoader())
+        .getLoaded()
+        .newInstance(); 
+String s1 = foo.foo();                // one
+String s2 = foo.bar();                // two
+String s3 = foo.foo(new Object());    // three
+```
+
