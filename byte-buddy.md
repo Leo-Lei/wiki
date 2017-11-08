@@ -56,7 +56,7 @@ public class GeneralInterceptor {
 
 ```
 注意:
-* Interceptor中的方法要必须为static方法,不然会有**None of [] allows for delegation from public**错误          
+* Interceptor中的方法要必须为***static***方法,不然会有**"None of [] allows for delegation from public"**错误          
 * 注意@AllArguments, @Origin, Method的类是在哪个package下面的，classpath中会有多个相同名字的类        
 
         
