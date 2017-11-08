@@ -20,5 +20,6 @@ description: The post will introduce a text editor Atom.
 | localAddress                        | 返回本地的SockerAddress                                     |
 | remoteAddress                       | 返回远程的SockerAddress                                     |
 | write                               | 将数据写到远程节点，数据将被传递给ChannelPipeline              |
-
+| flush                               | 将之前写的数据flush到底层传输，如一个Socket                     |
+| writeAndFlush                       |                                                           |
 
