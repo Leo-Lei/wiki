@@ -8,7 +8,7 @@ categories: Text Editor
 description: The post will introduce a text editor Atom.
 ---
 
-# 1. Byte-Buddy
+# Byte-Buddy
 [byte-buddy](https://github.com/raphw/byte-buddy)
 
 
