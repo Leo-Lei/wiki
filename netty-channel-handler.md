@@ -36,7 +36,7 @@ description: The post will introduce a text editor Atom.
 
 
 
-# SimpleChannelInboundHandler<T>
+# SimpleChannelInboundHandler
 
 
 
