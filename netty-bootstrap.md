@@ -8,6 +8,10 @@ categories: Text Editor
 description: The post will introduce a text editor Atom.
 ---
 
+|                                 |    BootStrap             |  ServerBootStrap               |
+| ------------------------------- | ------------------------ |--------------------------------|
+| 作用                             | 连接到远程主机             | 绑定到一个本地端口                |
+| EventLoopGroup数量               |    1                     | 2                              |
 
 
 # ServerBootStrap
