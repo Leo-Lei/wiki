@@ -40,13 +40,13 @@ ByteBuf的读写都有顺序读和顺序写。
 | setInt(int index,int value)              | 在index写入一个4位的int，writerIndex不变                                   |
 
 
-|          method                          |                      Desc                                         |
-| ---------------------------------------- | ----------------------------------------------------------------- |
-| writeBoolean(boolean)                    | 从当前writerIndex写入一个boolean，writerIndex会加1                    |
-| writeByte(int)                           | 从当前writerIndex写入一个字节。writerIndex会加1                       |
-| writeMedium(int)                         | 从当前writerIndex写入一个中等的int。writerIndex会加3                  |
-| writeInt(int)                            | 从当前writerIndex写入一个int。writerIndex会加4                  |
-| writeLong(long)                          | 从当前writerIndex写入一个long。writerIndex会加8                  |
+|          method                          |                      Desc         |  writerIndex增加 |
+| ---------------------------------------- | --------------------------------- | ---------------- |
+| writeBoolean(boolean)                    | 从当前writerIndex写入一个boolean     | 1               |
+| writeByte(int)                           | 从当前writerIndex写入一个字节        | 1                |
+| writeMedium(int)                         | 从当前writerIndex写入一个中等的int   | 3                |
+| writeInt(int)                            | 从当前writerIndex写入一个int        | 4                 |
+| writeLong(long)                          | 从当前writerIndex写入一个long       | 8                 |
 
 
 ```text
