@@ -11,7 +11,6 @@ description: The post will introduce a text editor Atom.
 
 
 # ByteBuf
-### 获取状态
 
 |          method                      |                      Desc                    |
 | ------------------------------------ | -------------------------------------------- |
@@ -19,8 +18,6 @@ description: The post will introduce a text editor Atom.
 | ByteBuf resetReaderIndex()           | 是否打开                                      |
 | ByteBuf markWriterIndex()            | 是否打开                                      |
 | ByteBuf resetWriterIndex()           | 是否打开                                      |
-
-
 
 ByteBuf的读写都有顺序读和顺序写。
 * readXXX：顺序读
@@ -69,4 +66,14 @@ buf.setByte(5,12);
 ```text
 0 | 0 | 0 | 0 | 0 | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
 ```
+
+
+# Unpooled
+
+|             Method             |                     Desc               |
+| ------------------------------ | -------------------------------------- |
+| buffer()                       | 返回一个未池化的基于堆内存存储的ByteBuf     |
+| directBuffer()                 | 返回一个未池化的基于直接内存存储的ByteBuf    |
+| copiedBuffer()                 | 返回一个复制了给定数据的ByteBuf            |
+
 
