@@ -33,6 +33,19 @@ description: The post will introduce a text editor Atom.
 | ChannelInactive       | Channel还没有连接到远程节点                                      |
 
 
+```text
+
+  +---------------------+                   +---------------------+
+  |  ChannelRegistered  |------------------>|   ChannelActive     |
+  +---------------------+                   +---------------------+
+                                                       |
+                                                       |
+  +---------------------+                   +---------------------+
+  | ChannelUnregistered |<------------------|   ChannelInactive   |
+  +---------------------+                   +---------------------+
+```
+
+当Channel的状态发生变化时，会生成对应的事件。这些事件会被转发给ChannelPipeline中的ChannelHandler。这些ChannelHandler可以做出响应。        
 
 
 
