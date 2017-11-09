@@ -23,3 +23,5 @@ API V3和V2的一些区别:
 | `get abc`                            |                                            |
 | `get /foo/bar`                       |                                            |
 | `get /foo` --prefix                  |                                            |
+| `watch abc`                          |                                            |
+| `watch /foo` --prefix                |                                            |
