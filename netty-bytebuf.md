@@ -31,13 +31,22 @@ ByteBuf的读写都有顺序读和顺序写。
 
 |          method                          |                      Desc                                                |
 | ---------------------------------------- | ------------------------------------------------------------------------ |
-| boolean readBoolean()                    | 从当前readerIndex读取一个字节，返回一个boolean。readerIndex会加1               |
-| byte readByte()                          | 从当前readerIndex读取一个字节，返回一个byte。readerIndex会加1                  |
-| int readInt()                            | 从当前readerIndex获取一个32位的int，readerIndex会加4                         |
-| boolean getBoolean(int index)            | 从index获取一个1位的boolean，readerIndex不变                                |
-| byte getByte(int index)                  | 从index获取一个1位的byte，readerIndex不变                                   |
-| int getInt(int index)                    | 从index获取一个4位的int，readerIndex不变                                   |
-| ByteBuf setInt(int index,int value)      | 在index写入一个4位的int，writerIndex不变                                   |
+| readBoolean()                            | 从当前readerIndex读取一个字节，返回一个boolean。readerIndex会加1               |
+| readByte()                               | 从当前readerIndex读取一个字节，返回一个byte。readerIndex会加1                  |
+| readInt()                                | 从当前readerIndex获取一个32位的int，readerIndex会加4                         |
+| getBoolean(int index)                    | 从index获取一个1位的boolean，readerIndex不变                                |
+| getByte(int index)                       | 从index获取一个1位的byte，readerIndex不变                                   |
+| getInt(int index)                        | 从index获取一个4位的int，readerIndex不变                                   |
+| setInt(int index,int value)              | 在index写入一个4位的int，writerIndex不变                                   |
+
+
+|          method                          |                      Desc                                         |
+| ---------------------------------------- | ----------------------------------------------------------------- |
+| writeBoolean(boolean)                    | 从当前writerIndex写入一个boolean，writerIndex会加1                    |
+| writeByte(int)                           | 从当前writerIndex写入一个字节。writerIndex会加1                       |
+| writeMedium(int)                         | 从当前writerIndex写入一个中等的int。writerIndex会加3                  |
+| writeInt(int)                            | 从当前writerIndex写入一个int。writerIndex会加4                  |
+| writeLong(long)                          | 从当前writerIndex写入一个long。writerIndex会加8                  |
 
 
 ```text
