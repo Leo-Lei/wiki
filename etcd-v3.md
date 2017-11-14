@@ -9,6 +9,11 @@ description: The post will introduce a text editor Atom.
 ---
 
 # 1. Etcd V3
+
+```bash
+export ETCDCTL_API=3
+```
+
 API V3和V2的一些区别:
 * 事务：ETCD V3提供了多键条件事务（multi-key conditional transactions），应用各种需要使用事务代替原来的Compare-And-Swap操作。    
 * 平键空间（Flat key space）：ETCD V3不再使用目录结构，只保留键。例如：”/a/b/c/“是一个键，而不是目录。V3中提供了前缀查询，来获取符合前缀条件的所有键值，这变向实现了V2中查询一个目录下所有子目录和节点的功能。在V2中,`put abc 100`会创建一个`/abc`,值为100，但V3中只会创建一个`abc`的key。    
