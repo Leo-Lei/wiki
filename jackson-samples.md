@@ -8,9 +8,32 @@ categories: Java
 description: The tutoria will show you how to set up the Python environment.
 ---
 
+# Java Object to JSON String
+```java
+ObjectMapper mapper = new ObjectMapper();
+Staff obj = new Staff();
+
+//Object to JSON in file
+mapper.writeValue(new File("c:\\file.json"), obj);
+
+//Object to JSON in String
+String jsonInString = mapper.writeValueAsString(obj);
+```
 
 # Convert json to object
+```java
+ObjectMapper mapper = new ObjectMapper();
+String jsonInString = "{'name' : 'mkyong'}";
 
+//JSON from file to Object
+Staff obj = mapper.readValue(new File("c:\\file.json"), Staff.class);
+
+//JSON from URL to Object
+Staff obj = mapper.readValue(new URL("http://mkyong.com/api/staff.json"), Staff.class);
+
+//JSON from String to Object
+Staff obj = mapper.readValue(jsonInString, Staff.class);
+```
 
 # Convert map to object
 
