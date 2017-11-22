@@ -189,10 +189,20 @@ dubbo.registry.subscribe=true
 
 
 # @ConditionalOnProperty
-@ConditionalOnProperty注解允许根据一个Spring Environment属性来决定是否包含配置。可以使用prefix和name属性指定要检查的配置属性。默认情况下，任何存在的只要不是false的属性都会匹配。你也可以使用havingValue和matchIfMissing属性创建更高级的检测。
+@ConditionalOnProperty注解允许根据一个Spring Environment属性来决定是否包含配置。可以使用prefix和name属性指定要检查的配置属性。
+默认情况下，只要满足以下条件，就会匹配:
+1. 属性必须存在
+2. 属性不为false
+你也可以使用havingValue和matchIfMissing属性创建更高级的检测。
+* havingValue: 
+
+|   Property Value  |  havingValue=""  | havingValue="true" | havingValue="false"  |  havingValue="foo" |
+| ----------------- | ---------------- | ------------------ | -------------------- | ------------------ |
+| "true"            | yes              | yes                | no                   | no                 |
+| "false"           | no               | no                 | yes                  | no                 |
+| "foo"             | yes              | no                 | no                   | yes                |
+
 ```java
 @ConditionalOnProperty(prefix = "spring.application.admin", value = "enabled", havingValue = "true", matchIfMissing = false)
 ```
-
-
 
