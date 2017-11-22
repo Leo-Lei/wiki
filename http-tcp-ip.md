@@ -9,6 +9,10 @@ description: The tutoria will describe the useage of Linux.
 ---
 
 
+# IP
+`192.168.1.1/24`     就表示ip是192.168.1.1, 子网掩码是255.255.255.0
+
+
 ```text              
           OSI              TCP/IP
   ┌─────────────────┬────────────────────┐
