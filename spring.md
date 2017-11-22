@@ -77,21 +77,15 @@ public class MQConfiguration {
 | `@Qualifier`        | 当@Autowired时，如果有多个bean，通过@Qualifier指定bean的id来注入                      |
 
 
-# @EnableConfigurationProperties
+# @EnableConfigurationProperties, @Value
 ```java
 @Configuration
 @ConditionalOnClass(Exporter.class)
-@EnableConfigurationProperties({DubboApplication.class, DubboProtocol.class, DubboRegistry.class, DubboProvider.class})
+@EnableConfigurationProperties({DubboApplication.class, DubboRegistry.class})
 public class DubboAutoConfiguration {
 
     @Autowired
     private DubboApplication dubboApplication;
-
-    @Autowired
-    private DubboProtocol dubboProtocol;
-
-    @Autowired
-    private DubboProvider dubboProvider;
 
     @Autowired
     private DubboRegistry dubboRegistry;
@@ -111,35 +105,24 @@ public class DubboAutoConfiguration {
         applicationConfig.setLogger(dubboApplication.getLogger());
         return applicationConfig;
     }
-
+    
     @Bean
-    public ProtocolConfig protocolConfig() throws ConfigurationException {
-        ProtocolConfig protocolConfig = new ProtocolConfig();
-        protocolConfig.setName(dubboProtocol.getName());
+    public RegistryConfig registryConfig(@Value("${data.dir:}") String dataDir) {
 
-        if(-1 == dubboProtocol.getPort()){
+        RegistryConfig registryConfig = new RegistryConfig();
+        registryConfig.setProtocol(dubboRegistry.getProtocol());
+        registryConfig.setAddress(dubboRegistry.getAddress());
+        registryConfig.setRegister(dubboRegistry.isRegister());
+        registryConfig.setSubscribe(dubboRegistry.isSubscribe());
+        registryConfig.setClient("curator");
 
-            throw new ConfigurationException("dubbo.protocol.port is required in properties file.");
+        if (StringUtil.isNotBlank(dataDir)){
+            registryConfig.setFile(dataDir+"/" + ".dubbo");
         }
+        System.out.println(registryConfig.getFile());
 
-        protocolConfig.setPort(dubboProtocol.getPort());
-        protocolConfig.setAccesslog(String.valueOf(dubboProtocol.isAccessLog()));
-        protocolConfig.setSerialization(dubboProtocol.getSerialization());
-        System.out.println("[DubboAutoConfiguration] : " + dubboProtocol);
-        return protocolConfig;
-    }
-
-    @Bean
-    public ProviderConfig providerConfig(ApplicationConfig applicationConfig, RegistryConfig registryConfig,ProtocolConfig protocolConfig){
-        ProviderConfig providerConfig = new ProviderConfig();
-        providerConfig.setTimeout(dubboProvider.getTimeout());
-        providerConfig.setRetries(dubboProvider.getRetries());
-        providerConfig.setDelay(dubboProvider.getDelay());
-        providerConfig.setApplication(applicationConfig);
-        providerConfig.setRegistry(registryConfig);
-        providerConfig.setProtocol(protocolConfig);
-        System.out.println("[DubboAutoConfiguration] : " + dubboProvider);
-        return providerConfig;
+        System.out.println("[DubboAutoConfiguration] : " + dubboRegistry);
+        return registryConfig;
     }
 }
 
