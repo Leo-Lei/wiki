@@ -9,6 +9,15 @@ description: docker
 ---
 
 
+|                      |                                                       |
+| -------------------- | ----------------------------------------------------- |
+| `Realm`              |   DAO                                                 |
+| `Subject`            | 用户或需要访问资源的进程                                  |
+
+
+
+
+
+
+# Resources
 [Shiro](http://shiro.apache.org)
-
-
