@@ -18,6 +18,26 @@ description: docker
 
 
 
+# Filter Chain
+
+```properties
+[urls]
+
+/index.html = anon
+/user/create = anon
+/user/** = authc
+/admin/** = authc, roles[administrator]
+/rest/** = authc, rest
+/remoting/rpc/** = authc, perms["remote:invoke"]
+```
+
+**First Match Wins**
+```properties
+/account/** = authc
+/account/signup = anon
+```
+
+
 
 # Resources
 [Shiro](http://shiro.apache.org)
