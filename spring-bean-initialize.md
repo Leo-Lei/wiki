@@ -9,4 +9,18 @@ description: spring
 ---
 
 
+# @InitializingBean
+```java
+public interface InitializingBean {
+    void afterPropertiesSet() throws Exception;
+}
+```
 
+# init-method
+
+# @BeanFactoryPostProcessor
+```java
+public interface BeanFactoryPostProcessor {
+    void postProcessBeanFactory(ConfigurableListableBeanFactory var1) throws BeansException;
+}
+```
