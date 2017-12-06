@@ -9,7 +9,7 @@ description: spring
 ---
 
 
-# @InitializingBean
+# InitializingBean
 ```java
 public interface InitializingBean {
     void afterPropertiesSet() throws Exception;
@@ -18,19 +18,34 @@ public interface InitializingBean {
 
 # init-method
 
-# @BeanFactoryPostProcessor
+# BeanFactoryPostProcessor
 ```java
 public interface BeanFactoryPostProcessor {
     void postProcessBeanFactory(ConfigurableListableBeanFactory var1) throws BeansException;
 }
 ```
 
-# @BeanPostProcessor
+# BeanPostProcessor
 ```java
 public interface BeanPostProcessor {
 	Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
 
 	Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
 }
+```
+
+# @PostConstruct
+```java
 
 ```
+
+
+# Bean的初始化顺序
+1. 设置属性值
+2. 调用`BeanNameAware.setBeanName()`
+3. 调用`BeanFactoryAware.setBeanFactory()`
+4. 调用`BeanPostProcessor.postProcessBeforeInitialization()`方法
+5. 调用`InitializingBean.afterPropertiesSet()`方法
+6. 调用`Bean的init-method`方法。通常是在配置bean的时候指定了`init-method`，例如:`<bean class="beanClass" init-method="init"></bean>`
+7. 调用`BeanPostProcessor.postProcessAfterInitialization()`
+
