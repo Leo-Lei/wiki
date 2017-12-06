@@ -8,6 +8,13 @@ categories: Java
 description: spring
 ---
 
+|      Item                   |                           Desc                               |
+| --------------------------- | ------------------------------------------------------------ |
+| InitializingBean            |                                                              |
+| init-method                 |                                                              |
+| BeanFactoryPostProcessor    |                                                              |
+| BeanPostProcessor           |                                                              |
+| PostConstruct               |                                                              |
 
 # InitializingBean
 ```java
