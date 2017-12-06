@@ -56,3 +56,18 @@ public interface BeanPostProcessor {
 6. 调用`Bean的init-method`方法。通常是在配置bean的时候指定了`init-method`，例如:`<bean class="beanClass" init-method="init"></bean>`
 7. 调用`BeanPostProcessor.postProcessAfterInitialization()`
 
+
+
+
+
+
+# Spring容器中所有bean的加载顺序
+我们通过xml,java注解或者java code的方式定义了很多的java bean，那么Spring容器在获得了这些bean的元数据之后，是按照什么顺序来初始化他们呢？比如，有些bean先，有些bean后初始化。
+1. 初始化BeanFactoryPostProcessor类型的bean
+2. 初始化BeanPostProcessor类型的bean
+3. 初始化普通bean
+
+
+
+
+
