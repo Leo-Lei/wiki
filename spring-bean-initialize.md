@@ -8,13 +8,13 @@ categories: Java
 description: spring
 ---
 
-|      Item                   |                           Desc                               |
-| --------------------------- | ------------------------------------------------------------ |
-| InitializingBean            |                                                              |
-| init-method                 |                                                              |
-| BeanFactoryPostProcessor    |                                                              |
-| BeanPostProcessor           |                                                              |
-| PostConstruct               |                                                              |
+|      Item                   |                           Desc                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| InitializingBean            |                                                                                      |
+| init-method                 |                                                                                      |
+| BeanFactoryPostProcessor    | Spring加载完所有bean的元数据，但还没有去实例化bean的时候，执行`postProcessBeanFactory`方法    |
+| BeanPostProcessor           |                                                                                      |
+| PostConstruct               |                                                                                      |
 
 # InitializingBean
 ```java
