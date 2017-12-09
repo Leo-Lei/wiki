@@ -27,6 +27,12 @@ public interface InitializingBean {
 }
 ```
 
+# DisposableBean
+`org.springframework.beans.factory.DisposableBean`接口，允许一个bean当容器需要其销毁时获得一次回调。
+```java
+void destroy() throws Exception;
+```
+
 # init-method
 
 # BeanFactoryPostProcessor
