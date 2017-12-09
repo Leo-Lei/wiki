@@ -35,6 +35,14 @@ void destroy() throws Exception;
 
 # init-method
 
+
+# 多种生命周期机制
+不同的生命周期机制，执行顺序如下:
+1. @PostConstruct,@PreDestroy
+2. InitializingBean和DisposableBean
+3. 自定义init(),destroy()
+
+
 # BeanFactoryPostProcessor
 ```java
 public interface BeanFactoryPostProcessor {
