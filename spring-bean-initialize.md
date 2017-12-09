@@ -10,11 +10,14 @@ description: spring
 
 |      Item                   |                           Desc                                                       |
 | --------------------------- | ------------------------------------------------------------------------------------ |
-| InitializingBean            |                                                                                      |
-| init-method                 |                                                                                      |
+| InitializingBean            | Spring提供的接口.bean初始化时会调用接口的afterPropertiesSet方法。                          |
+| DisposableBean              | Spring提供的接口.bean析构时会调用接口的destroy方法。                                       |
+| init-method                 |                                                                                      |
 | BeanFactoryPostProcessor    | Spring加载完所有bean的元数据，但还没有去实例化bean的时候，执行`postProcessBeanFactory`方法    |
 | BeanPostProcessor           |                                                                                      |
-| PostConstruct               |                                                                                      |
+| @PostConstruct              |                                                                                      |
+| @PreDestroy                 | JSR-250标准中提供的注解                                                                 |
+
 
 # InitializingBean
 ```java
