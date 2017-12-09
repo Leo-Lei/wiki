@@ -74,3 +74,18 @@ public interface BeanPostProcessor {
 
 
 
+# InitializingBean
+`org.springframework.beans.factory.InitializingBean`接口，在容器设置好bean的所有必要属性后，执行初始化事情。
+```java
+void afterPropertiesSet() throws Exception;
+```
+
+# BeanPostProcessor
+
+
+
+
+
+
+
+
