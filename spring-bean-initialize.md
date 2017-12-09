@@ -51,6 +51,9 @@ public interface BeanFactoryPostProcessor {
 ```
 
 # BeanPostProcessor
+1. BeanPostProcessor是在Spring创建每一个Bean时，都会执行的。BeanFactoryPostProcessor只执行一次。
+2. BeanPostProcessor在比较早的阶段被实例化。在其他所有普通bean被实例化之前。
+
 ```java
 public interface BeanPostProcessor {
 	Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
@@ -63,6 +66,10 @@ public interface BeanPostProcessor {
 ```java
 
 ```
+
+# ApplicationContextAware
+bean对ApplicationContext是感知的，可以通过获取ApplicationContext获取BeanFactory，来获取容器里面的Bean等。        
+这些接口的使用将您的代码联系到Spring API，并且不遵循反转控制方式。因此，它们被推荐用于要求对容器进行编程访问的基础bean。
 
 
 # Bean的初始化顺序
