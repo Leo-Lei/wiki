@@ -20,6 +20,7 @@ description: spring
 
 
 # InitializingBean
+`org.springframework.beans.factory.InitializingBean`接口，在容器设置好bean的所有必要属性后，执行初始化事情。
 ```java
 public interface InitializingBean {
     void afterPropertiesSet() throws Exception;
@@ -69,23 +70,4 @@ public interface BeanPostProcessor {
 1. 初始化BeanFactoryPostProcessor类型的bean
 2. 初始化BeanPostProcessor类型的bean
 3. 初始化普通bean
-
-
-
-
-
-# InitializingBean
-`org.springframework.beans.factory.InitializingBean`接口，在容器设置好bean的所有必要属性后，执行初始化事情。
-```java
-void afterPropertiesSet() throws Exception;
-```
-
-# BeanPostProcessor
-
-
-
-
-
-
-
 
