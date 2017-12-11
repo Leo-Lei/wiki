@@ -8,9 +8,6 @@ categories: Java
 description: spring
 ---
 
-
-
-
 ```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
