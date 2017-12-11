@@ -73,18 +73,15 @@ bean对ApplicationContext是感知的，可以通过获取ApplicationContext获�
 
 
 # Bean的初始化顺序
-1. 设置属性值
-2. 调用`BeanNameAware.setBeanName()`
-3. 调用`BeanFactoryAware.setBeanFactory()`
-4. 调用`BeanPostProcessor.postProcessBeforeInitialization()`方法
-5. 调用`InitializingBean.afterPropertiesSet()`方法
-6. 调用`Bean的init-method`方法。通常是在配置bean的时候指定了`init-method`，例如:`<bean class="beanClass" init-method="init"></bean>`
-7. 调用`BeanPostProcessor.postProcessAfterInitialization()`
-
-
-
-
-
+* 设置属性值
+* 调用`BeanNameAware.setBeanName()`
+* 调用`BeanFactoryAware.setBeanFactory()`
+* 设置bean的属性，依赖等,到这里，bean的所有字段基本已经实例化好了
+* 调用`BeanPostProcessor.postProcessBeforeInitialization()`方法
+* 调用@PostConstruct修饰的方法
+* 调用`InitializingBean.afterPropertiesSet()`方法
+* 调用`Bean的init-method`方法。通常是在配置bean的时候指定了`init-method`，例如:`<bean class="beanClass" init-method="init"></bean>`
+* 调用`BeanPostProcessor.postProcessAfterInitialization()`
 
 # Spring容器中所有bean的加载顺序
 我们通过xml,java注解或者java code的方式定义了很多的java bean，那么Spring容器在获得了这些bean的元数据之后，是按照什么顺序来初始化他们呢？比如，有些bean先，有些bean后初始化。
