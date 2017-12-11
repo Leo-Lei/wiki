@@ -8,7 +8,7 @@ categories: Java
 description: web-authentication
 ---
 
-# 1. Overview
+# @Configuration
 
 ```java
 @Configuration
@@ -51,3 +51,52 @@ public class AppConfig  {
     <context:component-scan base-package="com.acme"/>
 </beans>
 ```
+
+# @Bean
+
+```java
+public class Foo {
+    public void init() {
+        // initialization logic
+    }
+}
+
+public class Bar {
+    public void cleanup() {
+        // destruction logic
+    }
+}
+
+@Configuration
+public class AppConfig {
+
+    @Bean(initMethod = "init")
+    public Foo foo() {
+        return new Foo();
+    }
+
+    @Bean(destroyMethod = "cleanup")
+    public Bar bar() {
+        return new Bar();
+    }
+}
+```
+
+
+# @Scopo
+
+```java
+@Configuration
+public class MyConfiguration {
+
+    @Bean
+    @Scope("prototype")
+    public Encryptor encryptor() {
+        // ...
+    }
+
+}
+```
+
+
+
