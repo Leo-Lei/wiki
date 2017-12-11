@@ -36,3 +36,18 @@ public static void main(String[] args) {
 }
 ```
 
+# 组件扫描
+
+```java
+@Configuration
+@ComponentScan(basePackages = "com.acme")
+public class AppConfig  {
+    ...
+}
+```
+
+```xml
+<beans>
+    <context:component-scan base-package="com.acme"/>
+</beans>
+```
