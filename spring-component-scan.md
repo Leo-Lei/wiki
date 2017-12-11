@@ -25,7 +25,7 @@ description: spring
 </beans>
 ```
 
-
+```<context:component-scan />```隐式的启用了```<context:annotation-config>```。当使用了```<context:annotation-config>```的时候，就没必要使用```<context:component-scan />```了。      
 ```java
 @Configuration
 @ComponentScan(basePackages = "org.example")
