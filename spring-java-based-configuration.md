@@ -10,4 +10,21 @@ description: web-authentication
 
 # 1. Overview
 
-[http://www.cnblogs.com/lobo/p/5657684.html](http://www.cnblogs.com/lobo/p/5657684.html)
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public MyService myService() {
+        return new MyServiceImpl();
+    }
+
+}
+```
+
+```xml
+<beans>
+    <bean id="myService" class="com.acme.services.MyServiceImpl"/>
+</beans>
+```
+
