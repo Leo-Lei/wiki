@@ -8,7 +8,10 @@ categories: Java
 description: spring
 ---
 
-
+```java
+public interface IBar {
+}
+```
 
 ```java
 @Component
