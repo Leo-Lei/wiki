@@ -34,10 +34,26 @@ public class AppConfig  {
 }
 ```
 
+# 自定义扫描
+默认情况下，Spring只扫描如下的两种类，并把它们注册到Spring容器中:        
+1. @Component, @Repository, @Service, @Controller
+2. 自定义的注解，并且被@Component标注了
 
-Spring自动扫描会扫描base-package下的类，如果类有如下的注解，则将它们注册为spring的bean。
-* @Component,@Service,@Repository等
-* @Controller
+### includeFilters, excludeFilters
+```java
+@Configuration
+@ComponentScan(basePackages = "org.example",
+        includeFilters = @Filter(type = FilterType.REGEX, pattern = ".*Stub.*Repository"),
+        excludeFilters = @Filter(Repository.class))
+public class AppConfig {
+    ...
+}
+```
+
+* 如果不希望Spring自动扫描@Component,@Repository,@Service或@Controller等，可以设置```useDefaultFilters=false```
+
+
+
 
 
 
