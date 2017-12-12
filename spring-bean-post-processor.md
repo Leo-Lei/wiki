@@ -8,6 +8,24 @@ categories: Java
 description: spring
 ---
 
+# BeanPostProcessor
+BeanPostProcessor在Spring容器实例化好bean后，但还没执行bean的一些初始化方法之前，执行@BeanPostProcessor的某些方法。        
+```java
+Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
+Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+```
+其中：        
+1. postProcessBeforeInitialization: Spring实例化bean后，执行初始化方法之前被调用        
+2. postProcessAfterInitialization: Spring实例化bean，并执行完初始化方法之前被调用        
+
+bean的初始化方法包括：
+1. @PreConstruct
+2. InitializingBean
+3. 自定义init方法
+        
+* Spring容器每实例化完一个bean后，都会调用BeanPostProcessor。        
+
+# Demo
 ```java
 public interface IBar {
 }
