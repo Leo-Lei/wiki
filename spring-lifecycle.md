@@ -10,13 +10,21 @@ description: spring
 
 
 
-|                            Step                          |                         Desc                          |
-| -------------------------------------------------------- | ----------------------------------------------------- |
-| BeanFactoryPostProcessor.postProcessBeanFactory()        | 初始化BeanFactoryPostProcessor                         |
-| BeanPostProcessor.postProcessBeforeInitialization()      |                                                       |
-|                                                                                                                  |
-| @PostConstruct                                           |                                                       |
-| InitializingBean.afterPropertiesSet()                    |                                                       |
-| init-method方法                                           |                                                       |
-| BeanPostProcessor.postProcessAfterInitialization()       |                                                       |
-| 发布ContextRefreshedEvent事件                             |                                                       |
+|                            Step                                           |                 Desc              |
+| ------------------------------------------------------------------------- | --------------------------------- |
+| BeanFactoryPostProcessor.postProcessBeanFactory()                         |     只执行一次                      |
+| Spring实例化Bean1完成                                                       |                                    |
+| BeanPostProcessor.postProcessBeforeInitialization(bean1)                   |                                    |
+| 调用Bean1的@PostConstruct方法                                                |                                   |
+| 如果Bean1实现了InitializingBean，调用InitializingBean.afterPropertiesSet()   |                                    |
+| 如果Bean1配置了init-method方法，调用init-method                               |                                    |
+| BeanPostProcessor.postProcessAfterInitialization(bean1)                   |                                     |
+| Spring实例化Bean2完成                                                       |                                     |
+| BeanPostProcessor.postProcessBeforeInitialization(bean1)                   |                                    |
+| 调用Bean1的@PostConstruct方法                                                |                                   |
+| 如果Bean1实现了InitializingBean，调用InitializingBean.afterPropertiesSet()   |                                    |
+| 如果Bean1配置了init-method方法，调用init-method                               |                                    |
+| BeanPostProcessor.postProcessAfterInitialization(bean1)                   |                                     |
+| Spring实例化所有Bean完成                                                     |                                     |
+| 发布ContextRefreshedEvent事件                                               |                                     |
+
