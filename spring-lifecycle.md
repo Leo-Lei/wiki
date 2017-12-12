@@ -14,6 +14,7 @@ description: spring
 | -------------------------------------------------------- | ----------------------------------------------------- |
 | BeanFactoryPostProcessor.postProcessBeanFactory()        | 初始化BeanFactoryPostProcessor                         |
 | BeanPostProcessor.postProcessBeforeInitialization()      |                                                       |
+|                                                                                                                  |
 | @PostConstruct                                           |                                                       |
 | InitializingBean.afterPropertiesSet()                    |                                                       |
 | init-method方法                                           |                                                       |
