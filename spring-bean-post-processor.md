@@ -11,8 +11,10 @@ description: spring
 # BeanPostProcessor
 BeanPostProcessor在Spring容器实例化好bean后，但还没执行bean的一些初始化方法之前，执行@BeanPostProcessor的某些方法。        
 ```java
-Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
-Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+public interface BeanPostProcessor {
+    Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
+    Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+}
 ```
 其中：        
 1. postProcessBeforeInitialization: Spring实例化bean后，执行初始化方法之前被调用        
