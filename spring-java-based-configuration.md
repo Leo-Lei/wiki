@@ -83,7 +83,7 @@ public class AppConfig {
 ```
 
 
-# @Scopo
+# @Scope
 
 ```java
 @Configuration
