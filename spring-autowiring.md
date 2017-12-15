@@ -46,9 +46,7 @@ class Fifth implements StringCallable {
     }
 }
 ```
-
-
-
+注入List，Set和Map
 ```java
 @Component
 class BootstrapTest {
@@ -61,8 +59,40 @@ class BootstrapTest {
  
     @Autowired
     Map<String, StringCallable> map;   // 3,4,5   key是bean name,即third,forth,five
- 
-
 ```
+
+但是List和Map中bean的顺序不是3，4，5。可以给接口实现Ordered接口。
+```java
+interface StringCallable extends Callable<String>, Ordered {
+}
+ 
+@Component
+class Third implements StringCallable {
+    //...
+ 
+    @Override public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
+}
+ 
+@Component
+class Forth implements StringCallable {
+    //...
+ 
+    @Override public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE + 1;
+    }
+}
+ 
+@Component
+class Fifth implements StringCallable {
+    //...
+ 
+    @Override public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE + 2;
+    }
+}
+```
+
 
 
