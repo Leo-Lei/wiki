@@ -10,6 +10,13 @@ description: Service Mesh Istio
 
 
 
+|     Component     |                           Desc                         |
+| ----------------- | ------------------------------------------------------ |
+| Pilot             |                                                        |
+| Mixer             |                                                        |
+| Istio-Auth        |                                                        |
+| Envoy             |                                                        |
+
 
 
 
