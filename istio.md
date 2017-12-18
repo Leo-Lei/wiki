@@ -5,14 +5,15 @@ date: 2016-06-17 14:50:00
 tags:
 - Windows
 categories: Windows
-description: What is API and SPI.
+description: Service Mesh Istio
 ---
 
 
 
 
 
+
 # Reference
-https://doczhcn.gitbooks.io/istio/
-https://istio.io/
+* https://doczhcn.gitbooks.io/istio/
+* https://istio.io/
 
