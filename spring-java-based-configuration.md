@@ -5,7 +5,6 @@ date: 2016-07-18 16:45:00
 tags:
 - Java
 categories: Java
-description: web-authentication
 ---
 
 # @Configuration
