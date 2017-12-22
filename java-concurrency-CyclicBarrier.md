@@ -8,7 +8,6 @@ tags:
 categories:
 - Java
 - Concurrency
-description: The series tutorial talk about the Java Concurrency programing model
 ---
 
 # 1. The API of CyclicBarrier
