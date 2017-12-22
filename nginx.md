@@ -5,7 +5,6 @@ date: 2016-10-03 15:50:00
 tags:
 - Atom
 categories: Text Editor
-description: Nginx
 ---
 
 # Yum安装nginx
