@@ -5,7 +5,6 @@ date: 2015-06-26 15:30:00
 tags:
 - Linux
 categories: Linux
-description: The tutoria will describe the useage of Linux.
 ---
 
 # 1. String Memory Model
