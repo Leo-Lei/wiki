@@ -5,7 +5,6 @@ date: 2017-04-14 15:40:00
 tags:
 - Java
 categories: Java
-description: web-authentication
 ---
 
 # 函数式接口
