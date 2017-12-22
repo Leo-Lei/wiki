@@ -5,7 +5,6 @@ date: 2016-06-22 17:10:00
 tags:
 - Java
 categories: Java
-description: HashMap.
 ---
 
 # 1. Overview
