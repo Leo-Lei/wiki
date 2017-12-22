@@ -5,7 +5,6 @@ date: 2015-06-25 19:30:00
 tags:
 - Git
 categories: Git
-description: The tutoria will describe the useage of git.
 ---
 
 
