@@ -5,7 +5,6 @@ date: 2015-09-08 10:35:00
 tags:
 - Hadoop
 categories: Hadoop
-description: The tutoria will describe the useage of Hadoop.
 ---
 
 # 1. Base HDFS Command
