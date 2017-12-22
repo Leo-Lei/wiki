@@ -5,7 +5,6 @@ date: 2017-03-25 14:40:00
 tags:
 - Python
 categories: Python
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 # 构造函数和析构函数
