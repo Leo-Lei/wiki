@@ -7,7 +7,6 @@ tags:
 - Jacman
 - Github
 categories: Hexo
-description: The tutoria will show you how to set up a Hexo site and deply it to Github Page.
 ---
 ##主题介绍
 大多数的Programer都会有写Blog的习惯。使用怎样的Blog平台呢？大概有这么几种：
