@@ -5,7 +5,6 @@ date: 2017-02-20 16:45:00
 tags:
 - Java
 categories: Java
-description: web-authentication
 ---
 
 # 1. Overview
