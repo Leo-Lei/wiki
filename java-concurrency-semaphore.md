@@ -5,7 +5,6 @@ date: 2015-08-11 17:15:00
 tags:
 - Java
 categories: Java
-description: The tutoria will describe the useage of wait and notify.
 ---
 
 # 1.Some sample of Java Semaphore
