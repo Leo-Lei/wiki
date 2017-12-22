@@ -5,7 +5,6 @@ date: 2017-07-08 11:10:00
 tags:
 - docker
 categories: Java
-description: docker
 ---
 
 # 安装kubectl命令行工具
