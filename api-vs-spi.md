@@ -5,7 +5,6 @@ date: 2016-06-17 14:50:00
 tags:
 - Windows
 categories: Windows
-description: What is API and SPI.
 ---
 
 **API** stand for Application Programming Interface. **SPI** stands for Service Provider Interface.
