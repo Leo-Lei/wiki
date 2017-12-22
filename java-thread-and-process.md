@@ -8,7 +8,6 @@ tags:
 categories:
 - Java
 - Concurrency
-description: The post describe the Thread and Process in Java
 ---
 
 # 1. Thread Basis
