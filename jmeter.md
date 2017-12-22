@@ -5,7 +5,6 @@ date: 2017-05-16 12:20:00
 tags:
 - Java
 categories: Java
-description: The tutoria will describe the useage of Linux.
 ---
 
 # 设置QPS限制
