@@ -5,7 +5,6 @@ date: 2016-06-22 14:20:00
 tags:
 - Java
 categories: Java
-description: The post will cover the collection framework in Java.
 ---
 
 # 1. Map Overview     
