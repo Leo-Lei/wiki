@@ -170,7 +170,13 @@ Created app/app1
 * 3个节点的集群可以启动，当一台挂机后，仍然可用。
 * 5个几点的集群可以运行有2台挂机。2n+1台的集群，允许有n台挂机。
 
+
+
+# Curator
+Apache Curator是一个Zookeeper的客户端，和另一个客户端zkclient比起来，Curator要更优秀。
+
 # Resources
 
 [https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper](https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper)
 [http://www.cnblogs.com/zhangs1986/p/6564839.html?from=timeline](http://www.cnblogs.com/zhangs1986/p/6564839.html?from=timeline)
+[http://curator.apache.org](http://curator.apache.org)
