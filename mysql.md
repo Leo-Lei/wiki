@@ -7,7 +7,6 @@ tags:
 categories: 
 - Java
 - Gradle
-description: MySql
 ---
 
 # Command    
