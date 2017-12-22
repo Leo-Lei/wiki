@@ -4,7 +4,6 @@ categories:
 - Music
 tags:
 - Music
-banner: http://ohaq3i4w3.bkt.clouddn.com/disconf-index.png
 ---
 
 Disconf是一个比较好的开源分布式配置管理系统，Disconf的Github主页：    
