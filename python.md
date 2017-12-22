@@ -5,7 +5,6 @@ date: 2016-08-05 16:30:17
 tags:
 - Python
 categories: Python
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 
