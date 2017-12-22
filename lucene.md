@@ -5,7 +5,6 @@ date: 2016-12-12 14:10:00
 tags:
 - Java
 categories: Java
-description: Lucene
 ---
 
 # Lucene分词
