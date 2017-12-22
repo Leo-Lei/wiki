@@ -5,7 +5,6 @@ date: 2016-11-12 14:05:00
 tags:
 - Java
 categories: Java
-description: Kibana
 ---
 
 # Kibana是什么？    
