@@ -5,7 +5,6 @@ date: 2017-07-01 14:20:00
 tags:
 - Java
 categories: Java
-description: elastic search
 ---
 
 # Elasticsearch是什么？    
