@@ -5,7 +5,6 @@ date: 2017-07-08 11:20:00
 tags:
 - docker
 categories: Java
-description: docker
 ---
 
 # Kube Scheduler
