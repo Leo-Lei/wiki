@@ -5,7 +5,6 @@ date: 2016-11-16 11:50:00
 tags:
 - Java
 categories: Java
-description: Java NIO
 ---
 
 # 基本概念    
