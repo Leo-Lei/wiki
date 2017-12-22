@@ -5,7 +5,6 @@ date: 2017-07-09 11:10:00
 tags:
 - docker
 categories: Java
-description: docker
 ---
 
 # Label
