@@ -5,7 +5,6 @@ date: 2016-09-23 17:55:00
 tags:
 - Java
 categories: Java
-description: spring web mvc
 ---
 
 # Start to use Spring Web MVC
