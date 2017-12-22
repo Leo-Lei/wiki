@@ -5,7 +5,6 @@ date: 2015-08-18 14:20:00
 tags:
 - Python
 categories: Python
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 # 1. Install PyCharm
