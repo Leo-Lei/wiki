@@ -5,7 +5,6 @@ date: 2015-09-08 17:50:00
 tags:
 - Windows
 categories: Windows
-description: The tutoria will describe the useage of Linux.
 ---
 
 # 1. Run Windows Application
