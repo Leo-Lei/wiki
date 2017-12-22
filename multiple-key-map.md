@@ -5,7 +5,6 @@ date: 2017-07-05 12:20:00
 tags:
 - Java
 categories: Java
-description: The tutoria will describe the useage of Linux.
 ---
 
 
