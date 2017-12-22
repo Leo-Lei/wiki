@@ -5,7 +5,6 @@ date: 2015-08-12 14:00:00
 tags:
 - SQL
 categories: SQL
-description: The tutoria will describe the basis of SQL
 ---
 
 # 1. Standard SQL 
