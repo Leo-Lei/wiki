@@ -5,7 +5,6 @@ date: 2015-06-28 17:58:17
 tags:
 - IntelliJ IDEA
 categories: IntelliJ IDEA
-description: The tutoria will show you the basis of Intellij IDEA.
 ---
 
 1. Download IntelliJ IDEA
