@@ -7,7 +7,6 @@ tags:
 categories: 
 - Java
 - Gradle
-description: The tutoria will show you how to use Gradle to build your project.
 ---
 
 # 环境
