@@ -5,7 +5,6 @@ date: 2016-02-14 18:30:00
 tags:
 - Jackson
 categories: Java
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 # Java Object to JSON String
