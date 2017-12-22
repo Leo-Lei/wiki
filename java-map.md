@@ -1,11 +1,10 @@
 ---
 layout: post
-title: Random in Java
+title: Map in Java
 date: 2016-06-24 14:15:00
 tags:
 - Java
 categories: Java
-description: The post will cover the Random in Java.
 ---
 
 
