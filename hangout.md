@@ -5,7 +5,6 @@ date: 2016-12-12 14:00:00
 tags:
 - Java
 categories: Java
-description: hangout
 ---
 
 # hangout是什么？
