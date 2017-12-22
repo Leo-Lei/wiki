@@ -5,7 +5,6 @@ date: 2015-08-18 16:40:00
 tags:
 - Java
 categories: Java
-description: The tutoria will describe the useage of wait and notify.
 ---
 
 
