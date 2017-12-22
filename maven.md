@@ -5,7 +5,6 @@ date: 2015-06-26 15:30:00
 tags:
 - Maven
 categories: Java
-description: The tutoria will describe the useage of Maven.
 ---
 
 
