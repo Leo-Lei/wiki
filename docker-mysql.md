@@ -6,8 +6,6 @@ tags:
 - Gradle
 categories: 
 - Java
-- Gradle
-description: MySql
 ---
 
 # 在Docker中运行Mysql
