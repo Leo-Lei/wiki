@@ -5,7 +5,6 @@ date: 2015-08-25 17:30:00
 tags:
 - Linux
 categories: Linux
-description: The tutoria will describe the useage of Linux.
 ---
 
 
