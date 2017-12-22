@@ -5,7 +5,6 @@ date: 2015-09-24 11:30:00
 tags:
 - SQL
 categories: SQL
-description: The tutoria will describe the basis of SQL
 ---
 
 # 1. Check the version and edition of SQL Server Database Engine
