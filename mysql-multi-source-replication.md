@@ -6,7 +6,6 @@ tags:
 - Mysql
 categories: 
 - Mysql
-description: MySql
 ---
 
 # 概述
