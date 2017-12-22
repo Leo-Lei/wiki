@@ -5,7 +5,6 @@ date: 2016-06-22 18:20:00
 tags:
 - Java
 categories: Java
-description: Equals and hashCode in Java.
 ---
 
 # 1. Overview
