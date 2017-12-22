@@ -5,7 +5,6 @@ date: 2017-03-17 10:30:17
 tags:
 - Python
 categories: Python
-description: Create, import Python modules.
 ---
 
 
