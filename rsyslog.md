@@ -5,7 +5,6 @@ date: 2016-11-11 15:20:00
 tags:
 - Java
 categories: Java
-description: rsyslog
 ---
 
 # 安装rsyslog
