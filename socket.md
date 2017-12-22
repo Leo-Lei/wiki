@@ -5,7 +5,6 @@ date: 2016-11-16 15:30:00
 tags:
 - Java
 categories: Java
-description: socket
 ---
 
 # socket通信过程    
