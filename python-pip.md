@@ -5,7 +5,6 @@ date: 2016-01-15 14:00:00
 tags:
 - Python
 categories: Python
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 # PIP命令
