@@ -5,7 +5,6 @@ date: 2015-12-31 12:30:00
 tags:
 - Jersey
 categories: Java
-description: The tutoria will describe the useage of Linux.
 ---
 
 # 1. Base Linux Command
