@@ -5,7 +5,6 @@ date: 2015-09-08 10:00:00
 tags:
 - Hadoop
 categories: Hadoop
-description: The tutoria will describe the useage of Hadoop Hive.
 ---
 
 # 1. Hive Command-Line Interface
