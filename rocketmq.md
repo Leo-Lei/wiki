@@ -5,7 +5,6 @@ date: 2017-04-01 11:10:00
 tags:
 - docker
 categories: Java
-description: Rocket MQ
 ---
 
 # 安装RocketMQ
