@@ -5,7 +5,6 @@ date: 2016-06-22 09:58:17
 tags:
 - Python
 categories: Python
-description: The tutoria will show you how to set up the Python environment.
 ---
 
 # 1. Install Python
