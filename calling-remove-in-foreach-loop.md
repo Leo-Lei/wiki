@@ -5,7 +5,6 @@ date: 2016-06-20 16:30:00
 tags:
 - Windows
 categories: Windows
-description: Remove an entry in a loop.
 ---
 
 The following code will throw an exception `java.util.ConcurrentModificationException`
