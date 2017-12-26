@@ -13,3 +13,5 @@ tags:
 
 
 
+# 官方说明
+[https://prometheus.io/docs/prometheus/2.0/migration](https://prometheus.io/docs/prometheus/2.0/migration/)
