@@ -22,6 +22,7 @@ tags:
 * 删除所有`__meta_`的label
 * 如果`instance`这个label不存在，将`__address`这个label的值给instance
 * 创建Target
+* 开始从Target拉取监控数据
 
 
 # Reference
