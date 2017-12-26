@@ -15,7 +15,7 @@ tags:
 * drop: 删除source_labels匹配regex的Target
 
 # 服务发现和relabel流程
-* 通过服务发现，发现一些Target。各个组件的服务发现机制是不一样的，配置也不一样。比如kubernetes的服务发现配置中需要配置自动发现的kubernetes中的角色，有node，service，pod，endpoint等。
+* 通过服务发现，发现一些Target。各个组件的服务发现机制是不一样的，配置也不一样。比如kubernetes的服务发现配置中需要配置自动发现的kubernetes中的角色，有node，service，pod，endpoint等。在定义Kubernetes的一些资源的时候，我们会自定义一些label或annotation，Kubernetes也会添加一些系统级别的label。通过服务发现时，这些Target就包含了这些label。
 * 如果Target没有`__address__`，删除Target
 * 执行relabel_configs，这个过程中会通过keep，drop删除一些Target。通过replace等来替换一些label的值。
 * 如果`__address__`没有端口号，根据协议添加默认端口，http是80，https是443.
