@@ -29,5 +29,30 @@ alerting:
       - alertmanager:9093
 ```
 
+如下的配置，Prometheus会搜索Kubernetes中的pods，在default的namespace中，有标签`name:alertmanager`,并且有一个非空的端口。
+```yml
+alerting:
+  alertmanagers:
+  - kubernetes_sd_configs:
+      - role: pod
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_pod_label_name]
+      regex: alertmanager
+      action: keep
+    - source_labels: [__meta_kubernetes_namespace]
+      regex: default
+      action: keep
+    - source_labels: [__meta_kubernetes_pod_container_port_number]
+      regex:
+      action: drop
+```
+
+
+
+
+
 # 官方说明
 [https://prometheus.io/docs/prometheus/2.0/migration](https://prometheus.io/docs/prometheus/2.0/migration/)
