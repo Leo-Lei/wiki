@@ -14,3 +14,10 @@ tags:
 * keep: 删除source_labels不匹配regex的Target
 * drop: 删除source_labels匹配regex的Target
 
+
+
+
+
+# Reference
+* [https://www.robustperception.io/life-of-a-label/](https://www.robustperception.io/life-of-a-label/)
+* [https://www.robustperception.io/relabel_configs-vs-metric_relabel_configs/](https://www.robustperception.io/relabel_configs-vs-metric_relabel_configs/)
