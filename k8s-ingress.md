@@ -58,6 +58,7 @@ Ingress Controller可以有多种实现方式，比如Nginx，traefik等。
 
 
 # Ingress的组件
+通常情况下，Ingress由以下组件:
 * 反向代理负载均衡器
 * Ingress Controller
 * Ingress
