@@ -49,7 +49,9 @@ Ingress实现集群内所有服务的入口，通过一系列规则来运行外�
 
 ```
 在定义Ingress之前，需要先部署Ingress Controller，以实现为所有后端Service提供一个统一的入口。Ingress Controller需要实现基于不同HTTP URL 向后端转发的负载分发规则，通常应根据应用系统的需求进行自定义实现。在kubernetes中，Ingress Controller将以Pod的形式运行，监控Apiserver的/ingress接口后端的backend service，如果service发生变化，则Ingress Controll应自动更新其转发规则。             
-Ingress Controller可以有多种实现方式，比如Nginx，traefik等。
+
+Ingress是一种Kubernetes中的资源类型，和Pod，Deployment，Service地位是一样的。                
+Ingress Controller可以有多种实现方式，比如Nginx，traefik等。                 
 
 
 
