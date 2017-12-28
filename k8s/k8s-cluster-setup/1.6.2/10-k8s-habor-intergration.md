@@ -7,10 +7,6 @@ tags:
 categories: Java
 ---
 
-<!-- toc -->
-
-tags: kubedns
-
 # 配置kubernet与harbor集成
 
 harbor配置完成之后，登陆https://192.168.5.103，创建一个qibei的项目，然后使用docker构建一个zookeeper的镜像push到仓库。
