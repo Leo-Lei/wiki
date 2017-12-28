@@ -23,7 +23,7 @@ ALERT <alert name>
   [ LABELS <label set> ]
   [ ANNOTATIONS <label set> ]
 ```
-
+通过下面的方式添加变量
 ```text
 # To insert a firing element's label values:
 {{ $labels.<labelname> }}
