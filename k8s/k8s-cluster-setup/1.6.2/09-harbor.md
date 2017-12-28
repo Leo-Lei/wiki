@@ -1,3 +1,12 @@
+---
+layout: post
+title: Setup Kubernetes Cluster - Habor
+date: 2017-07-08 11:10:00
+tags:
+- docker
+categories: Java
+---
+
 # 部署 harbor 私有仓库
 
 本文档介绍使用 docker-compose 部署 harbor 私有仓库的步骤。
