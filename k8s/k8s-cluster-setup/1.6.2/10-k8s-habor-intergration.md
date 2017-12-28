@@ -1,3 +1,12 @@
+---
+layout: post
+title: Setup Kubernetes Cluster - k8s Habor Intergration
+date: 2017-07-08 11:10:00
+tags:
+- docker
+categories: Java
+---
+
 <!-- toc -->
 
 tags: kubedns
