@@ -23,3 +23,9 @@ categories: Java
 | hession           |   http                  |     二进制   |                  |                   |
 
 
+# 配置覆盖关系
+以 timeout 为例，显示了配置的查找顺序，其它 retries, loadbalance, actives 等类似：
+
+* 方法级优先，接口级次之，全局配置再次之。
+* 如果级别一样，则消费方优先，提供方次之。
+
