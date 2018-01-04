@@ -28,5 +28,12 @@ categories: Text Editor
 
 
 
+# Atom Markdown
+* 打开一个.md文件
+* 在Mac上：`Command` + `Shift` + `P`，打开命令面板
+* 输入`markdown preview toggle`，Atom有模糊匹配，可以只输入部分内容，比如`mdpt`
+* 按Enter即可看到预览。左边编辑，右边实时预览。
+* 也可以保存为html文件，在浏览器中打开
+
 
 
