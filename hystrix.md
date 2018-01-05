@@ -12,7 +12,7 @@ categories: Linux
 
 # 服务雪崩效应的定义
 服务雪崩效应是因为**服务提供者**的不可用，导致**服务调用者**的不可用，并**逐渐放大**的过程。        
-![服务雪崩](https://segmentfault.com/img/bVziad)
+![服务雪崩](https://sfault-image.b0.upaiyun.com/417/851/4178518469-578b40005071a_articlex)
 
 
 
