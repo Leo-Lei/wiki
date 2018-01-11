@@ -287,6 +287,14 @@ http {
 
 ```
 
+# 配置多个Server name
+```json
+server {
+        listen       80;
+        server_name  mycompany.com *.mycompany.com;
+        ......
+}
+```
 
 # Resources     
 [http://www.cnblogs.com/Gukw/archive/2012/05/13/2498328.html](http://www.cnblogs.com/Gukw/archive/2012/05/13/2498328.html)     
