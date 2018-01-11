@@ -288,7 +288,7 @@ http {
 ```
 
 # 配置多个Server name
-```json
+```bash
 server {
         listen       80;
         server_name  mycompany.com *.mycompany.com;
