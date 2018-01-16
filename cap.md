@@ -12,7 +12,8 @@ categories: Windows
 * A: Availablity(可用性)
 * P: Partition Tolerance(分区容错性)
 
-
+# 实际例子
 * CA:RDBMS
 * CP:MongoDB, HBase, Redis
 * AP: CouchDB, DynamoDB
+
