@@ -71,7 +71,12 @@ RxJava的Observer和Subscriber大部分用法是一样的。它们的区别有�
 * onstart(): Subscriber添加的方法。可用于在事件还未触发前，做一些准备工作。
 * unsubscribe(): Subscriber添加的新方法，用于取消订阅。
 
-
+# subscribe()方法
+通过subscribe()方法将observable和observer关联起来。
+```java
+observable.subscribe(observer);
+observable.subscribe(subscriber);
+```
 
 
 
