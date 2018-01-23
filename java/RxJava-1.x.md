@@ -41,4 +41,32 @@ Observer<String> observer = new Observer<String>() {
 };
 ```
 
+# subscriber
+```java
+Subscriber<String> subscriber = new Subscriber<String>() {
+    @Override
+    public void onCompleted() {
+        // ...
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        // ...
+    }
+
+    @Override
+    public void onNext(String s) {
+        // ...
+    } 
+};
+subscriber.onStart();
+subscriber.unsubscribe();
+```
+
+
+
+
+
+
+
 
