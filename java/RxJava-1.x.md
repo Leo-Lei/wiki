@@ -78,10 +78,16 @@ observable.subscribe(observer);
 observable.subscribe(subscriber);
 ```
 
-
-
-
-
+subscribe()方法内部实现是这样子的(仅核心代码):
+```java
+// 注意：这不是 subscribe() 的源码，而是将源码中与性能、兼容性、扩展性有关的代码剔除后的核心代码。
+// 如果需要看源码，可以去 RxJava 的 GitHub 仓库下载。
+public Subscription subscribe(Subscriber subscriber) {
+    subscriber.onStart();
+    onSubscribe.call(subscriber);
+    return subscriber;
+}
+```
 
 
 
