@@ -58,10 +58,21 @@ Subscriber<String> subscriber = new Subscriber<String>() {
     public void onNext(String s) {
         // ...
     } 
+    
+    @Override
+    public void onStart() {
+        // ...
+    }
 };
 subscriber.onStart();
 subscriber.unsubscribe();
 ```
+RxJava的Observer和Subscriber大部分用法是一样的。它们的区别有两点:
+* onstart(): Subscriber添加的方法。
+* unsubscribe(): 取消订阅。
+
+
+
 
 
 
