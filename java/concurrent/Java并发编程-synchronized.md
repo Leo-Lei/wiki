@@ -7,6 +7,15 @@ tags:
 categories: Java
 ---
 
+# Synchronized的作用
+Synchronized有3个作用：
+1. 线程之间的互斥性
+2. 保证共享变量的可见性
+3. 解决重排序问题
+大多数人对线程间的互斥性比较了解，但其实Synchronized还有确保可见性和有序性的作用。
+
+# Synchronized实现原理
+
 Sycncronized是基于Object的monitor的。
 
 |  synchronize作用范围  |                   详情                  |
