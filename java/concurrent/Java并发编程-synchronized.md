@@ -33,3 +33,7 @@ Sycncronized是基于Object的monitor的。
 | synchronized方法1     | synchronized方法1           | 阻塞                  |
 | synchronized方法1     | 非synchronized方法2         | 不阻塞                 |
 | synchronized方法1     | synchronized方法2           | 阻塞                 |
+
+# Synchronized的性能开销
+Synchronized是一个比较重量级的操作。对系统的性能有比较大影响。所以，如果有其他解决方案，通常都避免使用Synchronized。
+
