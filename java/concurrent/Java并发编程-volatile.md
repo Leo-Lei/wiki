@@ -12,6 +12,8 @@ Volatile有2个作用：
 1. 保证共享变量的可见性
 2. 解决重排序问题
 
+注意： Volatile不能保证原子性。
+
 # Java内存模型
 假设有变量count=10, 线程a对其进行读写
 ### 没有volatile修饰
@@ -44,4 +46,47 @@ while(!stop){
 // 线程2
 stop = true;
 ```
-这是一段很典型的代码，在线程2中将stop设置为true，来中断线程1的工作。但这段代码，不一定能正常工作。
+这是一段很典型的代码，在线程2中将stop设置为true，来中断线程1的工作。但这段代码，不一定能正常工作。就是因为，线程2写入的stop=true，可能还没有从线程的工作线程同步到主存中。这时候，stop=true对线程1是不可见的。给stop加上了volatile后，就可以了。
+
+# Volatile不能保证原子性
+```java
+public class Test {
+    public volatile int count = 0;
+     
+    public void increase() {
+        count++;
+    }
+     
+    public static void main(String[] args) {
+        final Test test = new Test();
+        for(int i=0;i<10;i++){
+            new Thread(){
+                public void run() {
+                    for(int j=0;j<1000;j++)
+                        test.increase();
+                };
+            }.start();
+        }
+         
+        while(Thread.activeCount()>1)  //保证前面的线程都执行完
+            Thread.yield();
+        System.out.println(test.inc);
+    }
+}
+```
+上面这段代码，有10个线程，每个线程对i增加1000。inc也是由valatile修饰过了。也许有人认为结果是10000。但事实是每次运行结果都不一样，都小于10000。
+自增操作不是原子性的，它包含读取变量原始值，进行加1操作，写入内存。那么自增的三个操作可能进行分割，就有可能导致下面这种情况：
+1. 假设某个时刻count=10
+2. 线程1开始对变量进行自增操作。线程1从主存中读取count=10。但还没有进行加1操作。可能CPU切换去做别的事情了。
+3. 线程2开始对变量进行自增操作。线程2从主存中读取count=10。
+4. 线程2开始对count进行加1操作。count=count+1，这样count=11。线程将count=11写入线程的工作内存。
+5. 因为有volatile修饰。线程2的工作内存中的count=11立即同步到主存中。
+6. 线程1接着进行加1操作。由于线程已经读取了count的值，线程1的工作内存中count=10。线程不再从主存中去读取count值。线程1对count加1，count=11。然后将count=11写入工作，同步到主存中。
+
+
+
+
+
+
+
+
