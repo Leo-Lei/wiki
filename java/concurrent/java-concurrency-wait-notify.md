@@ -22,8 +22,12 @@ categories: Java
 * 必须在synchronized语句块中使用wait方法
 * wait方法内部会释放持有的obj的monitor，即释放obj的锁。
 
-
 # notify
+
+|            method            |                                     remark                                 |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| notify()                     | 唤醒一个等待当前对象的monitor的线程                                             |
+| notifyAll()                  | 唤醒所有等待当前对象的monitor的线程                                             |
 
 
 
@@ -50,7 +54,54 @@ wait是一个本地方法，其底层是通过对象的monitor来实现的。上
 
 
 
-# 用wait和notify实现的生产者-消费者模式
+
+# wait和notify的例子
+### notify和notifyAll
+```java
+package com.leibangzhu.java.concurrent;
+
+public class NotifyTest {
+    public synchronized void testWait() {
+        System.out.println(Thread.currentThread().getName() + " Start-----");
+        wait(0);         // 省略了try-catch
+        System.out.println(Thread.currentThread().getName() + " End-------");
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        final NotifyTest test = new NotifyTest();
+        for (int i = 0; i < 5; i++) {
+            new Thread(() -> test.testWait()).start();
+        }
+
+        synchronized (test) {
+            test.notify();
+        }
+        Thread.sleep(3000);
+        System.out.println("-----------分割线-------------");
+
+        synchronized (test) {
+            test.notifyAll();
+        }
+    }
+}
+```
+输出：
+```text
+Thread-0 Start-----
+Thread-1 Start-----
+Thread-2 Start-----
+Thread-3 Start-----
+Thread-4 Start-----
+Thread-0 End-------
+-----------分割线-------------
+Thread-4 End-------
+Thread-3 End-------
+Thread-2 End-------
+Thread-1 End-------
+```
+可以看到，调用notify只会唤醒一个。但是调用notifyAll时，会唤醒所有线程。
+
+### 用wait和notify实现的生产者-消费者模式
 
 ```java
 
