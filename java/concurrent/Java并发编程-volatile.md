@@ -189,5 +189,5 @@ y = -1;        //语句5
 由于flag变量为volatile，那么在指令重排序时，不会讲语句3放到语句1、语句2前面。也不会将语句3放到语句4、语句5后面。但是要注意语句1和语句2的顺序，语句4和语句5的顺序是不作任何保证的。
 
 # volatile使用场景
-Synchronized关键字是防止多个线程同时执行一段代码，功能比较全，但是比较影响性能。而volatile关键字在某些情况下性能要由于Synchronized。但是要注意volatile关键字是无法替代Synchronized的。因为volatile无法保证操作的原子性。    
+Synchronized关键字是防止多个线程同时执行一段代码，功能比较全，但是比较影响性能。而volatile关键字在某些情况下性能要由于Synchronized。但是要注意volatile关键字是无法替代Synchronized的。因为volatile无法保证操作的原子性。        
 我的理解是，只有保证操作是原子性的，才能保证使用volatile关键字时，程序能正常运行。
