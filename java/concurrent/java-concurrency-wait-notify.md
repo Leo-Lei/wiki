@@ -22,8 +22,8 @@ categories: Java
 1. 必须在synchronized语句块中使用wait方法
 2. wait方法内部会释放持有的obj的monitor
 3. 一个通过wait方法阻塞的线程，必须同时满足以下两个条件才能被真正执行:
-  - 线程需要被唤醒。超时唤醒或调用notify/notifyAll唤醒
-  - 线程被唤醒后，需要竞争到锁
+    - 线程需要被唤醒。超时唤醒或调用notify/notifyAll唤醒
+    - 线程被唤醒后，需要竞争到锁
 
 
 # notify
