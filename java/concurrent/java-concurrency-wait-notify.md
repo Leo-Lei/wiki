@@ -48,7 +48,7 @@ public class ProducerConsumerInJava {
     public static void main(String args[]) { 
         System.out.println("How to use wait and notify method in Java"); 
         System.out.println("Solving Producer Consumper Problem"); 
-        Queue&lt;Integer&gt; buffer = new LinkedList&lt;&gt;(); 
+        Queue<Integer> buffer = new LinkedList<>(); 
         int maxSize = 10; 
         Thread producer = new Producer(buffer, maxSize, "PRODUCER"); 
         Thread consumer = new Consumer(buffer, maxSize, "CONSUMER"); 
@@ -64,9 +64,9 @@ public class ProducerConsumerInJava {
     * 
     */
     class Producer extends Thread 
-    { private Queue&lt;Integer&gt; queue; 
+    { private Queue<Integer> queue; 
         private int maxSize; 
-        public Producer(Queue&lt;Integer&gt; queue, int maxSize, String name){ 
+        public Producer(Queue<Integer> queue, int maxSize, String name){ 
             super(name); this.queue = queue; this.maxSize = maxSize; 
         } 
         @Override public void run() 
@@ -101,9 +101,9 @@ public class ProducerConsumerInJava {
     * 
     */
     class Consumer extends Thread { 
-        private Queue&lt;Integer&gt; queue; 
+        private Queue<Integer> queue; 
         private int maxSize; 
-        public Consumer(Queue&lt;Integer&gt; queue, int maxSize, String name){ 
+        public Consumer(Queue<Integer> queue, int maxSize, String name){ 
             super(name); 
             this.queue = queue; 
             this.maxSize = maxSize; 
