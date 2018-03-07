@@ -44,7 +44,8 @@ public class WaitNotifyTest {
 }
 ```
 运行上面的代码，抛出异常:***java.lang.IllegalMonitorStateException***。在JDK中对IllegalMonitorStateException的描述:
-> 线程试图等待对象的monitor或试图通知其他正在等待对象monitor的线程，但本身没有对应的monitor的所有权。
+> 线程试图等待对象的monitor或试图通知其他正在等待对象monitor的线程，但本身没有对应的monitor的所有权。    
+
 wait是一个本地方法，其底层是通过对象的monitor来实现的。上面会出现这个异常，是因为在调用wait方法时，没有获取到monitor对象的所有权。那如何获取到monitor对象的所有权?Java中只能通过Synchronized关键字来完成。
 
 
