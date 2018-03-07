@@ -16,6 +16,29 @@ categories: Java
 
 # main线程结束，其他线程一样可以正常运行。
 当main线程结束后，如果进程中还有其他的非守护线程，Java进程就不会退出。其他线程可以继续运行。
+```java
+public class ThreadTest {
+
+    public void run(){
+        System.out.println("Start-----");
+        Thread.sleep(1000);     // 省略了try-catch
+        System.out.println("End-------");
+    }
+
+    public static void main(String[] args) {
+        final ThreadTest test = new ThreadTest();
+        new Thread(() -> test.run()).start();
+        System.out.println("Main thread exit.......");
+    }
+}
+```
+打印出:
+```text
+Main thread exit.......
+Start-----
+End-------
+```
+
 
 # Main线程是一个非守护线程，不能设置成守护线程
 main线程是jvm启动时创建的。不能设置为守护线程。调用Thread.setDaemon()会抛出异常。
