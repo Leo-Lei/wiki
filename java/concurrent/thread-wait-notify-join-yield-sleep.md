@@ -202,5 +202,6 @@ public class ProducerConsumerInJava {
 
 ```
 
-
+# sleep
+让当前线程暂停指定的时间。即短暂的让出CPU执行时间。不会释放锁。
 
