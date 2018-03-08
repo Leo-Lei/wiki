@@ -8,12 +8,12 @@ categories: Java
 ---
 
 
-# Install component and all dependencied from command line
+# 从命令行安装maven依赖
 ```bash
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:get -DartifactId=jersey-servlet -DgroupId=com.sun.jersey -Dversion=1.19
 ```
 
-# Maven commands
+# Maven命令
 
 | command                                                 |             Description                                       |                   
 | ------------------------------------------------------- | ------------------------------------------------------------- |
