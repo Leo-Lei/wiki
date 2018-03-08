@@ -48,3 +48,94 @@ For example, the servlet-api is *provided* scope.
 | provided     | Y             | Y           | --       |   servlet-api                                |
 | runtime      | --            | Y           | Y        |   JDBC driver implementation                 |
 | system       | Y             | Y           | --       |   Local jar files. Not in maven repository.  |
+
+# settings.xml例子
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  <localRepository>/path/to/local/repo</localRepository>
+  -->
+  <pluginGroups>
+
+  </pluginGroups>
+
+  <proxies>
+  </proxies>
+  
+  <servers>
+      <server>
+			<id>releases</id>
+			<username>admin</username>
+			<password>admin246</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>admin</username>
+			<password>admin246</password>
+		</server>
+  </servers>
+
+   <mirrors>
+    <!--  <mirror>
+      <id>alimaven</id>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror> -->
+ </mirrors>
+
+   <profiles>
+     <profile>
+         <id>pnt</id>
+         <activation>
+             <jdk>1.8</jdk>
+         </activation>
+         <properties>
+             <releases.repo>http://192.168.4.10:8087/nexus/content/repositories/releases</releases.repo>
+             <snapshots.repo>http://192.168.4.10:8087/nexus/content/repositories/snapshots</snapshots.repo>
+         </properties>
+         <repositories>
+             <repository>
+                 <id>nexus</id>
+                 <name>local private nexus</name>
+                 <url>http://192.168.4.10:8087/nexus/content/groups/public/</url>
+                 <releases>
+                     <enabled>true</enabled>
+                 </releases>
+                 <snapshots>
+                     <enabled>true</enabled>
+                 </snapshots>
+             </repository>
+         </repositories>
+         <pluginRepositories>
+             <pluginRepository>
+                 <id>nexus</id>
+                 <name>local private nexus</name>
+                 <url>http://192.168.4.10:8087/nexus/content/groups/public/</url>
+                 <releases>
+                     <enabled>true</enabled>
+                 </releases>
+                 <snapshots>
+                     <enabled>true</enabled>
+                 </snapshots>
+             </pluginRepository>
+         </pluginRepositories>
+     </profile>
+ </profiles>
+
+ <activeProfiles>
+   <activeProfile>pnt</activeProfile>
+</activeProfiles>
+</settings>
+```
+
+
+
+
