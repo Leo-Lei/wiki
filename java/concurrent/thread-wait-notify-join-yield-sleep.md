@@ -205,3 +205,17 @@ public class ProducerConsumerInJava {
 # sleep
 让当前线程暂停指定的时间。即短暂的让出CPU执行时间。不会释放锁。
 
+# yield
+yield的作用是暂停当前线程，将线程的状态从Running转变为runnable状态。
+* 调度器可能会忽略该方法
+* 很少有场景会用到这个方法，主要使用是调试和测试
+
+# join
+|               method               |                       remark                        |
+| ---------------------------------- | --------------------------------------------------- |
+| Thread.join()                      | 在线程a中调用线程b的join方法。a会等待b执行完，再继续执行a。  |
+| Thread.join(long millis)           | 最多等待一段时间                                       |
+| Thread.join(long millis,int nanos) | 最多等待一段时间                                       |
+
+join方法的作用是父线程等待子线程执行完，再执行。
+
