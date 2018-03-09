@@ -27,11 +27,3 @@ categories: Java
 | Spring实例化所有Bean完成                                                     |                                     |
 | 发布ContextRefreshedEvent事件                                               |                                     |
 
-
-{% note default %} Content of **default** {% endnote %}
-{% note primary %} Content of **primary** {% endnote %}
-{% note success %} Content of **success** {% endnote %}
-{% note info %} Content of **info** {% endnote %}
-{% note warning %} Content of **warning** {% endnote %}
-{% note danger %} Content of **danger** {% endnote %}
-
