@@ -52,6 +52,7 @@ docker容器命令
 | `docker exec -it mysql:5.7.16 apt-get install -y vim`                     | 进入容器执行命令                               |
 | `docker exec -it my_container /bin/bash`                                  | 进入容器                                      |
 | `docker exec some-mysql sh -c 'mysql -uroot < /opt/hello.sql'`            | 执行容器内命令,适用于命令中包含特殊字符，比如`<`    |
+| `docker run -it --entrypoint=/bin/bash container_id`                      | 启动容器，覆盖容器的entrypoint                  |
 
 # Dockerfile command
 
