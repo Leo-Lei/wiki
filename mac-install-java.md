@@ -38,3 +38,7 @@ ls -lh /usr/bin/java
 lrwxr-xr-x  1 root  wheel    74B 11 11 17:25 /usr/bin/java -> /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java
 ```
 
+使用jdk7或jdk8来切换java的版本。
+
+
+
