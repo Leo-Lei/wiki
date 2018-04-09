@@ -165,7 +165,7 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
     }
 }
 ```
-LeastActiveLoadBalance
+### LeastActiveLoadBalance
 ```java
 public class LeastActiveLoadBalance extends AbstractLoadBalance {
 
@@ -223,7 +223,7 @@ public class LeastActiveLoadBalance extends AbstractLoadBalance {
     }
 }
 ```
-ConsistentHashLoadBalance
+### ConsistentHashLoadBalance
 ```java
 public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 
@@ -336,12 +336,5 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 
 ```
 
-
-
-
-
-
-
-
-
+# 负载均衡扩展
 
