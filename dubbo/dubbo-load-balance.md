@@ -16,7 +16,7 @@ Dubbo提供了一个很好的SPI机制，实现了微内核加扩展的架构。
 
 # Dubbo内置负载均衡策略
 Dubbo内置了4种负载均衡策略:
-1. RandomLoadBalance:随机负载均衡。随机的选择一个。是Dubbo的默认负载均衡策略。
+1. RandomLoadBalance:随机负载均衡。随机的选择一个。是Dubbo的**默认**负载均衡策略。
 2. RoundRobinLoadBalance:轮询负载均衡。轮询选择一个。
 3. LeastActiveLoadBalance:最少活跃调用数负载均衡。最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。
 4. ConsistentHashLoadBalance:一致性哈希负载均衡。相同参数的请求总是落在同一台机器上。
@@ -337,4 +337,26 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 ```
 
 # 负载均衡扩展
+1. 实现LoadBalance接口
+```java
+package com.leibangzhu.test.dubbo.consumer;
+public class MyLoadBalance implements LoadBalance {
+    @Override
+    public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
+        System.out.println("Select the first invoker...");
+        return invokers.get(0);
+    }
+}
+```
+2. 添加资源文件
+添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。这是一个简单的文本文件。文件内容如下:
+```text
+my=my=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
+```
+3. 配置使用自定义LoadBalance
+```xml
+<dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="my" />
+```
+在consumer端的<dubbo:reference>中配置<loadbalance="my">
+
 
