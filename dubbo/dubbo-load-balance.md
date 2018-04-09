@@ -337,6 +337,8 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 ```
 
 # 负载均衡扩展
+Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。
+
 1. 实现LoadBalance接口
 ```java
 package com.leibangzhu.test.dubbo.consumer;
@@ -359,4 +361,4 @@ my=my=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
 ```
 在consumer端的<dubbo:reference>中配置<loadbalance="my">
 
-
+经过上面的3个步骤，我们编写了一个自定义的LoadBalance，并告诉Dubbo使用它了。启动Dubbo，我们就能看到Dubbo已经使用了自定义的MyLoadBalance。
