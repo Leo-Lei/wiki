@@ -11,3 +11,4 @@ categories: Java
 |              command          |                    desc                    |
 | ----------------------------- | ------------------------------------------ |
 | brew install mongo            | 安装mongo                                  |
+| brew uninstall mongo          | 卸载mongo                                  |
