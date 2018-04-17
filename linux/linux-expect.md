@@ -7,7 +7,7 @@ tags:
 categories: Linux
 ---
 
-
+```bash
 expect -c "
 set timeout 5
 
@@ -30,3 +30,4 @@ expect {
 expect eof
 "
 echo "done"
+```
