@@ -128,6 +128,9 @@ Done
 
 
 
+下面的脚本会统计测试结果，并输出到控制台中。
+wrk默认统计qps时，没有判断http status，那些错误的请求处理，比如response是500的，也被统计在qps中。很多时候，我们希望统计的qps中排除掉这些错误的请求。
+
 ```lua
 done = function(summary, latency, requests)
    
