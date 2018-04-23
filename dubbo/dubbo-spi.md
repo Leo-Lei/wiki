@@ -121,10 +121,10 @@ roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
 consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance
 ```
-可以看到文件中定义了4个LoadBalance的扩展实现。格式是`name=class全名称`。和Java SPI不同，dubbo SPI允许为每一个扩展实现取一个名字，然后就可以在Dubbo中通过name来引用对应的扩展实现。这也是Dubbo SPI优于Java SPI的地方。
+可以看到文件中定义了4个LoadBalance的扩展实现。格式是`name=class全名称`。和Java SPI不同，dubbo SPI允许为每一个扩展实现取一个名字，然后就可以在Dubbo中通过name来引用对应的扩展实现。这也是Dubbo SPI优于Java SPI的地方。        
 2. @Adaptive("loadbalance")
-@Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。可以使用ExtenLoader获取一个LoadBalance的自适应实例，本质是一个代理。当调用实例的select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。类似于从http的request中获取参数值。好比Dubbo的consumer端发送来一个请求http://domain.com/some/path?foo=100&loadbalance=random。     Provider端，获取参数中loadbalance的值为random。根据random来选择RandomLoadBalance。       
-select的方法中好像没有loadbalance参数，那怎么获取loadbalance参数的值呢？我们看到select方法中有一个URL参数，可能很多人也猜到了，loadbalance就是以参数的形式存在于URL中的。URL是Java的一个类`com.alibaba.dubbo.common`。
+@Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。可以使用ExtenLoader获取一个LoadBalance的自适应实例，本质是一个代理。当调用实例的select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。类似于从http的request中获取参数值。好比Dubbo的consumer端发送来一个请求http://domain.com/some/path?foo=100&loadbalance=random。     Provider端，获取参数中loadbalance的值为random。根据random来选择RandomLoadBalance。               
+select的方法中好像没有loadbalance参数，那怎么获取loadbalance参数的值呢？我们看到select方法中有一个URL参数，可能很多人也猜到了，loadbalance就是以参数的形式存在于URL中的。URL是Java的一个类`com.alibaba.dubbo.common`。        
 下面是URL类的一部分。可以看到里面有一个parameters的Map。这里面有Dubbo请求的相关参数。比如，序列化方式，负载均衡策略等信息。
 ```java
 public final class URL implements Serializable {
