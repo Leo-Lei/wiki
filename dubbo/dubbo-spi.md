@@ -151,7 +151,30 @@ public final class URL implements Serializable {
 ```
 
 # 自定义一个LoadBalance扩展
-    演示如何自己实现一个LoadBbalance，在不改变dubbo源码的情况下，让Dubbo使用我们自定义的LoadBalance实现
+Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。
+1. 实现LoadBalance接口
+```java
+package com.leibangzhu.test.dubbo.consumer;
+public class MyLoadBalance implements LoadBalance {
+    @Override
+    public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
+        System.out.println("Select the first invoker...");
+        return invokers.get(0);
+    }
+}
+```
+2. 添加资源文件
+添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。这是一个简单的文本文件。文件内容如下:
+```text
+my=my=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
+```
+3. 配置使用自定义LoadBalance
+```xml
+<dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="my" />
+```
+在consumer端的<dubbo:reference>中配置<loadbalance="my">
+
+经过上面的3个步骤，我们编写了一个自定义的LoadBalance，并告诉Dubbo使用它了。启动Dubbo，我们就能看到Dubbo已经使用了自定义的MyLoadBalance。
     
 # Dubbo Extension Loader
     ExtentionLoader源码解读
