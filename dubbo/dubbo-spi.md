@@ -49,13 +49,17 @@ public class MongoRepository implements IRepository {
 }
 ```
 实际场景中，MysqlRepository和MongoRepository是框架的使用者去实现的。这两个类和IRepository接口是属于不同的Jar包中的。        
-3. 在`/src/main/resources/META-INF.services`中配置服务的实现
+3. 在`/src/main/resources/META-INF/services`中配置服务的实现
+添加了MysqlRepository和MongoRepository后，需要告诉Java SPI，我们为IRepository添加了两个实现。需要:
+* 在`src/main/resources/META-INF/services`目录添加一个文件
+* 文件名就是接口的全名称，即`com.foo.IRepository`
+* 文件的内容需要列出所有的接口的实现
 添加文件`src/main/resources/META-INF/services/com.foo.IRepository`
 ```text
-#English implementation
+#Mongo implementation
 com.bar.MongoRepository
 
-#Chinese implementation
+#Mysql implementation
 com.bar.MysqlRepository
 ```
 4. 通过ServiceLoader加载IRepository实现
