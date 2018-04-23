@@ -77,6 +77,12 @@ while (it != null && it.hasNext()){
 
 # dubbo的SPI机制
 
+Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我们知道了Java的SPI只能通过遍历来进行实现的查找和实例化，有可能会一次性把所有的实现都实例化，这样会造成有些不使用的扩展实现也会被实例化，这就会造成一定的资源浪费。Dubbo对这一点进行了优化。除此之外，Dubbo还进行了其他方面的优化。有关Dubbo的改进，参照文档上的说明：        
+
+1. JDK标准的SPI会一次性实例化扩展点所有实现，如果有扩展实现初始化很耗时，但如果没用上也加载，会很浪费资源。    
+2. 如果扩展点加载失败，连扩展点的名称都拿不到了。比如：JDK标准的ScriptEngine，通过getName();获取脚本类型的名称，但如果RubyScriptEngine因为所依赖的jruby.jar不存在，导致RubyScriptEngine类加载失败，这个失败原因被吃掉了，和ruby对应不起来，当用户执行ruby脚本时，会报不支持ruby，而不是真正失败的原因。 
+3. 增加了对扩展点IoC和AOP的支持，一个扩展点可以直接setter注入其它扩展点。
+
 # Dubbo Extension Loader
     ExtentionLoader源码解读
 # Dubbo的LoadBalance扩展点解读
