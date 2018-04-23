@@ -53,7 +53,8 @@ public class MongoRepository implements IRepository {
 添加了MysqlRepository和MongoRepository后，需要告诉Java SPI，我们为IRepository添加了两个实现。需要:
 * 在`src/main/resources/META-INF/services`目录添加一个文件
 * 文件名就是接口的全名称，即`com.foo.IRepository`
-* 文件的内容需要列出所有的接口的实现
+* 文件的内容需要列出所有的接口的实现  
+
 添加文件`src/main/resources/META-INF/services/com.foo.IRepository`
 ```text
 #Mongo implementation
