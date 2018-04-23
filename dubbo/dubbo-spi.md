@@ -96,10 +96,35 @@ Extension是扩展点的实现类。
 负责加载对应的扩展。
 6. Extension Adaptive Instance    
 扩展的自适应实例。扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
-
+7. src/main/resources/META-INF/dubbo/internal
+该目录类似于Java SPI的`META-INF/services`目录。有扩展点的配置文件。格式也和Java SPI的有些类似。
 
 # Dubbo的LoadBalance扩展点解读
-    Dubbo中的LoadBalance也是一个SPI，结合源码，分析LoadBalance是如何被加载的
+Dubbo中的LoadBalance也是一个扩展点，我们可以结合源码，分析LoadBalance是如何被加载的。
+1. LoadBalance扩展点
+Dubbo中负载均衡的扩展点是LoadBalance接口。
+```java
+@SPI(RandomLoadBalance.NAME)
+public interface LoadBalance {
+
+    @Adaptive("loadbalance")
+    <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException;
+}
+```
+上面的代码中需要关注以下几点:
+1. @SPI(RandomLoadBalance.NAME)        
+@SPI加在LoadBalance接口上，表示接口LoadBalance是一个扩展点。RandomLoadBalance.NAME是一个常量，值是"random"。表示，如果没有显式指定，使用默认的随机负载均衡策略。
+random所代表的扩展是哪一个类呢？答案就在文件`src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.cluster.LoadBalance`中:
+```text
+random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
+roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
+leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
+consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance
+```
+可以看到文件中定义了4个LoadBalance的扩展实现。格式是`name=class全名称`。和Java SPI不同，dubbo SPI允许为每一个扩展实现取一个名字，然后就可以在Dubbo中通过name来引用对应的扩展实现。这也是Dubbo SPI优于Java SPI的地方。
+2. @Adaptive
+
+
 # 自定义一个LoadBalance扩展
     演示如何自己实现一个LoadBbalance，在不改变dubbo源码的情况下，让Dubbo使用我们自定义的LoadBalance实现
     
