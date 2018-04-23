@@ -97,12 +97,14 @@ Extension是扩展点的实现类。
 6. Extension Adaptive Instance    
 扩展的自适应实例。扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
 
-# Dubbo Extension Loader
-    ExtentionLoader源码解读
+
 # Dubbo的LoadBalance扩展点解读
     Dubbo中的LoadBalance也是一个SPI，结合源码，分析LoadBalance是如何被加载的
 # 自定义一个LoadBalance扩展
     演示如何自己实现一个LoadBbalance，在不改变dubbo源码的情况下，让Dubbo使用我们自定义的LoadBalance实现
+    
+# Dubbo Extension Loader
+    ExtentionLoader源码解读
 # Dubbo SPI高级用法之IoC
    AdaptiveInstance
 # Dubbo SPI高级用法之AoP
