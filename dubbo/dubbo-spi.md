@@ -151,11 +151,13 @@ public final class URL implements Serializable {
 ```
 
 # 自定义一个LoadBalance扩展
-Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。
+Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。    
+下面，我们通过一个简单的例子，来自己实现一个LoadBalance，来感受下Dubbo的扩展机制。
 1. 实现LoadBalance接口
+首先，编写一个自己实现的LoadBalance，因为这里主要是演示Dubbo的扩展机制，而不是LoadBalance的实现，所有这里LoadBalance的实现很简单，会选择第一个invoker，并在控制台输出一条日志。
 ```java
 package com.leibangzhu.test.dubbo.consumer;
-public class MyLoadBalance implements LoadBalance {
+public class DemoLoadBalance implements LoadBalance {
     @Override
     public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
         System.out.println("Select the first invoker...");
@@ -164,18 +166,23 @@ public class MyLoadBalance implements LoadBalance {
 }
 ```
 2. 添加资源文件
-添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。这是一个简单的文本文件。文件内容如下:
+添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。文件内容如下:
 ```text
-my=my=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
+demo=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
 ```
 3. 配置使用自定义LoadBalance
+通过上面的两步，已经添加了一个名字为demo的LoadBalance实现，并在Dubbo中进行来注册。接下来，需要显式的告诉Dubbo使用这个demo的负载均衡实现。如果是通过spring的方式使用Dubbo，可以在xml文件中进行设置。
 ```xml
-<dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="my" />
+<dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="demo" />
 ```
-在consumer端的<dubbo:reference>中配置<loadbalance="my">
-
-经过上面的3个步骤，我们编写了一个自定义的LoadBalance，并告诉Dubbo使用它了。启动Dubbo，我们就能看到Dubbo已经使用了自定义的MyLoadBalance。
-    
+在consumer端的<dubbo:reference>中配置<loadbalance="demo">
+4. 启动Dubbo进行测试    
+启动Dubbo，调用一次IHelloService，可以看到控制台会输出一条`Select the first invoker...`日志。说明Dubbo的确是使用了我们自定义的LoadBalance。      
+整个过程会发现：
+* 没有改动Dubbo的源码
+* 新添加的LoadBalane实现类DemoLoadBalance就是一个简单的Java类，除了实现LoadBalane接口，没有引入其他的元素。对代码的侵入性几乎为零
+* 将DemoLoadBalane注册到Dubbo中，只需要添加配置文件`src/main/resources/com.alibaba.dubbo.rpc.cluster.LoadBalance`即可，使用简单。而且不会对现有代码造成影响。符合开闭原则。
+    
 # Dubbo Extension Loader
     ExtentionLoader源码解读
 # Dubbo SPI高级用法之IoC
