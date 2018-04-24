@@ -357,7 +357,16 @@ private T injectExtension(T instance) {
     return instance;
 }
 ```
-injectExtension方法
+injectExtension方法遍历扩展类的所有set方法，通过set方法进行注入。比如扩展类是A，A有一个字段是B b和一个setB的方法。injectExtension方法会创建一个B的实例，并把它注入到A中，完成依赖注入的过程。这里面有个问题是如果获取B的实例。因为B的实例有可能是一个简单的POJO，也可能是另一个Dubbo的SPI扩展，也可能是一个Spring的Bean，或其他更复杂的情况。那Dubbo是怎么根据类B来获取正确的B的实例呢？    
+具体的实现是这句代码`Object object = objectFactory.getExtension(pt, property);`。objectFactory是ExtensionFactory类型的，在创建ExtensionLoader时被初始化了。    
+```java
+private ExtensionLoader(Class<?> type) {
+        this.type = type;
+        objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
+    }
+```
+
+![Dubbo-ExtensionFactory](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo-extensionfactory.png)
 
 
     ExtentionLoader源码解读
