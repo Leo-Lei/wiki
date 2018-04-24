@@ -84,7 +84,9 @@ Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我�
 3. 增加了对扩展点IoC和AOP的支持，一个扩展点可以直接setter注入其它扩展点。
 
 # Dubbo扩展点机制基本概念
-1. Extension Point    
+### 一些术语
+由于扩展的概念太过于宽泛，这里把它细化一下。接下来的内容中，我们会用到这些术语，尽量使用中文描述。
+1. Extension Point    
 扩展点。是一个Java的接口。
 2. Extension    
 扩展，即扩展点的实现类。
@@ -96,8 +98,13 @@ Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我�
 负责加载对应的扩展。
 6. Extension Adaptive Instance    
 扩展的自适应实例。扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
-7. src/main/resources/META-INF/dubbo/internal
-该目录类似于Java SPI的`META-INF/services`目录。有扩展点的配置文件。格式也和Java SPI的有些类似。
+
+### 一些路径
+和Java的SPI从`/META-INF/services`目录加载扩展配置类似，Dubbo也会从一下路径去加载扩展配置文件:
+* `META-INF/dubbo/internal`
+* `META-INF/dubbo`
+* `META-INF/services`
+在接下来的内容中，只会说加载扩展配置文件，将不再重复这3个路径。
 
 # Dubbo的LoadBalance扩展点解读
 Dubbo中的LoadBalance也是一个扩展点，我们可以结合源码，分析LoadBalance是如何被加载的。
