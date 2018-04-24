@@ -367,9 +367,39 @@ private ExtensionLoader(Class<?> type) {
 ```
 
 ![Dubbo-ExtensionFactory](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo-extensionfactory.png)
+ExtensionLoader有三个实现：
+1. SpiExtensionLoader：Dubbo自己的Spi去加载Extension
+2. SpringExtensionLoader：从Spring容器中去加载Extension
+3. AdaptiveExtensionLoader: 自适应的AdaptiveExtensionLoader
+这里要注意AdaptiveExtensionLoader。    
+```java
+@Adaptive
+public class AdaptiveExtensionFactory implements ExtensionFactory {
 
+    private final List<ExtensionFactory> factories;
 
-    ExtentionLoader源码解读
+    public AdaptiveExtensionFactory() {
+        ExtensionLoader<ExtensionFactory> loader = ExtensionLoader.getExtensionLoader(ExtensionFactory.class);
+        List<ExtensionFactory> list = new ArrayList<ExtensionFactory>();
+        for (String name : loader.getSupportedExtensions()) {
+            list.add(loader.getExtension(name));
+        }
+        factories = Collections.unmodifiableList(list);
+    }
+
+    public <T> T getExtension(Class<T> type, String name) {
+        for (ExtensionFactory factory : factories) {
+            T extension = factory.getExtension(type, name);
+            if (extension != null) {
+                return extension;
+            }
+        }
+        return null;
+    }
+}
+```
+AdaptiveExtensionLoader添加了@Adaptive注解，所以会使用它作为ExtensionLoader。AdaptiveExtentionLoader里面，会遍历所有的ExtensionLoader实现，去加载Extension。也就是它会遍历SpiExtensionLoader和SpringExtensionLoader，去加载Extension。如果我们自己也实现了一个ExtensionLoader，Dubbo也会从它去加载extension。
+
 # Dubbo SPI高级用法之IoC
    AdaptiveInstance
 # Dubbo SPI高级用法之AoP
