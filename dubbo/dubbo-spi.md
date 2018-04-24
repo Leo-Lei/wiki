@@ -86,10 +86,10 @@ Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我�
 # Dubbo扩展点机制基本概念
 1. Extension Point    
 扩展点。是一个Java的接口。
-2. Extension    
-Extension是扩展点的实现类。
-3. Extension Instance    
-扩展点实现类的实例。
+2. Extension    
+扩展，即扩展点的实现类。
+3. Extension Instance    
+扩展实例，即扩展点实现类的实例。
 4. @SPI    
 @SPI注解作用于扩展点的接口上，表明该接口是一个扩展点。可以被Dubbo的ExtentionLoader加载。如果没有此ExtensionLoader调用会异常。
 5. ExtentionLoader    
