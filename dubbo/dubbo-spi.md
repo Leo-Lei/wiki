@@ -536,7 +536,7 @@ private Class<?> createAdaptiveExtensionClass() {
         return compiler.compile(code, classLoader);
     }
 ```
-createAdaptiveExtensionClassCode()方法中使用一个StringBuilder
+
 
 ```java
 @SPI("javassist")
@@ -549,6 +549,59 @@ public interface Compiler {
 
 
 
+createAdaptiveExtensionClassCode()方法中使用一个StringBuilder来构建自适应类的Java源码。方法实现比较长，这里就不贴代码了。下面是使用createAdaptiveExtensionClassCode方法为Protocol创建的自适应类的Java代码:
+```java
+package com.alibaba.dubbo.rpc;
 
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
 
+public class Protocol$Adpative implements com.alibaba.dubbo.rpc.Protocol {
+    public void destroy() {
+        throw new UnsupportedOperationException("method public abstract void com.alibaba.dubbo.rpc.Protocol.destroy() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+    }
 
+    public int getDefaultPort() {
+        throw new UnsupportedOperationException("method public abstract int com.alibaba.dubbo.rpc.Protocol.getDefaultPort() of interface com.alibaba.dubbo.rpc.Protocol is not adaptive method!");
+    }
+
+    public com.alibaba.dubbo.rpc.Exporter export(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+        if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+        if (arg0.getUrl() == null)
+            throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");
+        com.alibaba.dubbo.common.URL url = arg0.getUrl();
+        String extName = (url.getProtocol() == null ? "dubbo" : url.getProtocol());
+        if (extName == null)
+            throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+        com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol) ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+        return extension.export(arg0);
+    }
+
+    public com.alibaba.dubbo.rpc.Invoker refer(java.lang.Class arg0, com.alibaba.dubbo.common.URL arg1) throws com.alibaba.dubbo.rpc.RpcException {
+        if (arg1 == null) throw new IllegalArgumentException("url == null");
+        com.alibaba.dubbo.common.URL url = arg1;
+        String extName = (url.getProtocol() == null ? "dubbo" : url.getProtocol());
+        if (extName == null)
+            throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+        com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol) ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+        return extension.refer(arg0, arg1);
+    }
+}
+```
+
+先看看Protocol的源码
+```java
+@SPI("dubbo")
+public interface Protocol {
+
+    int getDefaultPort();
+
+    @Adaptive
+    <T> Exporter<T> export(Invoker<T> invoker) throws RpcException;
+
+    @Adaptive
+    <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException;
+
+    void destroy();
+```
+我们可以看到Prototol接口中有4个方法，但只有export和refer两个方法使用了@Adaptive注解。所以，Dubbo生成的自适应类Protocol$Adpative中，也只有这两个方法有实现，其余方法都是直接跑出异常。    
+大致的逻辑和开始说的一样，通过url解析出参数，解析的逻辑由@Adaptive的value参数控制，然后再根据得到的扩展点名获取扩展点实现，然后进行调用。具体拼接逻辑大家可以看createAdaptiveExtensionClassCode的实现
