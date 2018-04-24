@@ -323,8 +323,7 @@ private Map<String, Class<?>> getExtensionClasses() {
             if (value != null && (value = value.trim()).length() > 0) {
                 String[] names = NAME_SEPARATOR.split(value);
                 if (names.length > 1) {
-                    throw new IllegalStateException("more than 1 default extension name on extension " + type.getName()
-                            + ": " + Arrays.toString(names));
+                    throw new IllegalStateException("more than 1 default extension name on extension " + type.getName());
                 }
                 if (names.length == 1) cachedDefaultName = names[0];
             }
@@ -536,8 +535,7 @@ private Class<?> createAdaptiveExtensionClass() {
         return compiler.compile(code, classLoader);
     }
 ```
-
-
+Compiler的代码，默认实现是javassist。
 ```java
 @SPI("javassist")
 public interface Compiler {
@@ -546,8 +544,6 @@ public interface Compiler {
 }
 
 ```
-
-
 
 createAdaptiveExtensionClassCode()方法中使用一个StringBuilder来构建自适应类的Java源码。方法实现比较长，这里就不贴代码了。下面是使用createAdaptiveExtensionClassCode方法为Protocol创建的自适应类的Java代码:
 ```java
