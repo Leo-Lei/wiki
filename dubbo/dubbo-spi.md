@@ -338,6 +338,9 @@ private Map<String, Class<?>> getExtensionClasses() {
     }
 ```
 
+injectExtension方法实现了Ioc即自动装配的功能。WrapperClass实现了AOP功能。这两点，我们会在后面的章节中单独来说明。到此为止，Dubbo加载和创建扩展的主流程就结束了。总结下来就是加载ClassPath的META-INF目录下的一些文件，再根据name来创建对应的扩展类实例，并对其进行依赖注入和自动包装。        
+
+# Dubbo SPI高级用法之IoC
 看看injectExtension方法。我已经把一些无关的代码去掉了。比如日志，不影响主流程的异常处理等。希望大家可以更专注在核心代码上。
 ```java
 private T injectExtension(T instance) {
@@ -399,10 +402,6 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
 }
 ```
 AdaptiveExtensionLoader添加了@Adaptive注解，所以会使用它作为ExtensionLoader。AdaptiveExtentionLoader里面，会遍历所有的ExtensionLoader实现，去加载Extension。也就是它会遍历SpiExtensionFactory和SpringExtensionFactory，去加载Extension。SpiExtensionLoader或调用ExtensionLoader来加载Extension。SpringExtensionFactory会从Spring ApplicationContext中去获取bean，作为Extension。如果我们自己也实现了一个ExtensionLoader，Dubbo也会从它去加载extension。通过这种机制，让Dubbo的依赖注入支持了Dubbo的SPI，Spring的Bean，和自定义的实现。
-
-
-# Dubbo SPI高级用法之IoC
-   AdaptiveInstance
 # Dubbo SPI高级用法之AoP
 在用Spring的时候，我们经常会用到AOP功能。在目标类的方法前后插入其他逻辑。比如通常使用Spring AOP来实现日志和鉴权等逻辑。    
 那么在Dubbo的SPI体系中，是否也有类似的功能呢？答案是有的。在Dubbo中，有一种特殊的类，被称为Wrapper类。通过装饰者模式，使用包装类包装原始的扩展点实例。在原始扩展点实现前后插入其他逻辑，实现AOP功能。    
