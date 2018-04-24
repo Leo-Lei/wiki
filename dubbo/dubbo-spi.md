@@ -488,3 +488,67 @@ private T createExtension(String name) {
     }
 ```
 
+# 扩展点自适应
+在Dubbo中，一个扩展点会有多个实现。Dubbo究竟选择哪个实现呢？这取决于系统的配置。
+1. 在Dubbo配置文件中进行配置，属于系统级别配置。应用启动时会读取该配置
+2. 每一次的rpc调用中，可以设置参数来覆盖系统级别的配置
+大多数时候，我们都使用系统级别的配置。一旦应用起来后，这些配置就不会改了。比如序列化方式，超时时间等。但有些时候，我们需要动态地修改一些配置，比如对某些RPC调用使用不同的负载均衡策略等。这就要求Dubbo的SPI机制可以根据参数，自动的选择对应的实现。将扩展点实例的选择从应用启动的时候延迟到实际调用的时候。    
+Dubbo使用适配器类来实现扩展点自适应功能。在需要实现自适应的接口方法上使用@Adaptive注解。框架会通过字节码工具自动创建一个适配类，默认是Javaassist。
+创建自适应扩展类的代码:
+```java
+public T getAdaptiveExtension() {
+    Object instance = cachedAdaptiveInstance.get();
+    if (instance == null) {
+            synchronized (cachedAdaptiveInstance) {
+                instance = cachedAdaptiveInstance.get();
+                if (instance == null) {
+                      instance = createAdaptiveExtension();
+                      cachedAdaptiveInstance.set(instance); 
+                }
+            }        
+    }
+
+    return (T) instance;
+}
+```
+createAdaptiveExtension方法
+```java
+private T createAdaptiveExtension() {        
+    return injectExtension((T) getAdaptiveExtensionClass().newInstance());
+}
+```
+getAdaptiveExtensionClass方法
+```java
+private Class<?> getAdaptiveExtensionClass() {
+        getExtensionClasses();
+        if (cachedAdaptiveClass != null) {
+            return cachedAdaptiveClass;
+        }
+        return cachedAdaptiveClass = createAdaptiveExtensionClass();
+    }
+```
+绕了一大圈，终于来到了具体的实现了。看这个createAdaptiveExtensionClass方法，它首先会生成自适应类的Java源码，然后再将源码编译成Java的字节码，加载到JVM中。
+```java
+private Class<?> createAdaptiveExtensionClass() {
+        String code = createAdaptiveExtensionClassCode();
+        ClassLoader classLoader = findClassLoader();
+        com.alibaba.dubbo.common.compiler.Compiler compiler = ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
+        return compiler.compile(code, classLoader);
+    }
+```
+createAdaptiveExtensionClassCode()方法中使用一个StringBuilder
+
+```java
+@SPI("javassist")
+public interface Compiler {
+
+    Class<?> compile(String code, ClassLoader classLoader);
+}
+
+```
+
+
+
+
+
+
