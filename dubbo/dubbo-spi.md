@@ -125,7 +125,7 @@ consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalan
 ![dubbo-loadbalance](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo_loadbalance.png)
 2. @Adaptive("loadbalance")
 @Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。可以使用ExtenLoader获取一个LoadBalance的自适应实例，本质是一个代理。当调用实例的select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。类似于从http的request中获取参数值。好比Dubbo的consumer端发送来一个请求http://domain.com/some/path?foo=100&loadbalance=random。     Provider端，获取参数中loadbalance的值为random。根据random来选择RandomLoadBalance。               
-select的方法中好像没有loadbalance参数，那怎么获取loadbalance参数的值呢？我们看到select方法中有一个URL参数，可能很多人也猜到了，loadbalance就是以参数的形式存在于URL中的。URL是Java的一个类`com.alibaba.dubbo.common`。        
+select的方法中好像没有loadbalance参数，那怎么获取loadbalance参数的值呢？我们看到select方法中有一个URL参数，可能很多人也猜到了，loadbalance就是以参数的形式存在于URL中的。URL是Java的一个类`com.alibaba.dubbo.common`。Dubbo使用了URL总线的模式，就是Dubbo的系统参数和每一次调用的参数都以URL的形式在各个层中传递。关于Dubbo的URL总线模式在后续章节会进行讨论。        
 下面是URL类的一部分。可以看到里面有一个parameters的Map。这里面有Dubbo请求的相关参数。比如，序列化方式，负载均衡策略等信息。
 ```java
 public final class URL implements Serializable {
@@ -184,7 +184,183 @@ demo=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
 * 将DemoLoadBalane注册到Dubbo中，只需要添加配置文件`src/main/resources/com.alibaba.dubbo.rpc.cluster.LoadBalance`即可，使用简单。而且不会对现有代码造成影响。符合开闭原则。
     
 # Dubbo Extension Loader
-    ExtentionLoader源码解读
+是不是觉得Dubbo的扩展机制很不错呀，接下来，我们就打开Dubbo的源码，仔细观摩一番。        
+DubboExtentionLoader是一个核心的类，加载扩展点的实现都在这个类中。我们就以这个类开始吧。    
+extensionLoader的方法比较多，我先列出ExtensionLoader使用的方式吧：
+```java
+LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
+```
+首先看getExtensionLoader方法，这是一个静态工厂方法，入参是一个可扩展的接口，返回一个该接口的ExtensionLoader实体类。
+```java
+public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type)
+```
+再来看看getExtension方法
+```java
+public T getExtension(String name)
+```
+
+```java
+public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
+        if (type == null)
+            throw new IllegalArgumentException("Extension type == null");
+        // 扩展点必须是接口
+        if (!type.isInterface()) {
+            throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
+        }
+        // 必须要有@SPI注解
+        if (!withExtensionAnnotation(type)) {
+            throw new IllegalArgumentException("Extension type(" + type +
+                    ") is not extension, because WITHOUT @" + SPI.class.getSimpleName() + " Annotation!");
+        }
+        // 从缓存中根据接口获取对应的ExtensionLoader
+        // 每个扩展只会被加载一次
+        ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
+        if (loader == null) {
+            // 初始化扩展
+            EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<T>(type));
+            loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
+        }
+        return loader;
+    }
+    
+private ExtensionLoader(Class<?> type) {
+        this.type = type;
+        objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
+    }
+```
+
+再来看看getExtension方法
+```java
+public T getExtension(String name) {
+        // null判断
+        if (name == null || name.length() == 0)
+            throw new IllegalArgumentException("Extension name == null");
+        // 如果name="true",返回默认的Extention。这个逻辑先不用关心，不影响主流程
+        if ("true".equals(name)) {
+            return getDefaultExtension();
+        }
+        Holder<Object> holder = cachedInstances.get(name);
+        if (holder == null) {
+            cachedInstances.putIfAbsent(name, new Holder<Object>());
+            holder = cachedInstances.get(name);
+        }
+        Object instance = holder.get();
+        // 从缓存中获取，如果不存在就创建
+        if (instance == null) {
+            synchronized (holder) {
+                instance = holder.get();
+                if (instance == null) {
+                    instance = createExtension(name);
+                    holder.set(instance);
+                }
+            }
+        }
+        return (T) instance;
+    }
+```
+getExtention方法中做了一些判断和缓存，主要的逻辑在createExtension方法中。我们继续看createExtention方法。
+createExtension方法会做以下事情:
+1. 先根据name来得到扩展类。从ClassPath下`META-INF`文件夹下读取扩展点配置文件    
+2. 使用反射创建一个扩展类的实例    
+3. 对扩展类的实例进行依赖注入，即常说的IoC    
+4. 如果有wrapper，添加wrapper。即常说的AoP    
+```java
+private T createExtension(String name) {
+        // 根据扩展点名称得到扩展类，比如对于LoadBalance，根据random得到RandomLoadBalance类
+        Class<?> clazz = getExtensionClasses().get(name);
+        if (clazz == null) {
+            throw findException(name);
+        }
+        try {
+            T instance = (T) EXTENSION_INSTANCES.get(clazz);
+            if (instance == null) {
+                // 使用反射调用nesInstance来创建扩展类的一个示例
+                EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
+                instance = (T) EXTENSION_INSTANCES.get(clazz);
+            }
+            // 对扩展类示例进行依赖注入
+            injectExtension(instance);
+            // 如果有wrapper，添加wrapper
+            Set<Class<?>> wrapperClasses = cachedWrapperClasses;
+            if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
+                for (Class<?> wrapperClass : wrapperClasses) {
+                    instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
+                }
+            }
+            return instance;
+        } catch (Throwable t) {
+            throw new IllegalStateException("Extension instance(name: " + name + ", class: " +
+                    type + ")  could not be instantiated: " + t.getMessage(), t);
+        }
+    }
+```
+getExtensionClasses会根据扩展名得到对应的扩展类。也是先从缓存中获取，如果没有，就从CLASSPATH中加载文件。    
+Dubbo会从以下的CLASSPATH路径去加载扩展点文件：
+* `META-INF/dubbo/internal`
+* `META-INF/dubbo`
+* `META-INF/services`
+
+```java
+private Map<String, Class<?>> getExtensionClasses() {
+        Map<String, Class<?>> classes = cachedClasses.get();
+        if (classes == null) {
+            synchronized (cachedClasses) {
+                classes = cachedClasses.get();
+                if (classes == null) {
+                    classes = loadExtensionClasses();
+                    cachedClasses.set(classes);
+                }
+            }
+        }
+        return classes;
+    }
+
+    // synchronized in getExtensionClasses
+    private Map<String, Class<?>> loadExtensionClasses() {
+        final SPI defaultAnnotation = type.getAnnotation(SPI.class);
+        if (defaultAnnotation != null) {
+            String value = defaultAnnotation.value();
+            if (value != null && (value = value.trim()).length() > 0) {
+                String[] names = NAME_SEPARATOR.split(value);
+                if (names.length > 1) {
+                    throw new IllegalStateException("more than 1 default extension name on extension " + type.getName()
+                            + ": " + Arrays.toString(names));
+                }
+                if (names.length == 1) cachedDefaultName = names[0];
+            }
+        }
+
+        Map<String, Class<?>> extensionClasses = new HashMap<String, Class<?>>();
+        loadFile(extensionClasses, DUBBO_INTERNAL_DIRECTORY);
+        loadFile(extensionClasses, DUBBO_DIRECTORY);
+        loadFile(extensionClasses, SERVICES_DIRECTORY);
+        return extensionClasses;
+    }
+```
+
+看看injectExtension方法。我已经把一些无关的代码去掉了。比如日志，不影响主流程的异常处理等。希望大家可以更专注在核心代码上。
+```java
+private T injectExtension(T instance) {
+    for (Method method : instance.getClass().getMethods()) {
+        if (method.getName().startsWith("set")
+                && method.getParameterTypes().length == 1
+                && Modifier.isPublic(method.getModifiers())) {
+            Class<?> pt = method.getParameterTypes()[0];
+          
+            String property = method.getName().length() > 3 ? method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4) : "";
+            Object object = objectFactory.getExtension(pt, property);
+            if (object != null) {
+                method.invoke(instance, object);
+            }
+        }
+    }
+    return instance;
+}
+```
+injectExtension方法
+
+
+    ExtentionLoader源码解读
 # Dubbo SPI高级用法之IoC
    AdaptiveInstance
 # Dubbo SPI高级用法之AoP
