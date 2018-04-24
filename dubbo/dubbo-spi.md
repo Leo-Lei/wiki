@@ -404,5 +404,88 @@ AdaptiveExtensionLoader添加了@Adaptive注解，所以会使用它作为Extens
 # Dubbo SPI高级用法之IoC
    AdaptiveInstance
 # Dubbo SPI高级用法之AoP
-再来看看wrapper。
+在用Spring的时候，我们经常会用到AOP功能。在目标类的方法前后插入其他逻辑。比如通常使用Spring AOP来实现日志和鉴权等逻辑。    
+那么在Dubbo的SPI体系中，是否也有类似的功能呢？答案是有的。在Dubbo中，有一种特殊的类，被称为Wrapper类。通过装饰者模式，使用包装类包装原始的扩展点实例。在原始扩展点实现前后插入其他逻辑，实现AOP功能。    
+
+### 什么是Wrapper类
+那什么样类的才是Dubbo SPI中的Wrapper类呢？Dubbo SPI中的Wrapper类就是一个有复制构造函数的类，也是典型的装饰者模式。下面就是一个Wrapper类，有一个复制构造函数`public A(A a)`。
+```java
+class A{
+    private A a;
+    public A(A a){
+        this.a = a;
+    }
+}
+```
+Dubbo中这样的Wrapper类有ProtocolFilterWrapper, ProtocolListenerWrapper等。
+### 怎么配置Wrapper类
+在Dubbo中Wrapper类也是一个Extension，和其他的Extension一样，也是在Classpath的META-INF文件夹中配置的。比如前面举例的ProtocolFilterWrapper和ProtocolListenerWrapper就是在路径`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`中配置的。
+```text
+filter=com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper
+listener=com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper
+mock=com.alibaba.dubbo.rpc.support.MockProtocol
+```
+ExtensionLoader在创建Protocol的ExtensionLoader实例时，会加载这些文件
+```java
+loadFile(extensionClasses, DUBBO_INTERNAL_DIRECTORY);  
+loadFile(extensionClasses, DUBBO_DIRECTORY);  
+loadFile(extensionClasses, SERVICES_DIRECTORY);  
+```
+在loadFile中有一段如下的代码:
+```java
+try {  
+  clazz.getConstructor(type);    
+  Set<Class<?>> wrappers = cachedWrapperClasses;
+  if (wrappers == null) {
+    cachedWrapperClasses = new ConcurrentHashSet<Class<?>>();
+    wrappers = cachedWrapperClasses;
+  }
+  wrappers.add(clazz);
+} catch (NoSuchMethodException e) {}
+```
+这段代码的意思是，如果类有复制构造函数，就把该类存起来，供以后使用。有复制构造函数的类就是Wrapper类。
+获取参数类型是type的构造函数。注意其中type是扩展点接口，而不是具体的扩展类。
+以Protocol为例。Protocol是一个@SPI修饰的接口，是Dubbo里的一个扩展点。ExtensionLoader.getExtensionLoader(Protocol.class)时，ExtensionLoader会遍历ClassPath加载文件，当读取到`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`时，该文件中定义了`filter=com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper`。    
+ProtocolFilterWrapper定义如下:
+```java
+public class ProtocolFilterWrapper implements Protocol {
+
+    private final Protocol protocol;
+
+    // 有一个参数是Protocol的复制构造函数
+    public ProtocolFilterWrapper(Protocol protocol) {
+        if (protocol == null) {
+            throw new IllegalArgumentException("protocol == null");
+        }
+        this.protocol = protocol;
+    }
+```
+ProtocolFilterWrapper有一个构造函数`public ProtocolFilterWrapper(Protocol protocol)`，参数是扩展点Protocol，所以它是一个Wrapper类。ExtensionLoader会把它缓存起来，供以后创建Extension实例的时候，使用这些包装类依次包装原始扩展点。
+
+```java
+private T createExtension(String name) {
+        Class<?> clazz = getExtensionClasses().get(name);
+        if (clazz == null) {
+            throw findException(name);
+        }
+        try {
+            T instance = (T) EXTENSION_INSTANCES.get(clazz);
+            if (instance == null) {
+                EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
+                instance = (T) EXTENSION_INSTANCES.get(clazz);
+            }
+            injectExtension(instance);
+            Set<Class<?>> wrapperClasses = cachedWrapperClasses;
+            if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
+                for (Class<?> wrapperClass : wrapperClasses) {
+                    instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
+                }
+            }
+            return instance;
+        } catch (Throwable t) {
+            throw new IllegalStateException("Extension instance(name: " + name + ", class: " +
+                    type + ")  could not be instantiated: " + t.getMessage(), t);
+        }
+    }
+```
 
