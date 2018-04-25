@@ -25,20 +25,19 @@ Dubbo很好的做到了上面两点。这要得益于Dubbo的微内核+插件的
 * Factory模式
 * Ioc容器
 * OSGI容器
-Dubbo作为一个框架，不希望请依赖其他的IoC容器，比如Spring，Guice。OSGI也是一个很重的实现，不适合Dubbo。最终Dubbo的实现参考了Java原生的SPI机制，但对其进行了一些扩展，以满足Dubbo的需求。
+Dubbo作为一个框架，不希望强依赖其他的IoC容器，比如Spring，Guice。OSGI也是一个很重的实现，不适合Dubbo。最终Dubbo的实现参考了Java原生的SPI机制，但对其进行了一些扩展，以满足Dubbo的需求。
 
 # Java SPI机制
-既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。如果对Java SPI比较了解的同学，可以跳过。
-Java SPI(Service Provider Interface)是JDK提供的一种加载扩展点的实现。主要是给框架的开发人员来使用。比如，框架提供来一个接口，并允许其他的开发人员提供接口的实现。当服务的提供者提供了一种接口的实现之后，需要在classpath下的META-INF/services/目录里创建一个以服务接口命名的文件，这个文件里的内容就是这个接口的具体的实现类。通过JDK中查找服务的实现的工具类`java.util.ServiceLoader`可以加载具体的实现类。
-下面是一个使用Java SPI的例子:
-1. 定义一个接口IRepository用于实现数据储存       
+既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。如果对Java SPI比较了解的同学，可以跳过。        
+Java SPI(Service Provider Interface)是JDK内置的一种动态加载扩展点的实现。在ClassPath的`META-INF/services`目录下放置一个与接口同名的文本文件，文件的内容为接口的实现类，多个实现类用换行符分隔。JDK中使用`java.util.ServiceLoader`来加载具体的实现。         
+让我们通过一个简单的例子，来看看Java SPI是如何工作的。        
+1. 在a.jar中定义一个接口IRepository用于实现数据储存       
 ```java
 public interface IRepository {
     void save(String data);
 }
 ```
-实际场景中，IRepository接口一般是在框架中定义的。框架本身可以不提供接口的实现。        
-2. 提供IRepository的实现       
+2. 在b.jar中提供IRepository的Mysql实现       
 IRepository有两个实现。MysqlRepository和MongoRepository。
 ```java
 public class MysqlRepository implements IRepository {
@@ -54,20 +53,11 @@ public class MongoRepository implements IRepository {
     }
 }
 ```
-实际场景中，MysqlRepository和MongoRepository是框架的使用者去实现的。这两个类和IRepository接口是属于不同的Jar包中的。        
-3. 在`/src/main/resources/META-INF/services`中配置服务的实现
-添加了MysqlRepository和MongoRepository后，需要告诉Java SPI，我们为IRepository添加了两个实现。需要:
-* 在`src/main/resources/META-INF/services`目录添加一个文件
-* 文件名就是接口的全名称，即`com.foo.IRepository`
-* 文件的内容需要列出所有的接口的实现  
-
-添加文件`src/main/resources/META-INF/services/com.foo.IRepository`
+3. 添加配置文件
+在`META-INF/services`目录添加一个文件，文件名和接口全名称相同，所以文件是`META-INF/services/com.demo.IRepository`。文件内容为:
 ```text
-#Mongo implementation
-com.bar.MongoRepository
-
-#Mysql implementation
-com.bar.MysqlRepository
+com.demo.MongoRepository
+com.demo.MysqlRepository
 ```
 4. 通过ServiceLoader加载IRepository实现
 ```java
@@ -79,7 +69,8 @@ while (it != null && it.hasNext()){
     demoService.save("tom");
 }
 ```
-通过上面的代码可以发现，我们使用SPI查找具体的实现的时候，需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。这是Java原生SPI的缺点，需要把所有的实现都实例化了，即便我们不需要，也都给实例化了。
+在上面的实践中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:    
+* 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
 
 # dubbo的SPI机制
 
