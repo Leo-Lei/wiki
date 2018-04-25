@@ -25,6 +25,7 @@ Dubbo很好的做到了上面两点。这要得益于Dubbo的微内核+插件的
 * Factory模式
 * Ioc容器
 * OSGI容器
+
 Dubbo作为一个框架，不希望强依赖其他的IoC容器，比如Spring，Guice。OSGI也是一个很重的实现，不适合Dubbo。最终Dubbo的实现参考了Java原生的SPI机制，但对其进行了一些扩展，以满足Dubbo的需求。
 
 # Java SPI机制
