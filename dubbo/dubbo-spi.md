@@ -28,7 +28,7 @@ Dubbo很好的做到了上面两点。这要得益于Dubbo的微内核+插件的
 Dubbo作为一个框架，不希望强依赖其他的IoC容器，比如Spring，Guice。OSGI也是一个很重的实现，不适合Dubbo。最终Dubbo的实现参考了Java原生的SPI机制，但对其进行了一些扩展，以满足Dubbo的需求。
 
 # Java SPI机制
-既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。如果对Java SPI比较了解的同学，可以跳过。        
+既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。了解了Java的SPI，也就是对Dubbo的扩展机制有一个基本的了解。如果对Java SPI比较了解的同学，可以跳过。        
 Java SPI(Service Provider Interface)是JDK内置的一种动态加载扩展点的实现。在ClassPath的`META-INF/services`目录下放置一个与接口同名的文本文件，文件的内容为接口的实现类，多个实现类用换行符分隔。JDK中使用`java.util.ServiceLoader`来加载具体的实现。         
 让我们通过一个简单的例子，来看看Java SPI是如何工作的。        
 1. 定义一个接口IRepository用于实现数据储存       
@@ -69,44 +69,36 @@ while (it != null && it.hasNext()){
     demoService.save("tom");
 }
 ```
-在上面的例子中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。Java SPI的使用很简单。也做到了基本的加载扩展点的功能。
+在上面的例子中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。
 
 # dubbo的SPI机制
 
-但Java SPI有以下的不足:    
+Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:    
 * 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
 * 配置文件中只是简单的列出了所有的扩展实现，而没有给他们命名。导致在程序中很难去准确的引用它们。
 * 扩展如果依赖其他的扩展，做不到自动注入和装配
-* 不支持类似于Spring的AOP功能
+* 不提供类似于Spring的AOP功能
 * 扩展很难和其他的框架集成，比如扩展里面依赖了一个Spring bean，原生的Java SPI不支持
 
-所以Java SPI更像是一个玩具，应付一些简单的场景是可以的，但对于Dubbo，它的功能还是比较弱的。所以，Dubbo对原生SPI机制进行了一些扩展。下个章节中，我们来一探究竟。        
-
-
-
-
-
-Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我们知道了Java的SPI只能通过遍历来进行实现的查找和实例化，有可能会一次性把所有的实现都实例化，这样会造成有些不使用的扩展实现也会被实例化，这就会造成一定的资源浪费。Dubbo对这一点进行了优化。除此之外，Dubbo还进行了其他方面的优化。有关Dubbo的改进，参照文档上的说明:
-
-1. JDK标准的SPI会一次性实例化扩展点所有实现，如果有扩展实现初始化很耗时，但如果没用上也加载，会很浪费资源。    
-2. 如果扩展点加载失败，连扩展点的名称都拿不到了。比如：JDK标准的ScriptEngine，通过getName();获取脚本类型的名称，但如果RubyScriptEngine因为所依赖的jruby.jar不存在，导致RubyScriptEngine类加载失败，这个失败原因被吃掉了，和ruby对应不起来，当用户执行ruby脚本时，会报不支持ruby，而不是真正失败的原因。 
-3. 增加了对扩展点IoC和AOP的支持，一个扩展点可以直接setter注入其它扩展点。
+所以Java SPI应付一些简单的场景是可以的，但对于Dubbo，它的功能还是比较弱的。所以，Dubbo对原生SPI机制进行了一些扩展。接下来，我们就更深入地了解下Dubbo的SPI机制。 
 
 # Dubbo扩展点机制基本概念
+在深入学习Dubbo的扩展机制之前，我们先明确Dubbo SPI中的一些基本概念。在接下来的内容中，我们会多次用到这些术语。
 ### 一些术语
-由于扩展的概念太过于宽泛，这里把它细化一下。接下来的内容中，我们会用到这些术语，尽量使用中文描述。
-1. Extension Point    
-扩展点。是一个Java的接口。
-2. Extension    
-扩展，即扩展点的实现类。
-3. Extension Instance    
-扩展实例，即扩展点实现类的实例。
-4. @SPI    
+1. 扩展点(Extension Point)    
+是一个Java的接口。
+2. 扩展(Extension)
+扩展点的实现类。
+3. 扩展实例(Extension Instance)
+扩展点实现类的实例。
+4. 扩展自适应实例(Extension Adaptive Instance)    
+扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
+5. @SPI    
 @SPI注解作用于扩展点的接口上，表明该接口是一个扩展点。可以被Dubbo的ExtentionLoader加载。如果没有此ExtensionLoader调用会异常。
-5. ExtentionLoader    
+6. @Adaptive
+@Adaptive注解用在扩展接口的方法上。表示该方法会根据方法参数，决定真正要调用的扩展实例。
+7. ExtentionLoader    
 负责加载对应的扩展。
-6. Extension Adaptive Instance    
-扩展的自适应实例。扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
 
 ### 一些路径
 和Java的SPI从`/META-INF/services`目录加载扩展配置类似，Dubbo也会从一下路径去加载扩展配置文件:
