@@ -31,13 +31,13 @@ Dubbo作为一个框架，不希望强依赖其他的IoC容器，比如Spring，
 既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。如果对Java SPI比较了解的同学，可以跳过。        
 Java SPI(Service Provider Interface)是JDK内置的一种动态加载扩展点的实现。在ClassPath的`META-INF/services`目录下放置一个与接口同名的文本文件，文件的内容为接口的实现类，多个实现类用换行符分隔。JDK中使用`java.util.ServiceLoader`来加载具体的实现。         
 让我们通过一个简单的例子，来看看Java SPI是如何工作的。        
-1. 在a.jar中定义一个接口IRepository用于实现数据储存       
+1. 定义一个接口IRepository用于实现数据储存       
 ```java
 public interface IRepository {
     void save(String data);
 }
 ```
-2. 在b.jar中提供IRepository的Mysql实现       
+2. 提供IRepository的Mysql实现       
 IRepository有两个实现。MysqlRepository和MongoRepository。
 ```java
 public class MysqlRepository implements IRepository {
@@ -69,10 +69,22 @@ while (it != null && it.hasNext()){
     demoService.save("tom");
 }
 ```
-在上面的实践中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:    
-* 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
+在上面的例子中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。Java SPI的使用很简单。也做到了基本的加载扩展点的功能。
 
 # dubbo的SPI机制
+
+但Java SPI有以下的不足:    
+* 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
+* 配置文件中只是简单的列出了所有的扩展实现，而没有给他们命名。导致在程序中很难去准确的引用它们。
+* 扩展如果依赖其他的扩展，做不到自动注入和装配
+* 不支持类似于Spring的AOP功能
+* 扩展很难和其他的框架集成，比如扩展里面依赖了一个Spring bean，原生的Java SPI不支持
+
+所以Java SPI更像是一个玩具，应付一些简单的场景是可以的，但对于Dubbo，它的功能还是比较弱的。所以，Dubbo对原生SPI机制进行了一些扩展。下个章节中，我们来一探究竟。        
+
+
+
+
 
 Dubbo的扩展点加载机制类似于Java的SPI，在前面的描述中，我们知道了Java的SPI只能通过遍历来进行实现的查找和实例化，有可能会一次性把所有的实现都实例化，这样会造成有些不使用的扩展实现也会被实例化，这就会造成一定的资源浪费。Dubbo对这一点进行了优化。除此之外，Dubbo还进行了其他方面的优化。有关Dubbo的改进，参照文档上的说明:
 
