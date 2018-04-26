@@ -94,12 +94,15 @@ Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但
 扩展点的实现类。
 3. 扩展实例(Extension Instance)
 扩展点实现类的实例。
-4. 扩展自适应实例(Extension Adaptive Instance)    
-扩展的自适应实例是一个Extension的代理，在调用Extension Adaptive Instance的某个方法时，会根据参数真正决定要调用的那个扩展。
-5. @SPI    
+4. 扩展自适应实例(Extension Adaptive Instance)    
+第一次接触这个概念时，可能不太好理解(我第一次也是这样的...)。如果称它为扩展代理类，可能更好理解些。扩展的自适应实例其实就是一个Extension的代理，它实现了扩展点接口。在调用扩展点的接口方法时，会根据实际的参数来决定要使用哪个扩展。比如一个IRepository的扩展点，有一个save方法。有两个实现MysqlRepository和MongoRepository。IRepository的自适应实例在调用接口方法的时候，会根据save方法中的参数，来决定要调用哪个IRepository的实现。如果方法参数中有repository=mysql，那么就调用MysqlRepository的save方法。如果repository=mongo，就调用MongoRepository的save方法。和面向对象的延迟绑定很类似。为什么Dubbo会引入扩展自适应实例的概念呢？              
+* Dubbo中的配置有两种，一种是固定的系统级别的配置，在Dubbo启动之后就不会再改了。还有一种是运行时的配置，可能对于每一次的RPC，这些配置都不同。比如在xml文件中配置了超时时间是10秒钟，这个配置在Dubbo启动之后，就不会改变了。但针对某一次的RPC调用，可以设置它的超时时间是30秒钟，以覆盖系统级别的配置。对于Dubbo而言，每一次的RPC调用的参数都是未知的。只有在运行时，根据这些参数才能做出正确的决定。
+* 很多时候，我们的类都是一个单例的，比如Spring的bean，在Spring bean都实例化时，如果它依赖某个扩展点，但是在bean实例化时，是不知道究竟该使用哪个具体的扩展实现的。这时候就需要一个代理模式了，它实现了扩展点接口，方法内部可以根据运行时参数，动态的选择合适的扩展实现。而这个代理就是自适应实例。        
+自适应扩展实例在Dubbo中的使用非常广泛，Dubbo中，每一个扩展都会有一个自适应类，如果我们没有提供，Dubbo会使用字节码工具为我们自动生成一个。所以我们基本感觉不到自适应类的存在。后面会有例子说明自适应类是怎么工作的。            
+5. @SPI    
 @SPI注解作用于扩展点的接口上，表明该接口是一个扩展点。可以被Dubbo的ExtentionLoader加载。如果没有此ExtensionLoader调用会异常。
 6. @Adaptive
-@Adaptive注解用在扩展接口的方法上。表示该方法会根据方法参数，决定真正要调用的扩展实例。
+@Adaptive注解用在扩展接口的方法上。表示该方法是一个自适应方法。Dubbo在为扩展点生成自适应实例时，如果方法有@Adaptive注解，会为该方法生成对应的代码。方法内部会根据方法的参数，来决定使用哪个扩展。
 7. ExtentionLoader    
 类似于Java SPI的ServiceLoader，负责扩展的加载和生命周期维护。
 8. 扩展别名
@@ -117,9 +120,10 @@ roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 * `META-INF/services`
 
 # Dubbo的LoadBalance扩展点解读
-在了解了Dubbo的一些基本概念后，让我们一起来看一个Dubbo中实际的扩展点，对这些概念有一个更直观的认识。        
+在了解了Dubbo的一些基本概念后，让我们一起来看一个Dubbo中实际的扩展点，对这些概念有一个更直观的认识。
+
 我们选择的是Dubbo中的LoadBalance扩展点。Dubbo中的一个服务，通常有多个Provider，consumer调用服务时，需要在多个Provider中选择一个。这就是一个LoadBalance。我们一起来看看在Dubbo中，LoadBalance是如何成为一个扩展点的。        
-1. LoadBalance接口
+### LoadBalance接口
 ```java
 @SPI(RandomLoadBalance.NAME)
 public interface LoadBalance {
@@ -140,32 +144,15 @@ consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalan
 ```
 可以看到文件中定义了4个LoadBalance的扩展实现。由于负载均衡的实现不是本次的内容，这里就不过多说明。只用知道Dubbo提供了4种负载均衡的实现，我们可以通过xml文件，properties文件，JVM参数显式的指定一个实现。如果没有，默认使用随机。                
 ![dubbo-loadbalance](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo_loadbalance.png)
-2. @Adaptive("loadbalance")
-@Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。可以使用ExtenLoader获取一个LoadBalance的自适应实例，本质是一个代理。当调用实例的select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。类似于从http的request中获取参数值。好比Dubbo的consumer端发送来一个请求http://domain.com/some/path?foo=100&loadbalance=random。     Provider端，获取参数中loadbalance的值为random。根据random来选择RandomLoadBalance。               
-select的方法中好像没有loadbalance参数，那怎么获取loadbalance参数的值呢？我们看到select方法中有一个URL参数，可能很多人也猜到了，loadbalance就是以参数的形式存在于URL中的。URL是Java的一个类`com.alibaba.dubbo.common`。Dubbo使用了URL总线的模式，就是Dubbo的系统参数和每一次调用的参数都以URL的形式在各个层中传递。关于Dubbo的URL总线模式在后续章节会进行讨论。        
-下面是URL类的一部分。可以看到里面有一个parameters的Map。这里面有Dubbo请求的相关参数。比如，序列化方式，负载均衡策略等信息。
+* @Adaptive("loadbalance")
+@Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。Dubbo会自动生成该方法对应的代码。当调用select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。        
+但奇怪的是，我们发现select的方法中并没有loadbalance参数，那怎么获取loadbalance的值呢？select方法中还有一个URL类型的参数，Dubbo就是从URL中获取loadbalance的值的。这里涉及到Dubbo的URL总线模式，简单说，URL中包含了RPC调用中的所有参数。URL类中有一个`Map<String, String> parameters`字段，parameters中就包含了loadbalance。        
+### 获取LoadBalance扩展
+Dubbo中获取LoadBalance的代码如下:
 ```java
-public final class URL implements Serializable {
-
-    private final String protocol;
-
-    private final String username;
-
-    private final String password;
-
-    // by default, host to registry
-    private final String host;
-
-    // by default, port to registry
-    private final int port;
-
-    private final String path;
-
-    private final Map<String, String> parameters;
-    
-    // ......
-    
+LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
 ```
+使用ExtensionLoader.getExtensionLoader(LoadBalance.class)方法获取一个ExtensionLoader的实例，然后调用getExtension，传入一个扩展的别名来获取对应的扩展实例。
 
 # 自定义一个LoadBalance扩展
 Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。    
