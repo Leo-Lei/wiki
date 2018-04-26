@@ -279,14 +279,9 @@ createExtension方法做了以下事情:
 3. 对扩展类实例的属性进行依赖注入，即IoC。    
 4. 如果有wrapper，添加wrapper。即AoP。    
 
-### 根据name获取对应的扩展类
-
-getExtensionClasses会根据扩展名得到对应的扩展类。也是先从缓存中获取，如果没有，就从CLASSPATH中加载文件。    
-Dubbo会从以下的CLASSPATH路径去加载扩展点文件：
-* `META-INF/dubbo/internal`
-* `META-INF/dubbo`
-* `META-INF/services`
-
+下面我们来重点看下这4个过程
+1. 根据name获取对应的扩展类
+先看代码:
 ```java
 private Map<String, Class<?>> getExtensionClasses() {
         Map<String, Class<?>> classes = cachedClasses.get();
@@ -323,11 +318,24 @@ private Map<String, Class<?>> getExtensionClasses() {
         return extensionClasses;
     }
 ```
+过程很简单，先从缓存中获取，如果没有，就从配置文件中加载。配置文件的路径就是之前提到的:    
+* `META-INF/dubbo/internal`
+* `META-INF/dubbo`
+* `META-INF/services`
 
-injectExtension方法实现了Ioc即自动装配的功能。WrapperClass实现了AOP功能。这两点，我们会在后面的章节中单独来说明。到此为止，Dubbo加载和创建扩展的主流程就结束了。总结下来就是加载ClassPath的META-INF目录下的一些文件，再根据name来创建对应的扩展类实例，并对其进行依赖注入和自动包装。        
+2. 使用反射创建扩展实例
+这个过程很简单，使用`clazz.newInstance())`来完成。创建的扩展实例的属性都是空值。    
 
-# Dubbo SPI高级用法之IoC
-看看injectExtension方法。我已经把一些无关的代码去掉了。比如日志，不影响主流程的异常处理等。希望大家可以更专注在核心代码上。
+3. 扩展实例自动装配        
+在实际的场景中，类之间都是有依赖的。扩展实例中也会引用一些依赖，比如简单的Java类，另一个Dubbo的扩展或一个Spring Bean等。依赖的情况很复杂，Dubbo的处理也相对复杂些。我们稍后会有专门的章节对其进行说明，现在，我们只需要知道，Dubbo可以正确的注入扩展点中的普通依赖，Dubbo扩展依赖或Spring依赖等。
+
+4. 扩展实例自动包装         
+自动包装就是要实现类似于Spring的AOP功能。Dubbo利用它在内部实现一些通用的功能，比如日志，监控等。关于扩展实例自动包装的内容，也会在后面单独讲解。
+
+经过上面的4步，Dubbo就创建并初始化了一个扩展实例。这个实例的依赖被注入了，也根据需要被包装了。到此为止，这个扩展实例就可以被使用了。        
+
+# Dubbo SPI高级用法之自动装配
+自动装配的相关代码在injectExtension方法中:
 ```java
 private T injectExtension(T instance) {
     for (Method method : instance.getClass().getMethods()) {
@@ -346,21 +354,21 @@ private T injectExtension(T instance) {
     return instance;
 }
 ```
-injectExtension方法遍历扩展类的所有set方法，通过set方法进行注入。比如扩展类是A，A有一个字段是B b和一个setB的方法。injectExtension方法会创建一个B的实例，并把它注入到A中，完成依赖注入的过程。这里面有个问题是如果获取B的实例。因为B的实例有可能是一个简单的POJO，也可能是另一个Dubbo的SPI扩展，也可能是一个Spring的Bean，或其他更复杂的情况。那Dubbo是怎么根据类B来获取正确的B的实例呢？    
-具体的实现是这句代码`Object object = objectFactory.getExtension(pt, property);`。objectFactory是ExtensionFactory类型的，在创建ExtensionLoader时被初始化了。    
+要实现对扩展实例的依赖的自动装配，首先需要知道有哪些依赖，这些依赖的类型是什么。Dubbo的方案是查找Java标准的setter方法。即方法名以set开始，只有一个参数。如果扩展类中有这样的set方法，Dubbo会对其进行依赖注入，类似于Spring的set方法注入。    
+但是Dubbo中的依赖注入比Spring要复杂，因为Spring注入的都是Spring bean，都是由Spring容器来管理的。而Dubbo的依赖注入中，需要注入的可能是另一个Dubbo的扩展，也可能是一个Spring Bean，或是Google guice的组件，或其他任何一个框架中的组件。Dubbo需要能够从任何一个场景中加载扩展。在injectExtension方法中，是用`Object object = objectFactory.getExtension(pt, property)`来实现的。objectFactory是ExtensionFactory类型的，在创建ExtensionLoader时被初始化: 
 ```java
 private ExtensionLoader(Class<?> type) {
         this.type = type;
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 ```
-
+objectFacory本身也是一个扩展，通过`ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())`来获取。
 ![Dubbo-ExtensionFactory](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo-extensionfactory.png)
 ExtensionLoader有三个实现：
 1. SpiExtensionLoader：Dubbo自己的Spi去加载Extension
 2. SpringExtensionLoader：从Spring容器中去加载Extension
 3. AdaptiveExtensionLoader: 自适应的AdaptiveExtensionLoader
-这里要注意AdaptiveExtensionLoader。    
+这里要注意AdaptiveExtensionLoader，源码如下:
 ```java
 @Adaptive
 public class AdaptiveExtensionFactory implements ExtensionFactory {
@@ -387,13 +395,15 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
     }
 }
 ```
-AdaptiveExtensionLoader添加了@Adaptive注解，所以会使用它作为ExtensionLoader。AdaptiveExtentionLoader里面，会遍历所有的ExtensionLoader实现，去加载Extension。也就是它会遍历SpiExtensionFactory和SpringExtensionFactory，去加载Extension。SpiExtensionLoader或调用ExtensionLoader来加载Extension。SpringExtensionFactory会从Spring ApplicationContext中去获取bean，作为Extension。如果我们自己也实现了一个ExtensionLoader，Dubbo也会从它去加载extension。通过这种机制，让Dubbo的依赖注入支持了Dubbo的SPI，Spring的Bean，和自定义的实现。
+AdaptiveExtensionLoader类有@Adaptive注解。前面提到了，Dubbo会为每一个扩展创建一个自适应实例。如果扩展类上有@Adaptive，会使用该类作为自适应类。如果没有，Dubbo会为我们创建一个。所以`ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())`会返回一个AdaptiveExtensionLoader实例，作为自适应扩展实例。
+AdaptiveExtentionLoader会遍历所有的ExtensionFactory实现，尝试着去加载扩展。如果找到了，返回。如果没有，在下一个ExtensionFactory中继续找。Dubbo内置了两个ExtensionFactory，分别从Dubbo自身的扩展机制和Spring容器中去寻找。由于ExtensionFactory本身也是一个扩展点，我们可以实现自己的ExtensionFactory，让Dubbo的自动装配支持我们自定义的组件。比如，我们在项目中使用了Google的guice这个IoC容器。我们可以实现自己的GuiceExtensionFactory，让Dubbo支持从guice容器中加载扩展。
+
 # Dubbo SPI高级用法之AoP
-在用Spring的时候，我们经常会用到AOP功能。在目标类的方法前后插入其他逻辑。比如通常使用Spring AOP来实现日志和鉴权等逻辑。    
-那么在Dubbo的SPI体系中，是否也有类似的功能呢？答案是有的。在Dubbo中，有一种特殊的类，被称为Wrapper类。通过装饰者模式，使用包装类包装原始的扩展点实例。在原始扩展点实现前后插入其他逻辑，实现AOP功能。    
+在用Spring的时候，我们经常会用到AOP功能。在目标类的方法前后插入其他逻辑。比如通常使用Spring AOP来实现日志，监控和鉴权等功能。    
+Dubbo的扩展机制，是否也支持类似的功能呢？答案是yes。在Dubbo中，有一种特殊的类，被称为Wrapper类。通过装饰者模式，使用包装类包装原始的扩展点实例。在原始扩展点实现前后插入其他逻辑，实现AOP功能。    
 
 ### 什么是Wrapper类
-那什么样类的才是Dubbo SPI中的Wrapper类呢？Dubbo SPI中的Wrapper类就是一个有复制构造函数的类，也是典型的装饰者模式。下面就是一个Wrapper类，有一个复制构造函数`public A(A a)`。
+那什么样类的才是Dubbo扩展机制中的Wrapper类呢？Wrapper类是一个有复制构造函数的类，也是典型的装饰者模式。下面就是一个Wrapper类:
 ```java
 class A{
     private A a;
@@ -402,21 +412,15 @@ class A{
     }
 }
 ```
-Dubbo中这样的Wrapper类有ProtocolFilterWrapper, ProtocolListenerWrapper等。
+类A有一个构造函数`public A(A a)`，构造函数的参数是A本身。这样的类就可以成为Dubbo扩展机制中的一个Wrapper类。Dubbo中这样的Wrapper类有ProtocolFilterWrapper, ProtocolListenerWrapper等, 大家可以查看源码加深理解。
 ### 怎么配置Wrapper类
-在Dubbo中Wrapper类也是一个Extension，和其他的Extension一样，也是在Classpath的META-INF文件夹中配置的。比如前面举例的ProtocolFilterWrapper和ProtocolListenerWrapper就是在路径`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`中配置的。
+在Dubbo中Wrapper类也是一个扩展点，和其他的扩展点一样，也是在`META-INF`文件夹中配置的。比如前面举例的ProtocolFilterWrapper和ProtocolListenerWrapper就是在路径`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`中配置的:
 ```text
 filter=com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper
 listener=com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper
 mock=com.alibaba.dubbo.rpc.support.MockProtocol
 ```
-ExtensionLoader在创建Protocol的ExtensionLoader实例时，会加载这些文件
-```java
-loadFile(extensionClasses, DUBBO_INTERNAL_DIRECTORY);  
-loadFile(extensionClasses, DUBBO_DIRECTORY);  
-loadFile(extensionClasses, SERVICES_DIRECTORY);  
-```
-在loadFile中有一段如下的代码:
+在Dubbo加载扩展配置文件时，有一段如下的代码:
 ```java
 try {  
   clazz.getConstructor(type);    
@@ -428,10 +432,9 @@ try {
   wrappers.add(clazz);
 } catch (NoSuchMethodException e) {}
 ```
-这段代码的意思是，如果类有复制构造函数，就把该类存起来，供以后使用。有复制构造函数的类就是Wrapper类。
-获取参数类型是type的构造函数。注意其中type是扩展点接口，而不是具体的扩展类。
-以Protocol为例。Protocol是一个@SPI修饰的接口，是Dubbo里的一个扩展点。ExtensionLoader.getExtensionLoader(Protocol.class)时，ExtensionLoader会遍历ClassPath加载文件，当读取到`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`时，该文件中定义了`filter=com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper`。    
-ProtocolFilterWrapper定义如下:
+这段代码的意思是，如果扩展类有复制构造函数，就把该类存起来，供以后使用。有复制构造函数的类就是Wrapper类。通过`clazz.getConstructor(type)`来获取参数是扩展点接口的构造函数。注意构造函数的参数类型是扩展点接口，而不是扩展类。    
+以Protocol为例。配置文件`dubbo-rpc/dubbo-rpc-api/src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.Protocol`中定义了`filter=com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper`。            
+ProtocolFilterWrapper代码如下：
 ```java
 public class ProtocolFilterWrapper implements Protocol {
 
@@ -445,42 +448,11 @@ public class ProtocolFilterWrapper implements Protocol {
         this.protocol = protocol;
     }
 ```
-ProtocolFilterWrapper有一个构造函数`public ProtocolFilterWrapper(Protocol protocol)`，参数是扩展点Protocol，所以它是一个Wrapper类。ExtensionLoader会把它缓存起来，供以后创建Extension实例的时候，使用这些包装类依次包装原始扩展点。
-
-```java
-private T createExtension(String name) {
-        Class<?> clazz = getExtensionClasses().get(name);
-        if (clazz == null) {
-            throw findException(name);
-        }
-        try {
-            T instance = (T) EXTENSION_INSTANCES.get(clazz);
-            if (instance == null) {
-                EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
-                instance = (T) EXTENSION_INSTANCES.get(clazz);
-            }
-            injectExtension(instance);
-            Set<Class<?>> wrapperClasses = cachedWrapperClasses;
-            if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
-                for (Class<?> wrapperClass : wrapperClasses) {
-                    instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
-                }
-            }
-            return instance;
-        } catch (Throwable t) {
-            throw new IllegalStateException("Extension instance(name: " + name + ", class: " +
-                    type + ")  could not be instantiated: " + t.getMessage(), t);
-        }
-    }
-```
+ProtocolFilterWrapper有一个构造函数`public ProtocolFilterWrapper(Protocol protocol)`，参数是扩展点Protocol，所以它是一个Dubbo扩展机制中的Wrapper类。ExtensionLoader会把它缓存起来，供以后创建Extension实例的时候，使用这些包装类依次包装原始扩展点。
 
 # 扩展点自适应
-在Dubbo中，一个扩展点会有多个实现。Dubbo究竟选择哪个实现呢？这取决于系统的配置。
-1. 在Dubbo配置文件中进行配置，属于系统级别配置。应用启动时会读取该配置
-2. 每一次的rpc调用中，可以设置参数来覆盖系统级别的配置
-大多数时候，我们都使用系统级别的配置。一旦应用起来后，这些配置就不会改了。比如序列化方式，超时时间等。但有些时候，我们需要动态地修改一些配置，比如对某些RPC调用使用不同的负载均衡策略等。这就要求Dubbo的SPI机制可以根据参数，自动的选择对应的实现。将扩展点实例的选择从应用启动的时候延迟到实际调用的时候。    
-Dubbo使用适配器类来实现扩展点自适应功能。在需要实现自适应的接口方法上使用@Adaptive注解。框架会通过字节码工具自动创建一个适配类，默认是Javaassist。
-创建自适应扩展类的代码:
+前面讲到过，Dubbo需要在运行时根据方法参数来决定该使用哪个扩展，所以有了扩展点自适应实例。其实是一个扩展点的代理，将扩展的选择从Dubbo启动时，延迟到RPC调用时。Dubbo中每一个扩展点都有一个自适应类，如果没有显式提供，Dubbo会自动为我们创建一个，默认使用Javaassist。        
+先来看下创建自适应扩展类的代码:
 ```java
 public T getAdaptiveExtension() {
     Object instance = cachedAdaptiveInstance.get();
@@ -497,13 +469,13 @@ public T getAdaptiveExtension() {
     return (T) instance;
 }
 ```
-createAdaptiveExtension方法
+继续看createAdaptiveExtension方法
 ```java
 private T createAdaptiveExtension() {        
     return injectExtension((T) getAdaptiveExtensionClass().newInstance());
 }
 ```
-getAdaptiveExtensionClass方法
+继续看getAdaptiveExtensionClass方法
 ```java
 private Class<?> getAdaptiveExtensionClass() {
         getExtensionClasses();
@@ -513,7 +485,7 @@ private Class<?> getAdaptiveExtensionClass() {
         return cachedAdaptiveClass = createAdaptiveExtensionClass();
     }
 ```
-绕了一大圈，终于来到了具体的实现了。看这个createAdaptiveExtensionClass方法，它首先会生成自适应类的Java源码，然后再将源码编译成Java的字节码，加载到JVM中。
+继续看createAdaptiveExtensionClass方法，绕了一大圈，终于来到了具体的实现了。看这个createAdaptiveExtensionClass方法，它首先会生成自适应类的Java源码，然后再将源码编译成Java的字节码，加载到JVM中。
 ```java
 private Class<?> createAdaptiveExtensionClass() {
         String code = createAdaptiveExtensionClassCode();
@@ -526,13 +498,11 @@ Compiler的代码，默认实现是javassist。
 ```java
 @SPI("javassist")
 public interface Compiler {
-
     Class<?> compile(String code, ClassLoader classLoader);
 }
-
 ```
-
-createAdaptiveExtensionClassCode()方法中使用一个StringBuilder来构建自适应类的Java源码。方法实现比较长，这里就不贴代码了。下面是使用createAdaptiveExtensionClassCode方法为Protocol创建的自适应类的Java代码:
+createAdaptiveExtensionClassCode()方法中使用一个StringBuilder来构建自适应类的Java源码。方法实现比较长，这里就不贴代码了。这种生成字节码的方式也挺有意思的，先生成Java源代码，然后编译，加载到jvm中。通过这种方式，可以更好的控制生成的Java类。而且这样也不用care各个字节码生成框架的api等。因为xxx.java文件是Java通用的，也是我们最熟悉的。只是代码的可读性不强，需要一点一点构建xx.java的内容。            
+下面是使用createAdaptiveExtensionClassCode方法为Protocol创建的自适应类的Java代码范例:
 ```java
 package com.alibaba.dubbo.rpc;
 
@@ -570,8 +540,8 @@ public class Protocol$Adpative implements com.alibaba.dubbo.rpc.Protocol {
     }
 }
 ```
-
-先看看Protocol的源码
+大致的逻辑和开始说的一样，通过url解析出参数，解析的逻辑由@Adaptive的value参数控制，然后再根据得到的扩展点名获取扩展点实现，然后进行调用。如果大家想知道具体的构建.java代码的逻辑，可以看`createAdaptiveExtensionClassCode`的完整实现。        
+在生成的Protocol$Adpative中，发现getDefaultPort和destroy方法都是直接抛出异常的，这是为什么呢？来看看Protocol的源码
 ```java
 @SPI("dubbo")
 public interface Protocol {
@@ -586,5 +556,5 @@ public interface Protocol {
 
     void destroy();
 ```
-我们可以看到Prototol接口中有4个方法，但只有export和refer两个方法使用了@Adaptive注解。所以，Dubbo生成的自适应类Protocol$Adpative中，也只有这两个方法有实现，其余方法都是直接跑出异常。    
-大致的逻辑和开始说的一样，通过url解析出参数，解析的逻辑由@Adaptive的value参数控制，然后再根据得到的扩展点名获取扩展点实现，然后进行调用。具体拼接逻辑大家可以看createAdaptiveExtensionClassCode的实现
+可以看到Protocol接口中有4个方法，但只有export和refer两个方法使用了@Adaptive注解。Dubbo自动生成的自适应实例，只有@Adaptive修饰的方法才有具体的实现。所以，Protocol$Adpative类中，也只有export和refer这两个方法有具体的实现，其余方法都是抛出异常。    
+
