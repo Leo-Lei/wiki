@@ -152,19 +152,18 @@ Dubbo中获取LoadBalance的代码如下:
 ```java
 LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
 ```
-使用ExtensionLoader.getExtensionLoader(LoadBalance.class)方法获取一个ExtensionLoader的实例，然后调用getExtension，传入一个扩展的别名来获取对应的扩展实例。
+使用ExtensionLoader.getExtensionLoader(LoadBalance.class)方法获取一个ExtensionLoader的实例，然后调用getExtension，传入一个扩展的别名来获取对应的扩展实例。        
 
-# 自定义一个LoadBalance扩展
-Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。    
-下面，我们通过一个简单的例子，来自己实现一个LoadBalance，来感受下Dubbo的扩展机制。
+# 自定义一个LoadBalance扩展            
+本节中，我们通过一个简单的例子，来自己实现一个LoadBalance，来更深入地感受下Dubbo的扩展机制。我会列出一些关键的步骤和代码，也可以从这个地址下载完整的demo。        
 1. 实现LoadBalance接口
-首先，编写一个自己实现的LoadBalance，因为这里主要是演示Dubbo的扩展机制，而不是LoadBalance的实现，所有这里LoadBalance的实现很简单，会选择第一个invoker，并在控制台输出一条日志。
+首先，编写一个自己实现的LoadBalance，因为是为了演示Dubbo的扩展机制，而不是LoadBalance的实现，所以这里LoadBalance的实现非常简单，选择第一个invoker，并在控制台输出一条日志。
 ```java
 package com.leibangzhu.test.dubbo.consumer;
 public class DemoLoadBalance implements LoadBalance {
     @Override
     public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
-        System.out.println("Select the first invoker...");
+        System.out.println("DemoLoadBalance: Select the first invoker...");
         return invokers.get(0);
     }
 }
