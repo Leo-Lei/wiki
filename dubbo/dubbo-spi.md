@@ -9,10 +9,9 @@ categories: Java
 
 
 # Dubbo的扩展机制
-在Dubbo的官网上，Dubbo是这样描述自己的:
-> Apache Dubbo (incubating) |ˈdʌbəʊ| is a high-performance, java based RPC framework open-sourced by Alibaba.
+在Dubbo的官网上，Dubbo描述自己是一个高性能的RPC框架。今天我想聊聊Dubbo的另一个很棒的特性, 就是它的可扩展性。    
+如同罗马不是一天建成的，任何系统都一定是从小系统不断发展成为大系统的，想要从一开始就把系统设计的足够完善是不可能的，相反的，我们应该只关注当下的需求，然后再不断地对系统进行重构，对系统进行递进式扩展。在代码层面，要求我们适当的对关注点进行抽象和隔离，让软件系统实现递进式扩展。在某些时候，软件设计者对扩展性的追求甚至超过了性能。        
 
-提到了Dubbo是一个高性能的，基于Java的开源RPC框架。作为一款RPC框架，高性能是首先要保证的，而作为一个良好的框架，除了性能之外，还有诸如高可用，可扩展，可测试等特性。今天我们就来谈谈可扩展性。在某些时候，软件设计者对扩展性的追求甚至超过了性能。        
 在谈到软件设计时，可扩展性一直被谈起，那到底什么才是可扩展性，什么样的框架才算有良好的可扩展性呢？以下两点是我对可扩展性的理解:
 1. 作为框架的维护者，在添加一个新功能时，只需要添加一些新代码，而不用大量的修改现有的代码，即符合开闭原则。    
 2. 作为框架的使用者，在添加一个新功能时，不需要去修改框架的源码，在自己的工程中添加代码即可。    
@@ -169,51 +168,48 @@ public class DemoLoadBalance implements LoadBalance {
 }
 ```
 2. 添加资源文件
-添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。文件内容如下:
+添加文件:`META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。文件内容如下:
 ```text
 demo=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
 ```
 3. 配置使用自定义LoadBalance
-通过上面的两步，已经添加了一个名字为demo的LoadBalance实现，并在Dubbo中进行来注册。接下来，需要显式的告诉Dubbo使用这个demo的负载均衡实现。如果是通过spring的方式使用Dubbo，可以在xml文件中进行设置。
+通过上面的两步，已经添加了一个名字为demo的LoadBalance实现，并在配置文件中进行了相应的配置。接下来，需要显式的告诉Dubbo使用demo的负载均衡实现。如果是通过spring的方式使用Dubbo，可以在xml文件中进行设置。
 ```xml
 <dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="demo" />
 ```
 在consumer端的<dubbo:reference>中配置<loadbalance="demo">
-4. 启动Dubbo进行测试    
-启动Dubbo，调用一次IHelloService，可以看到控制台会输出一条`Select the first invoker...`日志。说明Dubbo的确是使用了我们自定义的LoadBalance。      
-整个过程会发现：
+4. 启动Dubbo    
+启动Dubbo，调用一次IHelloService，可以看到控制台会输出一条`DemoLoadBalance: Select the first invoker...`日志。说明Dubbo的确是使用了我们自定义的LoadBalance。      
+到此，这个简单的自定义LoadBalance的实战就完成了，整个过程会发现：
 * 没有改动Dubbo的源码
 * 新添加的LoadBalane实现类DemoLoadBalance就是一个简单的Java类，除了实现LoadBalane接口，没有引入其他的元素。对代码的侵入性几乎为零
 * 将DemoLoadBalane注册到Dubbo中，只需要添加配置文件`src/main/resources/com.alibaba.dubbo.rpc.cluster.LoadBalance`即可，使用简单。而且不会对现有代码造成影响。符合开闭原则。
     
 # Dubbo Extension Loader
-是不是觉得Dubbo的扩展机制很不错呀，接下来，我们就打开Dubbo的源码，仔细观摩一番。        
-DubboExtentionLoader是一个核心的类，加载扩展点的实现都在这个类中。我们就以这个类开始吧。    
-extensionLoader的方法比较多，我先列出ExtensionLoader使用的方式吧：
-```java
-LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
-```
-首先看getExtensionLoader方法，这是一个静态工厂方法，入参是一个可扩展的接口，返回一个该接口的ExtensionLoader实体类。
-```java
-public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type)
-```
-再来看看getExtension方法
-```java
-public T getExtension(String name)
-```
+前面的学习中，我们了解了Dubbo扩展机制的一些概念，初探了Dubbo中LoadBalance的实现，并自己实现了一个LoadBalance。是不是觉得Dubbo的扩展机制很不错呀，接下来，我们就深入Dubbo的源码，一睹庐山真面目。        
+### ExtensionLoader
+ExtentionLoader是最核心的类，负责扩展点的加载和生命周期管理。我们就以这个类开始吧。    
+Extension的方法比较多，比较常用的方法有:
+* `public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type)`
+* `public T getExtension(String name)`
+* `public T getAdaptiveExtension()`
+比较常见的用法有:
+* `LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName)`
+* `RouterFactory routerFactory = ExtensionLoader.getExtensionLoader(RouterFactory.class).getAdaptiveExtension()`
 
+说明：在接下来展示的源码中，我会将无关的代码(比如日志，异常捕获等)去掉，方便大家阅读和理解。
+
+1. getExtensionLoader方法
+这是一个静态工厂方法，入参是一个可扩展的接口，返回一个该接口的ExtensionLoader实体类。通过这个实体类，可以根据name获得具体的扩展，也可以获得一个自适应扩展。
 ```java
 public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
-        if (type == null)
-            throw new IllegalArgumentException("Extension type == null");
         // 扩展点必须是接口
         if (!type.isInterface()) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
         }
         // 必须要有@SPI注解
         if (!withExtensionAnnotation(type)) {
-            throw new IllegalArgumentException("Extension type(" + type +
-                    ") is not extension, because WITHOUT @" + SPI.class.getSimpleName() + " Annotation!");
+            throw new IllegalArgumentException("Extension type without @SPI Annotation!");
         }
         // 从缓存中根据接口获取对应的ExtensionLoader
         // 每个扩展只会被加载一次
@@ -231,17 +227,9 @@ private ExtensionLoader(Class<?> type) {
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 ```
-
-再来看看getExtension方法
+2. getExtension方法
 ```java
 public T getExtension(String name) {
-        // null判断
-        if (name == null || name.length() == 0)
-            throw new IllegalArgumentException("Extension name == null");
-        // 如果name="true",返回默认的Extention。这个逻辑先不用关心，不影响主流程
-        if ("true".equals(name)) {
-            return getDefaultExtension();
-        }
         Holder<Object> holder = cachedInstances.get(name);
         if (holder == null) {
             cachedInstances.putIfAbsent(name, new Holder<Object>());
@@ -262,41 +250,37 @@ public T getExtension(String name) {
     }
 ```
 getExtention方法中做了一些判断和缓存，主要的逻辑在createExtension方法中。我们继续看createExtention方法。
-createExtension方法会做以下事情:
-1. 先根据name来得到扩展类。从ClassPath下`META-INF`文件夹下读取扩展点配置文件    
-2. 使用反射创建一个扩展类的实例    
-3. 对扩展类的实例进行依赖注入，即常说的IoC    
-4. 如果有wrapper，添加wrapper。即常说的AoP    
 ```java
 private T createExtension(String name) {
         // 根据扩展点名称得到扩展类，比如对于LoadBalance，根据random得到RandomLoadBalance类
         Class<?> clazz = getExtensionClasses().get(name);
-        if (clazz == null) {
-            throw findException(name);
+        
+        T instance = (T) EXTENSION_INSTANCES.get(clazz);
+        if (instance == null) {
+              // 使用反射调用nesInstance来创建扩展类的一个示例
+            EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
+            instance = (T) EXTENSION_INSTANCES.get(clazz);
         }
-        try {
-            T instance = (T) EXTENSION_INSTANCES.get(clazz);
-            if (instance == null) {
-                // 使用反射调用nesInstance来创建扩展类的一个示例
-                EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
-                instance = (T) EXTENSION_INSTANCES.get(clazz);
+        // 对扩展类示例进行依赖注入
+        injectExtension(instance);
+        // 如果有wrapper，添加wrapper
+        Set<Class<?>> wrapperClasses = cachedWrapperClasses;
+        if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
+            for (Class<?> wrapperClass : wrapperClasses) {
+                instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
             }
-            // 对扩展类示例进行依赖注入
-            injectExtension(instance);
-            // 如果有wrapper，添加wrapper
-            Set<Class<?>> wrapperClasses = cachedWrapperClasses;
-            if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
-                for (Class<?> wrapperClass : wrapperClasses) {
-                    instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
-                }
-            }
-            return instance;
-        } catch (Throwable t) {
-            throw new IllegalStateException("Extension instance(name: " + name + ", class: " +
-                    type + ")  could not be instantiated: " + t.getMessage(), t);
         }
-    }
+        return instance;
+}
 ```
+createExtension方法做了以下事情:
+1. 先根据name来得到对应的扩展类。从ClassPath下`META-INF`文件夹下读取扩展点配置文件。    
+2. 使用反射创建一个扩展类的实例     
+3. 对扩展类实例的属性进行依赖注入，即IoC。    
+4. 如果有wrapper，添加wrapper。即AoP。    
+
+### 根据name获取对应的扩展类
+
 getExtensionClasses会根据扩展名得到对应的扩展类。也是先从缓存中获取，如果没有，就从CLASSPATH中加载文件。    
 Dubbo会从以下的CLASSPATH路径去加载扩展点文件：
 * `META-INF/dubbo/internal`
