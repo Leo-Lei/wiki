@@ -101,19 +101,25 @@ Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但
 6. @Adaptive
 @Adaptive注解用在扩展接口的方法上。表示该方法会根据方法参数，决定真正要调用的扩展实例。
 7. ExtentionLoader    
-负责加载对应的扩展。
+类似于Java SPI的ServiceLoader，负责扩展的加载和生命周期维护。
+8. 扩展别名
+和Java SPI不同，Dubbo中的扩展都有一个别名，用于在应用中引用它们。比如
+```text
+random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
+roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
+```
+其中的random，roundrobin就是对应扩展的别名。这样我们在配置文件中使用random或roundrobin就可以了。
 
 ### 一些路径
-和Java的SPI从`/META-INF/services`目录加载扩展配置类似，Dubbo也会从一下路径去加载扩展配置文件:
+和Java SPI从`/META-INF/services`目录加载扩展配置类似，Dubbo也会从以下路径去加载扩展配置文件:
 * `META-INF/dubbo/internal`
 * `META-INF/dubbo`
 * `META-INF/services`
-在接下来的内容中，只会说加载扩展配置文件，将不再重复这3个路径。
 
 # Dubbo的LoadBalance扩展点解读
-Dubbo中的LoadBalance也是一个扩展点，我们可以结合源码，分析LoadBalance是如何被加载的。
-1. LoadBalance扩展点
-Dubbo中负载均衡的扩展点是LoadBalance接口。
+在了解了Dubbo的一些基本概念后，让我们一起来看一个Dubbo中实际的扩展点，对这些概念有一个更直观的认识。        
+我们选择的是Dubbo中的LoadBalance扩展点。Dubbo中的一个服务，通常有多个Provider，consumer调用服务时，需要在多个Provider中选择一个。这就是一个LoadBalance。我们一起来看看在Dubbo中，LoadBalance是如何成为一个扩展点的。        
+1. LoadBalance接口
 ```java
 @SPI(RandomLoadBalance.NAME)
 public interface LoadBalance {
@@ -122,17 +128,17 @@ public interface LoadBalance {
     <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException;
 }
 ```
-LoadBalance接口只有一个select方法。select方法从多个invoker中选择其中一个。上面的代码中需要关注以下几点:    
-1. @SPI(RandomLoadBalance.NAME)        
-@SPI加在LoadBalance接口上，表示接口LoadBalance是一个扩展点。如果没有@SPI注解修饰，ExtensionLoader会抛出异常。RandomLoadBalance.NAME是一个常量，值是"random"。如果没有显式指定LoadBalance的实现，默认使用random代表的扩展实现。
-random所代表的扩展是哪一个类呢？答案就在文件`src/main/resources/META-INF/dubbo/internal/com.alibaba.dubbo.rpc.cluster.LoadBalance`中:
+LoadBalance接口只有一个select方法。select方法从多个invoker中选择其中一个。上面代码中和Dubbo SPI相关的元素有:    
+* @SPI(RandomLoadBalance.NAME)        
+@SPI作用于LoadBalance接口，表示接口LoadBalance是一个扩展点。如果没有@SPI注解，试图去加载扩展时，会抛出异常。@SPI注解有一个参数，该参数表示该扩展点的默认实现的别名。如果没有显示的指定扩展，就使用默认实现。`RandomLoadBalance.NAME`是一个常量，值是"random"，是一个随机负载均衡的实现。    
+random的定义在配置文件`META-INF/dubbo/internal/com.alibaba.dubbo.rpc.cluster.LoadBalance`中:
 ```text
 random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
 roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
 consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance
 ```
-可以看到文件中定义了4个LoadBalance的扩展实现。格式是`name=class全名称`。和Java SPI不同，dubbo SPI允许为每一个扩展实现取一个名字，然后就可以在Dubbo中通过name来引用对应的扩展实现。这也是Dubbo SPI优于Java SPI的地方。        
+可以看到文件中定义了4个LoadBalance的扩展实现。由于负载均衡的实现不是本次的内容，这里就不过多说明。只用知道Dubbo提供了4种负载均衡的实现，我们可以通过xml文件，properties文件，JVM参数显式的指定一个实现。如果没有，默认使用随机。                
 ![dubbo-loadbalance](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo_loadbalance.png)
 2. @Adaptive("loadbalance")
 @Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。可以使用ExtenLoader获取一个LoadBalance的自适应实例，本质是一个代理。当调用实例的select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。类似于从http的request中获取参数值。好比Dubbo的consumer端发送来一个请求http://domain.com/some/path?foo=100&loadbalance=random。     Provider端，获取参数中loadbalance的值为random。根据random来选择RandomLoadBalance。               
