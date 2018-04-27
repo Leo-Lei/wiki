@@ -8,23 +8,23 @@ categories: Java
 ---
 
 
-# Dubbo的扩展机制
-在Dubbo的官网上，Dubbo描述自己是一个高性能的RPC框架。今天我想聊聊Dubbo的另一个很棒的特性, 就是它的可扩展性。    
-如同罗马不是一天建成的，任何系统都一定是从小系统不断发展成为大系统的，想要从一开始就把系统设计的足够完善是不可能的，相反的，我们应该只关注当下的需求，然后再不断地对系统进行重构，对系统进行递进式扩展。在代码层面，要求我们适当的对关注点进行抽象和隔离，让软件系统实现递进式扩展。在某些时候，软件设计者对扩展性的追求甚至超过了性能。        
+# Dubbo Extension Mechanism
+In Dubbo's offical website, Dubbo describe itself as a Java based, High performance RPC framework. But today, I want to talk about another good feature in Dubbo -- the highly extensible.    
 
-在谈到软件设计时，可扩展性一直被谈起，那到底什么才是可扩展性，什么样的框架才算有良好的可扩展性呢？它必须要做到以下两点:    
-1. 作为框架的维护者，在添加一个新功能时，只需要添加一些新代码，而不用大量的修改现有的代码，即符合开闭原则。    
-2. 作为框架的使用者，在添加一个新功能时，不需要去修改框架的源码，在自己的工程中添加代码即可。    
+In the world of Software developing, the extensibility is always being talked about。 So what is a high extensible framework? In my option, it should satisfy the following demands:
+1. As a framewofk developer, to add some new functionality, just need add some new code, without changing exist code, i.e. open/closed principle.        
+2. As a framework user, who use the framework in their project, to add some new functionality, Do not need to change the source code of the project. Just need to add some code in his/her own project.        
 
-Dubbo很好的做到了上面两点。这要得益于Dubbo的微内核+插件的机制。接下来的章节中我们会慢慢揭开Dubbo扩展机制的神秘面纱。    
 
-# 可扩展的几种解决方案
-通常可扩展的实现由下面几种:
-* Factory模式
-* Ioc容器
-* OSGI容器
+Dubbo has already satisfied the above two points very well. In the rest of this article, we will dive into the Dubbo extension mechanism.
 
-Dubbo作为一个框架，不希望强依赖其他的IoC容器，比如Spring，Guice。OSGI也是一个很重的实现，不适合Dubbo。最终Dubbo的实现参考了Java原生的SPI机制，但对其进行了一些扩展，以满足Dubbo的需求。
+# Highly extensibility solution
+In general, there are some solutions to achieve high extensibility solution:        
+* Factory pattern
+* Ioc container, such as Spring, Google guice
+* OSGI
+
+As a RPC framework, Dubbo don't want to bring in other IoC container. OSGI is also very heavy technology stack. Dubbo extension is inherited from standard Java SPI(Service Provider Interface) and do some enhancement to make it more powerful. 
 
 # Java SPI机制
 既然Dubbo的扩展机制是基于Java原生的SPI机制，那么我们就先来了解下Java SPI吧。了解了Java的SPI，也就是对Dubbo的扩展机制有一个基本的了解。如果对Java SPI比较了解的同学，可以跳过。
