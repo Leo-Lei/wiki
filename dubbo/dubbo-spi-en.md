@@ -29,19 +29,17 @@ As a RPC framework, Dubbo don't want to bring in other IoC container. OSGI is al
 # Java SPI机制
 Since Dubbo extension is inherited from Java SPI, let's have a look at the Java SPI. If you are familiar with Java SPI, you can skip this section.         
 
-Java SPI is 
+Java SPI is a JDK's build-in mechanism to enable dynamically loading extension at runtime, out of box. In the jar file containing extension class, place a config file `META-INF/dubbo/full_interface_name`, the file contend pattern: `extension_name=the_full_name_of_extension_class`, multiple implementations are separated by new line. The class `java.util.ServiceLoader` is responsible to load extension.    
 
-Java SPI(Service Provider Interface)是JDK内置的一种动态加载扩展点的实现。在ClassPath的`META-INF/services`目录下放置一个与接口同名的文本文件，文件的内容为接口的实现类，多个实现类用换行符分隔。JDK中使用`java.util.ServiceLoader`来加载具体的实现。         
-让我们通过一个简单的例子，来看看Java SPI是如何工作的。
+Let's have a simele sample, to have a quick glance at how Java SPI works.
 
-1. 定义一个接口IRepository用于实现数据储存       
+1. Define an interface IRepository       
 ```java
 public interface IRepository {
     void save(String data);
 }
 ```
-2. 提供IRepository的Mysql实现       
-IRepository有两个实现。MysqlRepository和MongoRepository。
+2. Provide two implementations of IRepository: MysqlRepository and MongoRepository.       
 ```java
 public class MysqlRepository implements IRepository {
     public void save(String data) {
@@ -56,13 +54,13 @@ public class MongoRepository implements IRepository {
     }
 }
 ```
-3. 添加配置文件
-在`META-INF/services`目录添加一个文件，文件名和接口全名称相同，所以文件是`META-INF/services/com.demo.IRepository`。文件内容为:
+3. Add config file
+Put a text file on directory `META-INF/services`, and the file name is the same as the interface, so the file is `META-INF/services/com.demo.IRepository`. The file content is as below: 
 ```text
 com.demo.MongoRepository
 com.demo.MysqlRepository
 ```
-4. 通过ServiceLoader加载IRepository实现
+4. Use ServiceLoader to load IRepository
 ```java
 ServiceLoader<IRepository> serviceLoader = ServiceLoader.load(IRepository.class);
 Iterator<IRepository> it = serviceLoader.iterator();
@@ -72,7 +70,7 @@ while (it != null && it.hasNext()){
     demoService.save("tom");
 }
 ```
-在上面的例子中，我们定义了一个扩展点和它的两个实现。在ClassPath中添加了扩展的配置文件，最后使用ServiceLoader来加载所有的扩展点。
+In the ablove sample, we have defined an extension point(the IRepository interface) and two implementations, add a config file and use ServiceLoader to load concrete implementation. It's easy to use, and can satisfy basic extensibility requirement.
 
 # dubbo的SPI机制
 
