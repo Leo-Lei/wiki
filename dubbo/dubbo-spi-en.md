@@ -102,22 +102,22 @@ At most time, the service-type class in our project is singleton, for instance, 
 
 The adaptive instance is widely used in Dubbo. In fact, every extention point has a relate adaptive instance. If we don't supply it, Dubbo will auto generate it for us by bytecode genaration tool. In the following section, you will touch how the adaptive instance work.
 
-5. @SPI    
-@SPI注解作用于扩展点的接口上，表明该接口是一个扩展点。可以被Dubbo的ExtentionLoader加载。如果没有此ExtensionLoader调用会异常。
+5. @SPI
+The @SPI annotation can be added to an interface, which indicate that the interface is an extention point.
 6. @Adaptive
-@Adaptive注解用在扩展接口的方法上。表示该方法是一个自适应方法。Dubbo在为扩展点生成自适应实例时，如果方法有@Adaptive注解，会为该方法生成对应的代码。方法内部会根据方法的参数，来决定使用哪个扩展。
+The @Adaptive annotation can be added to a class or a method. A class with a @Adaptive is the adaptive instace of the interface. A method with a @Adaptive will be implemented while Dubbo auto generated the adaptive instance for us.        
 7. ExtentionLoader    
-类似于Java SPI的ServiceLoader，负责扩展的加载和生命周期维护。
-8. 扩展别名
-和Java SPI不同，Dubbo中的扩展都有一个别名，用于在应用中引用它们。比如
+Similar with ServiceLoader in Java SPI, and is responsible to load extension and manage the lifecycle of extensions.        
+8. extension name(alias)
+Different from Java SPI, each extension has a name in Dubbo. For example:    
 ```text
 random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
 roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 ```
-其中的random，roundrobin就是对应扩展的别名。这样我们在配置文件中使用random或roundrobin就可以了。
+The random and the roundrobin is a alias of its implementation. Then we can refer to them by using `random` or `roundrobin`.    
 
-### 一些路径
-和Java SPI从`/META-INF/services`目录加载扩展配置类似，Dubbo也会从以下路径去加载扩展配置文件:
+### config file path
+Similar to Java SPI load extensionss from `/META-INF/services`, Dubbo will load config files from below directories:    
 * `META-INF/dubbo/internal`
 * `META-INF/dubbo`
 * `META-INF/services`
