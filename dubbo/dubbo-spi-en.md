@@ -100,7 +100,8 @@ Why dubbo bring in the adaptive instance?
 
 At most time, the service-type class in our project is singleton, for instance, a Spring bean. The extension in Dubbo are also singleton. Image that an extension A has a dependency B, which is also an extension. The A is singleton, but for its dependency B, it can be any implementation of B. So what should the B be? In this case, we need the B to be a proxy of B. which can redirect the request to the correct underlying implementation. The proxy is the adaptive instance.        
 
-自适应扩展实例在Dubbo中的使用非常广泛，Dubbo中，每一个扩展都会有一个自适应类，如果我们没有提供，Dubbo会使用字节码工具为我们自动生成一个。所以我们基本感觉不到自适应类的存在。后面会有例子说明自适应类是怎么工作的。            
+The adaptive instance is widely used in Dubbo. In fact, every extention point has a relate adaptive instance. If we don't supply it, Dubbo will auto generate it for us by bytecode genaration tool. In the following section, you will touch how the adaptive instance work.
+
 5. @SPI    
 @SPI注解作用于扩展点的接口上，表明该接口是一个扩展点。可以被Dubbo的ExtentionLoader加载。如果没有此ExtensionLoader调用会异常。
 6. @Adaptive
