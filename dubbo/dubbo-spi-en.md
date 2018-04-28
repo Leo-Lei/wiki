@@ -96,8 +96,10 @@ For example, there is an extention interface `IRepository` with a `save` method.
 
 Why dubbo bring in the adaptive instance?        
 
-为什么Dubbo会引入扩展自适应实例的概念呢？              
-* Dubbo中的配置有两种，一种是固定的系统级别的配置，在Dubbo启动之后就不会再改了。还有一种是运行时的配置，可能对于每一次的RPC，这些配置都不同。比如在xml文件中配置了超时时间是10秒钟，这个配置在Dubbo启动之后，就不会改变了。但针对某一次的RPC调用，可以设置它的超时时间是30秒钟，以覆盖系统级别的配置。对于Dubbo而言，每一次的RPC调用的参数都是未知的。只有在运行时，根据这些参数才能做出正确的决定。
+* There are two kinds of configuration file in Dubbo, the first is some predefined system level configuration, which will be loaded from config files and will not changed after dubbo started. The second type is the runtime configuration, which is different for each RPC invocation. For example, we set the timeout=10 second in Dubbo xml configuration file. After Dubbo started, it will not changed. For some RPC invocation, if we don't specify the timeout explicitly, the timeout=10 second will be used. When we specify the timeout=30 second for some RPC, the 30 will override the default 10. So in Dubbo, the configuration for each RPC invocation may be different. It can not be fixed previously, until at the runtime. Dubbo need to make the correct decision according to the runtime configuration. The decision contains select the correct extension implementation.
+
+At most time, the service-type class in our project is singleton, for instance, a Spring bean. 
+
 * 很多时候，我们的类都是一个单例的，比如Spring的bean，在Spring bean都实例化时，如果它依赖某个扩展点，但是在bean实例化时，是不知道究竟该使用哪个具体的扩展实现的。这时候就需要一个代理模式了，它实现了扩展点接口，方法内部可以根据运行时参数，动态的选择合适的扩展实现。而这个代理就是自适应实例。        
 自适应扩展实例在Dubbo中的使用非常广泛，Dubbo中，每一个扩展都会有一个自适应类，如果我们没有提供，Dubbo会使用字节码工具为我们自动生成一个。所以我们基本感觉不到自适应类的存在。后面会有例子说明自适应类是怎么工作的。            
 5. @SPI    
