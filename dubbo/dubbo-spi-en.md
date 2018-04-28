@@ -72,7 +72,7 @@ while (it != null && it.hasNext()){
 ```
 In the ablove sample, we have defined an extension point(the IRepository interface) and two implementations, add a config file and use ServiceLoader to load concrete implementation. It's easy to use, and can satisfy basic extensibility requirement.
 
-# dubbo的SPI机制
+# dubbo SPI machanism
 
 Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:    
 * 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
