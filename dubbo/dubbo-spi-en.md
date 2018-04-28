@@ -123,10 +123,11 @@ Similar to Java SPI load extensionss from `/META-INF/services`, Dubbo will load 
 * `META-INF/services`
 
 # Dubbo的LoadBalance扩展点解读
-在了解了Dubbo的一些基本概念后，让我们一起来看一个Dubbo中实际的扩展点，对这些概念有一个更直观的认识。
+After have some awareness on above basic Dubbo concepts, let's have a look at a read extension example in Dubbo, aimed to have better understanding of Dubbo extensibility mechanism.
 
-我们选择的是Dubbo中的LoadBalance扩展点。Dubbo中的一个服务，通常有多个Provider，consumer调用服务时，需要在多个Provider中选择一个。这就是一个LoadBalance。我们一起来看看在Dubbo中，LoadBalance是如何成为一个扩展点的。        
-### LoadBalance接口
+I take the LoadBalance for example. A service in Dubbo may has multiple provider, which become a cluster. A consumer need to select one of them to execute the RPC invocation. This is the LoadBalance. Let's go ahead, to investigate how the LoadBalance becomes a extendion id Dubbo.
+
+### LoadBalance interface
 ```java
 @SPI(RandomLoadBalance.NAME)
 public interface LoadBalance {
