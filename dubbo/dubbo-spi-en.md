@@ -70,18 +70,17 @@ while (it != null && it.hasNext()){
     demoService.save("tom");
 }
 ```
-In the ablove sample, we have defined an extension point(the IRepository interface) and two implementations, add a config file and use ServiceLoader to load concrete implementation. It's easy to use, and can satisfy basic extensibility requirement.
+In the ablove sample, we have defined an extension point(the IRepository interface) and two implementations, add a config file and use ServiceLoader to load concrete implementation. 
 
 # dubbo SPI machanism
+It's easy to use, and can satisify basic extensibility requirement. but it has some disadvantage:    
+* Must iterate all the extension implementations, to find the exact one that we need. All the implementations need to be load and initialized, eventhough it will never be used at all.
+* In the extension configuration file, extention implementation doesn't have a name, which makes it is difficult to refer to them in our programe.
+* If a extension has some other extension as its dependency, Java SPI do not support auto depencency injection.
+* Do not support AOP. Not support add some common logic to batch of extensions, rather than explicitly add it to each specific extension. 
+* Do not intergrate with other framework well. Such as the extension can not have a dependency of a spring bean.
 
-Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:    
-* 需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。
-* 配置文件中只是简单的列出了所有的扩展实现，而没有给他们命名。导致在程序中很难去准确的引用它们。
-* 扩展如果依赖其他的扩展，做不到自动注入和装配
-* 不提供类似于Spring的AOP功能
-* 扩展很难和其他的框架集成，比如扩展里面依赖了一个Spring bean，原生的Java SPI不支持
-
-所以Java SPI应付一些简单的场景是可以的，但对于Dubbo，它的功能还是比较弱的。所以，Dubbo对原生SPI机制进行了一些扩展。接下来，我们就更深入地了解下Dubbo的SPI机制。 
+So, in some simple scenario, Java SPI is competent. But in dubbo, the extension loading and management is very complex. Dubbo enhance native Java SPI to have more power. 
 
 # Dubbo扩展点机制基本概念
 在深入学习Dubbo的扩展机制之前，我们先明确Dubbo SPI中的一些基本概念。在接下来的内容中，我们会多次用到这些术语。
