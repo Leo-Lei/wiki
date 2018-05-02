@@ -26,7 +26,7 @@ In general, there are some solutions to achieve high extensibility solution:
 
 As a RPC framework, Dubbo don't want to bring in other IoC container. OSGI is also very heavy technology stack. Dubbo extension is inherited from standard Java SPI(Service Provider Interface) and do some enhancement to make it more powerful. 
 
-# Java SPI机制
+# Java SPI Mechanism
 Since Dubbo extension is inherited from Java SPI, let's have a look at the Java SPI. If you are familiar with Java SPI, you can skip this section.         
 
 Java SPI is a JDK's build-in mechanism to enable dynamically loading extension at runtime, out of box. In the jar file containing extension class, place a config file `META-INF/dubbo/full_interface_name`, the file contend pattern: `extension_name=the_full_name_of_extension_class`, multiple implementations are separated by new line. The class `java.util.ServiceLoader` is responsible to load extension.    
