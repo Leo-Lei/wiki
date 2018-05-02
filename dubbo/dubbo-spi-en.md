@@ -162,8 +162,7 @@ Invoke the `ExtensionLoader.getExtensionLoader(LoadBalance.class)` method to get
 # 自定义一个LoadBalance扩展            
 In this section, we will supply a cusomize implementation of LoadBalance, and intergrate it into Dubbo. By this, we can have a better understanding of Dubbo SPI.        
 1. LoadBalance implementation
-First, we need to write a implementation of LoadBalance. Since this demo aimed to 
-首先，编写一个自己实现的LoadBalance，因为是为了演示Dubbo的扩展机制，而不是LoadBalance的实现，所以这里LoadBalance的实现非常简单，选择第一个invoker，并在控制台输出一条日志。
+First, we need to write a implementation of LoadBalance. Since our topic is the Dubbo SPI, not the LoadBalance itself. So in this demo, the implementation is very simple, it simply select the first invoker, and print a log to console. 
 ```java
 package com.leibangzhu.test.dubbo.consumer;
 public class DemoLoadBalance implements LoadBalance {
@@ -187,10 +186,11 @@ In above steps, we have created a customize LoadBalance and assigned a name `dem
 Add `loadbalance="demo"` to <dubbo:reference> in consumer side.
 4. Start Dubbo    
 Start Dubbo，invoke IHelloService, then you can find a log of `DemoLoadBalance: Select the first invoker...`。Dubbo already use ourown LoadBalance.     
-到此，这个简单的自定义LoadBalan  ce的实战就完成了，整个过程会发现：
-* 没有改动Dubbo的源码
-* 新添加的LoadBalane实现类DemoLoadBalance就是一个简单的Java类，除了实现LoadBalane接口，没有引入其他的元素。对代码的侵入性几乎为零
-* 将DemoLoadBalane注册到Dubbo中，只需要添加配置文件`src/main/resources/com.alibaba.dubbo.rpc.cluster.LoadBalance`即可，使用简单。而且不会对现有代码造成影响。符合开闭原则。
+
+At this time, the entire demo is completed. We will find that:
+* not change dubbo source code
+* the DemoLoadBalance is a simple Java class, except for implements the LoadBalance interface. There is no extra concept being involed in DemoLoadBalance.
+* To add a new implementation of LoadBalance, just need to create a new class an a new config file. No need to change existing code. This follows the open-closed principle.
     
 # Dubbo Extension Loader
 前面的学习中，我们了解了Dubbo扩展机制的一些概念，初探了Dubbo中LoadBalance的实现，并自己实现了一个LoadBalance。是不是觉得Dubbo的扩展机制很不错呀，接下来，我们就深入Dubbo的源码，一睹庐山真面目。        
