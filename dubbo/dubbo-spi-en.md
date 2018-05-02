@@ -160,8 +160,9 @@ LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtens
 Invoke the `ExtensionLoader.getExtensionLoader(LoadBalance.class)` method to get an ExtensionLoader instance, then invoke th getExtension to get a extension instance.
 
 # 自定义一个LoadBalance扩展            
-本节中，我们通过一个简单的例子，来自己实现一个LoadBalance，来更深入地感受下Dubbo的扩展机制。我会列出一些关键的步骤和代码，也可以从这个地址下载完整的demo。        
-1. 实现LoadBalance接口
+In this section, we will supply a cusomize implementation of LoadBalance, and intergrate it into Dubbo. By this, we can have a better understanding of Dubbo SPI.        
+1. LoadBalance implementation
+First, we need to write a implementation of LoadBalance. Since this demo aimed to 
 首先，编写一个自己实现的LoadBalance，因为是为了演示Dubbo的扩展机制，而不是LoadBalance的实现，所以这里LoadBalance的实现非常简单，选择第一个invoker，并在控制台输出一条日志。
 ```java
 package com.leibangzhu.test.dubbo.consumer;
@@ -173,20 +174,20 @@ public class DemoLoadBalance implements LoadBalance {
     }
 }
 ```
-2. 添加资源文件
-添加文件:`META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。文件内容如下:
+2. add config file
+add file:`META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。the content of file is as below:
 ```text
 demo=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
 ```
-3. 配置使用自定义LoadBalance
-通过上面的两步，已经添加了一个名字为demo的LoadBalance实现，并在配置文件中进行了相应的配置。接下来，需要显式的告诉Dubbo使用demo的负载均衡实现。如果是通过spring的方式使用Dubbo，可以在xml文件中进行设置。
+3. configure to use customize LoadBalance
+In above steps, we have created a customize LoadBalance and assigned a name `demo` to it. Then, we need to ask Dubbo to use ourown LoadBalance. If we are using Dubbo by xml file, the configuration is as below:
 ```xml
 <dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="demo" />
 ```
-在consumer端的<dubbo:reference>中配置<loadbalance="demo">
-4. 启动Dubbo    
-启动Dubbo，调用一次IHelloService，可以看到控制台会输出一条`DemoLoadBalance: Select the first invoker...`日志。说明Dubbo的确是使用了我们自定义的LoadBalance。      
-到此，这个简单的自定义LoadBalance的实战就完成了，整个过程会发现：
+Add `loadbalance="demo"` to <dubbo:reference> in consumer side.
+4. Start Dubbo    
+Start Dubbo，invoke IHelloService, then you can find a log of `DemoLoadBalance: Select the first invoker...`。Dubbo already use ourown LoadBalance.     
+到此，这个简单的自定义LoadBalan  ce的实战就完成了，整个过程会发现：
 * 没有改动Dubbo的源码
 * 新添加的LoadBalane实现类DemoLoadBalance就是一个简单的Java类，除了实现LoadBalane接口，没有引入其他的元素。对代码的侵入性几乎为零
 * 将DemoLoadBalane注册到Dubbo中，只需要添加配置文件`src/main/resources/com.alibaba.dubbo.rpc.cluster.LoadBalance`即可，使用简单。而且不会对现有代码造成影响。符合开闭原则。
