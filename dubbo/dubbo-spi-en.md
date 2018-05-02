@@ -193,36 +193,33 @@ At this time, the entire demo is completed. We will find that:
 * To add a new implementation of LoadBalance, just need to create a new class an a new config file. No need to change existing code. This follows the open-closed principle.
     
 # Dubbo Extension Loader
-前面的学习中，我们了解了Dubbo扩展机制的一些概念，初探了Dubbo中LoadBalance的实现，并自己实现了一个LoadBalance。是不是觉得Dubbo的扩展机制很不错呀，接下来，我们就深入Dubbo的源码，一睹庐山真面目。        
+In this section, we will dive into the source code of Dubbo SPI.
 ### ExtensionLoader
-ExtentionLoader是最核心的类，负责扩展点的加载和生命周期管理。我们就以这个类开始吧。    
-Extension的方法比较多，比较常用的方法有:
+extensionLoader is the most important class, which is responsible to load extension configuration and create extension. Let's start from this class. ExtensionLoader has many method, below are some common methods: 
 * `public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type)`
 * `public T getExtension(String name)`
 * `public T getAdaptiveExtension()`
-比较常见的用法有:
+Some common usage:
 * `LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName)`
 * `RouterFactory routerFactory = ExtensionLoader.getExtensionLoader(RouterFactory.class).getAdaptiveExtension()`
 
-说明：在接下来展示的源码中，我会将无关的代码(比如日志，异常捕获等)去掉，方便大家阅读和理解。
-
-1. getExtensionLoader方法
-这是一个静态工厂方法，入参是一个可扩展的接口，返回一个该接口的ExtensionLoader实体类。通过这个实体类，可以根据name获得具体的扩展，也可以获得一个自适应扩展。
+1. getExtensionLoader method
+This is an static factory method, the method parameter is the interface of extension point, and return an ExtensionLoader instance.
 ```java
 public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
-        // 扩展点必须是接口
+        // the extension point must be an interface
         if (!type.isInterface()) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
         }
-        // 必须要有@SPI注解
+        // must have @SPI annotation
         if (!withExtensionAnnotation(type)) {
             throw new IllegalArgumentException("Extension type without @SPI Annotation!");
         }
-        // 从缓存中根据接口获取对应的ExtensionLoader
-        // 每个扩展只会被加载一次
+        // get ExtensionLoader from cache
+        // each Extension will only be initialized once
         ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
         if (loader == null) {
-            // 初始化扩展
+            // init
             EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<T>(type));
             loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
         }
@@ -234,7 +231,7 @@ private ExtensionLoader(Class<?> type) {
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 ```
-2. getExtension方法
+2. getExtension method
 ```java
 public T getExtension(String name) {
         Holder<Object> holder = cachedInstances.get(name);
@@ -243,7 +240,7 @@ public T getExtension(String name) {
             holder = cachedInstances.get(name);
         }
         Object instance = holder.get();
-        // 从缓存中获取，如果不存在就创建
+        // try to get from cache
         if (instance == null) {
             synchronized (holder) {
                 instance = holder.get();
@@ -256,21 +253,21 @@ public T getExtension(String name) {
         return (T) instance;
     }
 ```
-getExtention方法中做了一些判断和缓存，主要的逻辑在createExtension方法中。我们继续看createExtention方法。
+The main process logic is in the createExtension method, let's go ahead to createExtension method.
 ```java
 private T createExtension(String name) {
-        // 根据扩展点名称得到扩展类，比如对于LoadBalance，根据random得到RandomLoadBalance类
+        // get extension by extension point
         Class<?> clazz = getExtensionClasses().get(name);
         
         T instance = (T) EXTENSION_INSTANCES.get(clazz);
         if (instance == null) {
-              // 使用反射调用nesInstance来创建扩展类的一个示例
+              // use reflection to create a new instance of Extension
             EXTENSION_INSTANCES.putIfAbsent(clazz, (T) clazz.newInstance());
             instance = (T) EXTENSION_INSTANCES.get(clazz);
         }
-        // 对扩展类示例进行依赖注入
+        // IoC
         injectExtension(instance);
-        // 如果有wrapper，添加wrapper
+        // AoP
         Set<Class<?>> wrapperClasses = cachedWrapperClasses;
         if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
             for (Class<?> wrapperClass : wrapperClasses) {
@@ -280,15 +277,14 @@ private T createExtension(String name) {
         return instance;
 }
 ```
-createExtension方法做了以下事情:
-1. 先根据name来得到对应的扩展类。从ClassPath下`META-INF`文件夹下读取扩展点配置文件。    
-2. 使用反射创建一个扩展类的实例     
-3. 对扩展类实例的属性进行依赖注入，即IoC。    
-4. 如果有wrapper，添加wrapper。即AoP。    
+createExtension will do the following things:    
+1. Get concrete extension by name. Load extension configuration from config files in `META-INF` path.
+2. Use reflection to create a new instance of extension.
+3. Auto inject the dependency of Extension Instance. i.e. IoC.
+4. Auto wrap the Extension instance, i.e. AoP.
 
-下面我们来重点看下这4个过程
-1. 根据name获取对应的扩展类
-先看代码:
+Let's dive into these 4 process:
+1. get extension by name
 ```java
 private Map<String, Class<?>> getExtensionClasses() {
         Map<String, Class<?>> classes = cachedClasses.get();
@@ -325,15 +321,16 @@ private Map<String, Class<?>> getExtensionClasses() {
         return extensionClasses;
     }
 ```
-过程很简单，先从缓存中获取，如果没有，就从配置文件中加载。配置文件的路径就是之前提到的:    
+The process is quite simple, first try to get from cache. If not exist in cache, then load from below config files:
 * `META-INF/dubbo/internal`
 * `META-INF/dubbo`
 * `META-INF/services`
 
-2. 使用反射创建扩展实例
-这个过程很简单，使用`clazz.newInstance())`来完成。创建的扩展实例的属性都是空值。    
+2. Use reflection to create a nes instance of Extension.
+Use the `clazz.newInstance()` to create instance. After this process, the instance of Extension is created, but the properties of it is all empty value.
 
-3. 扩展实例自动装配        
+3. Auto injection
+In the previous step, we get an empty instance of Extension. 
 在实际的场景中，类之间都是有依赖的。扩展实例中也会引用一些依赖，比如简单的Java类，另一个Dubbo的扩展或一个Spring Bean等。依赖的情况很复杂，Dubbo的处理也相对复杂些。我们稍后会有专门的章节对其进行说明，现在，我们只需要知道，Dubbo可以正确的注入扩展点中的普通依赖，Dubbo扩展依赖或Spring依赖等。
 
 4. 扩展实例自动包装         
