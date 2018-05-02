@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dubbo的SPI扩展机制
+title: Dubbo Extension Mechanism
 date: 2018-04-09 16:30:00
 tags:
 - Dubbo
@@ -122,7 +122,7 @@ Similar to Java SPI load extensionss from `/META-INF/services`, Dubbo will load 
 * `META-INF/dubbo`
 * `META-INF/services`
 
-# Dubbo的LoadBalance扩展点解读
+# Dubbo LoadBalance
 After have some awareness on above basic Dubbo concepts, let's have a look at a read extension example in Dubbo, aimed to have better understanding of Dubbo extensibility mechanism.
 
 I take the LoadBalance for example. A service in Dubbo may has multiple provider, which become a cluster. A consumer need to select one of them to execute the RPC invocation. This is the LoadBalance. Let's go ahead, to investigate how the LoadBalance becomes a extendion id Dubbo.
@@ -152,14 +152,14 @@ We can see that there are 4 implementation of LoadBalance. As LoadBalance is not
 * @Adaptive("loadbalance")
 The @Adaptive annotation is added to select method, which indicate that the select method is an adaptive method. dubbo will create a proxy for this method automatically. While invoking the select method, it will select a proper LoadBalance according to the method parameters.
 @Adaptive annotation has one parameter `loadbalance` means the method will judge the value of loadbalance parameter from the method parameters. You may already found that there is no parameter named loadbalance in parameters. How can select method get the value of loadbalance? The answer is the URL parameter. The full name of URL is `com.alibaba.dubbo.common.URL`. Here comes another concept in Dubbo -- the URL Bus pattern. In some simple words, the URL contains all the cofigurations of a RPC invocation. Inner the URL, there is a `Map<String, String> parameters` field. The loadbalance is obtained in it.         
-### 获取LoadBalance扩展
+### Get LoadBalance Extension
 In Dubbo, the code of getting LoadBalance is as below:
 ```java
 LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
 ```
 Invoke the `ExtensionLoader.getExtensionLoader(LoadBalance.class)` method to get an ExtensionLoader instance, then invoke th getExtension to get a extension instance.
 
-# 自定义一个LoadBalance扩展            
+# Create a customize LoadBalance Extension
 In this section, we will supply a cusomize implementation of LoadBalance, and intergrate it into Dubbo. By this, we can have a better understanding of Dubbo SPI.        
 1. LoadBalance implementation
 First, we need to write a implementation of LoadBalance. Since our topic is the Dubbo SPI, not the LoadBalance itself. So in this demo, the implementation is very simple, it simply select the first invoker, and print a log to console. 
