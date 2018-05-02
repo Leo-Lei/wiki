@@ -329,7 +329,7 @@ The process is quite simple, first try to get from cache. If not exist in cache,
 2. Use reflection to create a nes instance of Extension.
 Use the `clazz.newInstance()` to create instance. After this process, the instance of Extension is created, but the properties of it is all empty value.
 
-3. Auto injection
+3. Auto dependency injection
 In the previous step, we get an empty instance of Extension. 
 在实际的场景中，类之间都是有依赖的。扩展实例中也会引用一些依赖，比如简单的Java类，另一个Dubbo的扩展或一个Spring Bean等。依赖的情况很复杂，Dubbo的处理也相对复杂些。我们稍后会有专门的章节对其进行说明，现在，我们只需要知道，Dubbo可以正确的注入扩展点中的普通依赖，Dubbo扩展依赖或Spring依赖等。
 
