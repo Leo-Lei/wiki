@@ -136,27 +136,28 @@ public interface LoadBalance {
     <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException;
 }
 ```
-LoadBalance接口只有一个select方法。select方法从多个invoker中选择其中一个。上面代码中和Dubbo SPI相关的元素有:    
+LoadBalance has only one `select` method. The select method will select one invoker from multiple invokers. The corresponding code of dubbo SPI is as below:        
 * @SPI(RandomLoadBalance.NAME)        
-@SPI作用于LoadBalance接口，表示接口LoadBalance是一个扩展点。如果没有@SPI注解，试图去加载扩展时，会抛出异常。@SPI注解有一个参数，该参数表示该扩展点的默认实现的别名。如果没有显示的指定扩展，就使用默认实现。`RandomLoadBalance.NAME`是一个常量，值是"random"，是一个随机负载均衡的实现。    
-random的定义在配置文件`META-INF/dubbo/internal/com.alibaba.dubbo.rpc.cluster.LoadBalance`中:
+The @SPI is added to LoadBalance means the LoadBalance is an extension point. @SPI annotation has a parameter, which indicate the default implementation of the extension point. If we don't specify the implementation explicitly, the default implementation will be selected.
+`RandomLoadBalance.NAME` is a constant value "random", which indicate a random strategy implementation of LoadBalance.
+The `random` is defined in file `META-INF/dubbo/internal/com.alibaba.dubbo.rpc.cluster.LoadBalance`:
 ```text
 random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
 roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
 consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance
 ```
-可以看到文件中定义了4个LoadBalance的扩展实现。由于负载均衡的实现不是本次的内容，这里就不过多说明。只用知道Dubbo提供了4种负载均衡的实现，我们可以通过xml文件，properties文件，JVM参数显式的指定一个实现。如果没有，默认使用随机。                
+We can see that there are 4 implementation of LoadBalance. As LoadBalance is not the topic of this articlt, so we will not spend much time on explaining these 4 implementations. At this point, you only need to know that there are 4 LoadBalance implementation, and we can specify which one will be select by XML config file, properties file or JVM arguments. If not specify, the default one will be select.
 ![dubbo-loadbalance](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo_loadbalance.png)
 * @Adaptive("loadbalance")
-@Adaptive注解修饰select方法，表明方法select方法是一个可自适应的方法。Dubbo会自动生成该方法对应的代码。当调用select方法时，会根据具体的方法参数来决定调用哪个扩展实现的select方法。@Adaptive注解的参数`loadbalance`表示方法参数中的loadbalance的值作为实际要调用的扩展实例。        
-但奇怪的是，我们发现select的方法中并没有loadbalance参数，那怎么获取loadbalance的值呢？select方法中还有一个URL类型的参数，Dubbo就是从URL中获取loadbalance的值的。这里涉及到Dubbo的URL总线模式，简单说，URL中包含了RPC调用中的所有参数。URL类中有一个`Map<String, String> parameters`字段，parameters中就包含了loadbalance。        
+The @Adaptive annotation is added to select method, which indicate that the select method is an adaptive method. dubbo will create a proxy for this method automatically. While invoking the select method, it will select a proper LoadBalance according to the method parameters.
+@Adaptive annotation has one parameter `loadbalance` means the method will judge the value of loadbalance parameter from the method parameters. You may already found that there is no parameter named loadbalance in parameters. How can select method get the value of loadbalance? The answer is the URL parameter. The full name of URL is `com.alibaba.dubbo.common.URL`. Here comes another concept in Dubbo -- the URL Bus pattern. In some simple words, the URL contains all the cofigurations of a RPC invocation. Inner the URL, there is a `Map<String, String> parameters` field. The loadbalance is obtained in it.         
 ### 获取LoadBalance扩展
-Dubbo中获取LoadBalance的代码如下:
+In Dubbo, the code of getting LoadBalance is as below:
 ```java
 LoadBalance lb = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadbalanceName);
 ```
-使用ExtensionLoader.getExtensionLoader(LoadBalance.class)方法获取一个ExtensionLoader的实例，然后调用getExtension，传入一个扩展的别名来获取对应的扩展实例。        
+Invoke the `ExtensionLoader.getExtensionLoader(LoadBalance.class)` method to get an ExtensionLoader instance, then invoke th getExtension to get a extension instance.
 
 # 自定义一个LoadBalance扩展            
 本节中，我们通过一个简单的例子，来自己实现一个LoadBalance，来更深入地感受下Dubbo的扩展机制。我会列出一些关键的步骤和代码，也可以从这个地址下载完整的demo。        
