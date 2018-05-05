@@ -129,74 +129,19 @@ Go 的引用类型
 |     slice     |                 |          X         |
 |    channel    |                 |          X         |
 
-在 Go 中，引用类型包含切片、字典、通道等。以切片为例，传切片是传引用么？
-
-举个例子：
-```go
-package main
-
-import (
-    "fmt"
-)
-
-func main() {
-    m1 := make([]string, 1)
-    m1[0] = "test"
-    fmt.Println("调用 func1 前 m1 值:", m1)
-    func1(m1)
-    fmt.Println("调用 func1 后 m1 值:", m1)
-}
-
-func func1 (a []string) {
-    a[0] = "val1"
-    fmt.Println("func1中:", a)
-}
-```
-输出结果如下：
-```text
-调用 func1 前 m1 值: [test]
-func1中: [val1]
-调用 func1 后 m1 值: [val1]
-```
-函数中对切片做出的修改影响了实际参数的值。是不是说这事引用传递？
-
-其实并不是，要回答这个问题，首先得搞清楚调用函数切片 m1 到底有没有改变。首先我们要认清楚切片的本质。
-
-一个切片是一个数组片段的描述。它包含了指向数组的指针，片段的长度。
-
-也就是说，上面我们打印的并不是切片本身，而是切片指向的数组。再举个例子，验证一下切片到底有没有发生变化。
+在Go中，引用类型包含切片、字典、通道等。
 
 ```go
-package main
-
-import (
-    "fmt"
-)
-
-func main() {
-    m1 := make([]string, 1)
-    m1[0] = "test"
-    fmt.Println("调用 func1 前 m1 值:", m1, cap(m1))
-    func1(m1)
-    fmt.Println("调用 func1 后 m1 值:", m1, cap(m1))
+func main()  {
+	m := map[string]int {
+		"tom"     : 10,
+		"jerry"   : 20,
+	}
+	updateMap(m)
+	fmt.Println(m)
 }
 
-func func1 (a []string) {
-    a = append(a, "val1")
-    fmt.Println("func1中:", a, cap(a))
+func updateMap(m map[string]int)  {
+	m["tom"] = 15
 }
 ```
-输出结果如下：
-```text
-调用 func1 前 m1 值: [test] 1
-func1中: [test val1] 2
-调用 func1 后 m1 值: [test] 1
-```
-这个结果说明，调用前后切片并没有发生变化。之前例子中所谓的“变化”其实是切片中指向数组的指针指向的数组的元素发生了变化，这句话可能比较拗口，但实际如此。再次证明，引用类型的传参不是 pass-by-reference 。
-
-想透彻的了解 一个切片是一个数组片段的描述。它包含了指向数组的指针，片段的长度这句话，有兴趣可以看这篇文章：http://www.2cto.com/kf/201604/499045.html。学习一下切片的内存模型。
-
-# 总结
-总结很简单，语言也需要透过现象看本质。还有本文的结论需要记住：
-
-> There is no pass-by-reference in Go.
