@@ -33,6 +33,7 @@ categories: go
 | `func update(m map[int]string)`      | 指针传递。同一个map                           |                                    |
 | `func update(s Student)`             | 值传递。方法接收一个副本。两个Student          |                                    |
 | `func update(s *Student)`            | 指针传递。同一个Student                       |                                    |
-
+| `func update(i int)`                 | 值传递。两个int                              |                                    |
+| `func update(i *int)`                | 指针传递。一个int                             |                                    |
 
 
