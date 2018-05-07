@@ -8,7 +8,6 @@ categories: Linux
 ---
 
 
-
 # 查看所有用户
 ```bash
 cat /etc/passwd
