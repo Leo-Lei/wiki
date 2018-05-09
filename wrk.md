@@ -154,3 +154,8 @@ done = function(summary, latency, requests)
 end
 
 ```
+
+
+```bash
+wrk -t4 -c600 -d30s http://127.0.0.1:8087/hello
+```
