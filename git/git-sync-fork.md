@@ -8,8 +8,6 @@ categories: Windows
 ---
 
 
-
-具体方法
 # Configuring a remote for a fork
 给 fork 配置一个 remote
 
@@ -35,7 +33,6 @@ git remote -v
 从上游仓库 fetch 分支和提交点，传送到本地，并会被存储在一个本地分支 upstream/master 
 ```bash
 git fetch upstream
-git fetch upstream
 # remote: Counting objects: 75, done.
 # remote: Compressing objects: 100% (53/53), done.
 # remote: Total 62 (delta 27), reused 44 (delta 9)
@@ -46,12 +43,10 @@ git fetch upstream
 切换到本地主分支(如果不在的话) 
 ```bash
 git checkout master
-git checkout master
 # Switched to branch 'master'
 ```
 把 upstream/master 分支合并到本地 master 上，这样就完成了同步，并且不会丢掉本地修改的内容。 
 ```bash
-git merge upstream/master
 git merge upstream/master
 # Updating a422352..5fdff0f
 # Fast-forward
