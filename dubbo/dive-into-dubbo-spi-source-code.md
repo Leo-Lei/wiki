@@ -146,16 +146,15 @@ The process is quite simple, first try to get from cache. If not exist in cache,
 Use the `clazz.newInstance()` to create instance. After this process, the instance of Extension is created, but the properties of it is all empty value.
 
 3. Auto dependency injection
-In the previous step, we get an empty instance of Extension. 
-在实际的场景中，类之间都是有依赖的。扩展实例中也会引用一些依赖，比如简单的Java类，另一个Dubbo的扩展或一个Spring Bean等。依赖的情况很复杂，Dubbo的处理也相对复杂些。我们稍后会有专门的章节对其进行说明，现在，我们只需要知道，Dubbo可以正确的注入扩展点中的普通依赖，Dubbo扩展依赖或Spring依赖等。
+In the previous step, we get an empty instance of Extension. But in real project, a extension may have some dependencies. Just like the Spring Bean dependencies. But the dependencies in Dubbo extension is more complex than Spring. A dependency in Dubbo extension instance may be another Dubbo extension, or a simple Java class, or a spring bean, or other case, for example, a object managered by another IoC container. In next secion, we will cover this. Now, you just need to know, Dubbo can inject a dependency into a Dubbo extension. The dependency can be many types, a simple java object, a Dubbo extension, a Spring bean, or some other case. 
 
-4. 扩展实例自动包装         
-自动包装就是要实现类似于Spring的AOP功能。Dubbo利用它在内部实现一些通用的功能，比如日志，监控等。关于扩展实例自动包装的内容，也会在后面单独讲解。
+4. Extension Instance AOP         
+Like Sping AOP, Dubbo also has the AOP feature. Dubbo use it to implement some common functionality, such as logging and monitoring. We will cover this later.      
 
-经过上面的4步，Dubbo就创建并初始化了一个扩展实例。这个实例的依赖被注入了，也根据需要被包装了。到此为止，这个扩展实例就可以被使用了。        
+After the above 4 steps, Dubbo has created a extension instance, inject dependencies to it, and wrap it accordingly. Now, the extension is ready to use.
 
-# Dubbo SPI高级用法之自动装配
-自动装配的相关代码在injectExtension方法中:
+# Dubbo SPI autowired
+The code about autowired is in the `injectExtension`method:
 ```java
 private T injectExtension(T instance) {
     for (Method method : instance.getClass().getMethods()) {
@@ -174,21 +173,22 @@ private T injectExtension(T instance) {
     return instance;
 }
 ```
-要实现对扩展实例的依赖的自动装配，首先需要知道有哪些依赖，这些依赖的类型是什么。Dubbo的方案是查找Java标准的setter方法。即方法名以set开始，只有一个参数。如果扩展类中有这样的set方法，Dubbo会对其进行依赖注入，类似于Spring的set方法注入。    
-但是Dubbo中的依赖注入比Spring要复杂，因为Spring注入的都是Spring bean，都是由Spring容器来管理的。而Dubbo的依赖注入中，需要注入的可能是另一个Dubbo的扩展，也可能是一个Spring Bean，或是Google guice的组件，或其他任何一个框架中的组件。Dubbo需要能够从任何一个场景中加载扩展。在injectExtension方法中，是用`Object object = objectFactory.getExtension(pt, property)`来实现的。objectFactory是ExtensionFactory类型的，在创建ExtensionLoader时被初始化: 
+In order to implement autowired, we first need to know which dependencies does a extension have. Dubbo search the standard Java setter method. If extension has a method whose name start with set, and has only one parameter, this method indicate that this extension has a dependency, the class type of dependency is the class of method parameter. This is similar with Spring setter injection. 
+
+As we have mentioned above, a dependency in a Dubbo extension may be a simple java class, another Dubbo extension, a Spring bean, or other cases. So how does Dubbo process so many type of dependencies? In `在injectExtension` method, it use `Object object = objectFactory.getExtension(pt, property)` to implement this. objectFactory is type of ExtensionFactory, it is initialized when ExtensionLoader is created.
 ```java
 private ExtensionLoader(Class<?> type) {
         this.type = type;
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 ```
-objectFacory本身也是一个扩展，通过`ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())`来获取。
+objectFacory itself is also an extension, created by `ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())`.    
 ![Dubbo-ExtensionFactory](https://raw.githubusercontent.com/vangoleo/wiki/master/dubbo/dubbo-extensionfactory.png)
-ExtensionLoader有三个实现：
-1. SpiExtensionLoader：Dubbo自己的Spi去加载Extension
-2. SpringExtensionLoader：从Spring容器中去加载Extension
-3. AdaptiveExtensionLoader: 自适应的AdaptiveExtensionLoader
-这里要注意AdaptiveExtensionLoader，源码如下:
+ExtensionFactory has 3 implementations：
+1. SpiExtensionFactory：load Extension from Dubbo SPI
+2. SpringExtensionFactory：load Extension from Spring Container
+3. AdaptiveExtensionFactory: AdaptiveExtensionLoader
+Please pay more attention to AdaptiveExtensionFactory，the source code is as below:
 ```java
 @Adaptive
 public class AdaptiveExtensionFactory implements ExtensionFactory {
@@ -215,7 +215,7 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
     }
 }
 ```
-AdaptiveExtensionLoader类有@Adaptive注解。前面提到了，Dubbo会为每一个扩展创建一个自适应实例。如果扩展类上有@Adaptive，会使用该类作为自适应类。如果没有，Dubbo会为我们创建一个。所以`ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())`会返回一个AdaptiveExtensionLoader实例，作为自适应扩展实例。
+AdaptiveExtensionFactory has @Adaptive annotation。As mentioned previously，Dubbo will create an adaptive instance for each extension。If extention class has @Adaptive annotation, Dubbo will use it as the adaptive class. Otherwise, Dubbo will create an adaptive class automatically. So `ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension())` will return an AdaptiveExtensionLoader instance.
 AdaptiveExtentionLoader会遍历所有的ExtensionFactory实现，尝试着去加载扩展。如果找到了，返回。如果没有，在下一个ExtensionFactory中继续找。Dubbo内置了两个ExtensionFactory，分别从Dubbo自身的扩展机制和Spring容器中去寻找。由于ExtensionFactory本身也是一个扩展点，我们可以实现自己的ExtensionFactory，让Dubbo的自动装配支持我们自定义的组件。比如，我们在项目中使用了Google的guice这个IoC容器。我们可以实现自己的GuiceExtensionFactory，让Dubbo支持从guice容器中加载扩展。
 
 # Dubbo SPI高级用法之AoP
