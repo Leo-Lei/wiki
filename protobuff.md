@@ -8,3 +8,8 @@ categories: Java
 ---
 
 
+
+```bash
+protoc --java_out=/Users/leiwei/workspace/vangoleo/java-tutorial/protobuf student.proto
+```
+
