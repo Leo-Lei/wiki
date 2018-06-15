@@ -127,3 +127,4 @@ ChannelHandlerContext和Channel，ChannelPipeline有很多类似的方法，比�
 调用ChannelHandlerContext：从当前所关联的ChannelHandler开始。        
 
 
+
