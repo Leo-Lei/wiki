@@ -118,3 +118,12 @@ Netty的原则是不阻塞I/O线程。I／O线程即我们在BootStrap中指定�
 
 1. 直接写到Channel中,消息会从channel-pipeline的尾端开始流动          
 2. 写入到ChannelHandlerContext,从channel pipeline的下一个handler开始流动
+
+
+
+
+ChannelHandlerContext和Channel，ChannelPipeline有很多类似的方法，比如read，write等。但是有一个重要的区别:    
+调用Channel或者ChannelPipeline：沿着整个ChannelPipeline进行传播。即会流进整个ChannelPipeline    
+调用ChannelHandlerContext：从当前所关联的ChannelHandler开始。        
+
+
