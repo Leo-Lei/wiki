@@ -8,6 +8,13 @@ categories: Text Editor
 ---
 
 
+# Decoder
+Decoder就是解码器。解码器就是讲一个字节序列转换成另一种格式(一个消息或另一个字节序列)。
+Decoder是用于处理入站数据的。Netty中的Decoder都继承于ChannelInboundHandler。
+
+
+
+
 
 # LengthFieldBasedFrameDecoder
 在RPC协议中，大的数据会分成多个包来发送，一般的协议会在消息头中定义长度字段来标识消息的总长度。这时候就可以使用LengthFieldBasedFrameDecoder来
