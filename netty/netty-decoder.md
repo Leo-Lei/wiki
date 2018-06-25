@@ -125,7 +125,7 @@ protected void callDecode(ChannelHandlerContext ctx, ByteBuf in, List<Object> ou
                 }
 
                 // 如果out list变化了，但ByteBuf的可读字节没变，抛出异常。
-                // 用户实现decode方法时不对。不符合Netty的方式。解析出
+                // 用户实现decode方法时不对。不符合Netty的方式。解析出了msg，ByteBuf的读索引应该相应移动的。
                 if (oldInputLength == in.readableBytes()) {
                     throw new DecoderException(  
                             StringUtil.simpleClassName(getClass()) +".decode() did not read anything but decoded a message.");
