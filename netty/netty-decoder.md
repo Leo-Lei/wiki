@@ -9,8 +9,19 @@ categories: Text Editor
 
 
 # Decoder
-Decoder就是解码器。解码器就是讲一个字节序列转换成另一种格式(一个消息或另一个字节序列)。
+Decoder就是解码器。解码器就是讲一个字节序列转换成另一种格式(一个消息或另一个字节序列)。    
 Decoder是用于处理入站数据的。Netty中的Decoder都继承于ChannelInboundHandler。
+
+
+
+
+
+# ByteToMessageDecoder
+Netty提供了一个抽象类ByteToMessageDecoder来处理字节序列到消息的解码。由于你不可能知道远程节点是否会一次性的发送一个完整的消息，所以这个类会对入站数据进行缓冲，直到它准备好处理。
+
+
+
+
 
 
 
