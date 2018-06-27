@@ -9,6 +9,6 @@ categories: Netty
 
 
 
-|    Name          |  boss group |    worker group    |                                                                               code                                                               |
-| ---------------- | ----------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 单线程           |       1     | 和boss group同一个  | EventLoopGroup bossGroup = new NioEventLoopGroup(1); ServerBootStrap b = new ServerBootstrap();<br> b.group(bossGroup)                           |              
+|    Name          |  boss group   |    worker group    |                                                                               code                                                               |
+| ---------------- | ------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 单线程           |       1       | 和boss group同一个  | EventLoopGroup bossGroup = new NioEventLoopGroup(1); <br> ServerBootStrap b = new ServerBootstrap();<br> b.group(bossGroup)                      |              
