@@ -22,12 +22,12 @@ Netty中的关键对象有：
 
 # Channel
 
-|           Status        |                                  desc                              |
-| ----------------------- | ------------------------------------------------------------------ |
-| channelUnregistered     | channel已创建但没注册到一个EventLoop                                 |
-| channelRegistered       | channel已注册到一个EventLoop                                        |
-| channelActive           | channel变为活跃状态(已连接到远程主机)，现在可以接受和发送数据了         |
-| channelInactive         | channel处于非活跃状态，没有连接到远程主机                             |
+|           Status        |                                  desc                              |                       handler method                |
+| ----------------------- | ------------------------------------------------------------------ | --------------------------------------------------- |
+| channelUnregistered     | channel已创建但没注册到一个EventLoop                                 | ChannelInboundHandler.channelUnregistered()         | 
+| channelRegistered       | channel已注册到一个EventLoop                                        | ChannelInboundHandler.channelRegistered()           |
+| channelActive           | channel变为活跃状态(已连接到远程主机)，现在可以接受和发送数据了         | ChannelInboundHandler.channelActive()               |
+| channelInactive         | channel处于非活跃状态，没有连接到远程主机                             | ChannelInboundHandler.channelInactive()             |    
 
 
 
