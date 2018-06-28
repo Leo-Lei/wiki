@@ -30,7 +30,22 @@ Netty中的关键对象有：
 | channelInactive         | channel处于非活跃状态，没有连接到远程主机                             | ChannelInboundHandler.channelInactive()             |    
 
 
+```text
++---------------------+          +---------------------+
+|                     |          |                     |
+|  ChannelRegistered  +--------> |  ChannelActive      |
+|                     |          |                     |
++---------------------+          +----------+----------+
+                                            |
+                                            |
+                                            v
++---------------------+          +---------------------+
+|                     |          |                     |
+| ChannelUnregistered | <--------+ ChannelInactive     |
+|                     |          |                     |
++---------------------+          +---------------------+
 
+```
 
 
 
