@@ -20,6 +20,12 @@ Netty中的关键对象有：
 > 如果Netty的底层实现没弄清楚，是不太敢用Netty的。
 
 
+# Channel
+
+|           Status        |                      desc                     |
+| ----------------------- | --------------------------------------------- |
+| channelUnregistered     | channel已创建但没注册到一个EventLoop            |
+
 
 
 
