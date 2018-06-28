@@ -10,9 +10,22 @@ categories: Java
 # 背景
 Dubbo是一个分布式服务框架，能避免单点故障和支持服务的横向扩容。一个服务通常会部署多个实例。如何从多个服务提供者组成的集群中挑选出一个进行调用，就涉及到一个负载均衡的策略。
 
-# SPI机制
-Dubbo提供了一个很好的SPI机制，实现了微内核加扩展的架构。Dubbo中提供了很多的扩展点，每个扩展点会有一个或多个不同的实现。这样用户可以根据需要使用不同的扩展点实现，也可以自己来实现某个扩展。
-和Dubbo中大部分的功能类似，Dubbo中的负载均衡也是一个扩展点。有一个LoadBalance接口代表了这个扩展点。Dubbo也内置了几种常用的负载均衡策略。
+
+# 几个概念
+在说到负载均衡时，还有下面的几个概念也经常被提及:
+1. 集群容错
+2. 服务路由        
+很多时候，我们可能会混淆这些概念。他们都是描述了怎么从多个provider中选择一个来进行调用。那他们到底有什么区别呢?下面我来举一个简单的例子，把这几个概念阐述清楚吧。
+有一个用户服务，在北京部署了10个，在上海部署了20个。一个杭州的服务消费方发起了一次调用，然后发生了以下的事情:
+1. 服务治理系统中预先设置了一个路由，就是如果杭州发起的调用，会路由到比较近的上海的服务提供方。这时候，会选择上海的20个服务提供方
+2. 系统中配置了随机的负载均衡策略。在这20个上海的服务器中随机选择了一个来调用，假设随机到了第7个Provider。
+3. 调用的时候，失败了，这时候怎么办呢？由于配置了Failover集群容错模式，会重试其他服务器。重试了第13个Provider，调用成功。        
+上面的第1，2，3步骤就分别对应了路由，负载均衡和集群容错。
+
+
+
+
+
 
 # Dubbo内置负载均衡策略
 Dubbo内置了4种负载均衡策略:
@@ -34,6 +47,7 @@ public interface LoadBalance {
 * invokers: 所有的服务提供者列表。
 * url: 一些配置信息，比如接口名，是否check，序列化方式。
 * invocation: RPC调用的信息，包括方法名，方法参数类型，方法参数。
+
 ### RandomLoadBalance
 ```java
 public class RandomLoadBalance extends AbstractLoadBalance {
@@ -94,247 +108,6 @@ A，B，C和D总的权重是10 + 20 + 20 + 30 = 80。将80个数按照如下区�
 ```
 有上面的一个分部图，一共有4块区域，长度分别是A，B，C和D的权重。使用random.nextInt(10 + 20 + 20 + 30)，从80个数中随机选择一个。然后再判断该数分布在哪个区域。比如，如果随机到27，27是分布在B区域的，那么就选择inboker B。
 
-### RoundRobinLoadBalance
-```java
-public class RoundRobinLoadBalance extends AbstractLoadBalance {
-
-    public static final String NAME = "roundrobin";
-
-    private final ConcurrentMap<String, AtomicPositiveInteger> sequences = new ConcurrentHashMap<String, AtomicPositiveInteger>();
-
-    protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        String key = invokers.get(0).getUrl().getServiceKey() + "." + invocation.getMethodName();
-        int length = invokers.size(); // Number of invokers
-        int maxWeight = 0; // The maximum weight
-        int minWeight = Integer.MAX_VALUE; // The minimum weight
-        final LinkedHashMap<Invoker<T>, IntegerWrapper> invokerToWeightMap = new LinkedHashMap<Invoker<T>, IntegerWrapper>();
-        int weightSum = 0;
-        for (int i = 0; i < length; i++) {
-            int weight = getWeight(invokers.get(i), invocation);
-            maxWeight = Math.max(maxWeight, weight); // Choose the maximum weight
-            minWeight = Math.min(minWeight, weight); // Choose the minimum weight
-            if (weight > 0) {
-                invokerToWeightMap.put(invokers.get(i), new IntegerWrapper(weight));
-                weightSum += weight;
-            }
-        }
-        AtomicPositiveInteger sequence = sequences.get(key);
-        if (sequence == null) {
-            sequences.putIfAbsent(key, new AtomicPositiveInteger());
-            sequence = sequences.get(key);
-        }
-        int currentSequence = sequence.getAndIncrement();
-        if (maxWeight > 0 && minWeight < maxWeight) {
-            int mod = currentSequence % weightSum;
-            for (int i = 0; i < maxWeight; i++) {
-                for (Map.Entry<Invoker<T>, IntegerWrapper> each : invokerToWeightMap.entrySet()) {
-                    final Invoker<T> k = each.getKey();
-                    final IntegerWrapper v = each.getValue();
-                    if (mod == 0 && v.getValue() > 0) {
-                        return k;
-                    }
-                    if (v.getValue() > 0) {
-                        v.decrement();
-                        mod--;
-                    }
-                }
-            }
-        }
-        // Round robin
-        return invokers.get(currentSequence % length);
-    }
-
-    private static final class IntegerWrapper {
-        private int value;
-
-        public IntegerWrapper(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public void decrement() {
-            this.value--;
-        }
-    }
-}
-```
-### LeastActiveLoadBalance
-```java
-public class LeastActiveLoadBalance extends AbstractLoadBalance {
-
-    public static final String NAME = "leastactive";
-
-    private final Random random = new Random();
-
-    protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        int length = invokers.size(); // Number of invokers
-        int leastActive = -1; // The least active value of all invokers
-        int leastCount = 0; // The number of invokers having the same least active value (leastActive)
-        int[] leastIndexs = new int[length]; // The index of invokers having the same least active value (leastActive)
-        int totalWeight = 0; // The sum of weights
-        int firstWeight = 0; // Initial value, used for comparision
-        boolean sameWeight = true; // Every invoker has the same weight value?
-        for (int i = 0; i < length; i++) {
-            Invoker<T> invoker = invokers.get(i);
-            int active = RpcStatus.getStatus(invoker.getUrl(), invocation.getMethodName()).getActive(); // Active number
-            int weight = invoker.getUrl().getMethodParameter(invocation.getMethodName(), Constants.WEIGHT_KEY, Constants.DEFAULT_WEIGHT); // Weight
-            if (leastActive == -1 || active < leastActive) { // Restart, when find a invoker having smaller least active value.
-                leastActive = active; // Record the current least active value
-                leastCount = 1; // Reset leastCount, count again based on current leastCount
-                leastIndexs[0] = i; // Reset
-                totalWeight = weight; // Reset
-                firstWeight = weight; // Record the weight the first invoker
-                sameWeight = true; // Reset, every invoker has the same weight value?
-            } else if (active == leastActive) { // If current invoker's active value equals with leaseActive, then accumulating.
-                leastIndexs[leastCount++] = i; // Record index number of this invoker
-                totalWeight += weight; // Add this invoker's weight to totalWeight.
-                // If every invoker has the same weight?
-                if (sameWeight && i > 0
-                        && weight != firstWeight) {
-                    sameWeight = false;
-                }
-            }
-        }
-        // assert(leastCount > 0)
-        if (leastCount == 1) {
-            // If we got exactly one invoker having the least active value, return this invoker directly.
-            return invokers.get(leastIndexs[0]);
-        }
-        if (!sameWeight && totalWeight > 0) {
-            // If (not every invoker has the same weight & at least one invoker's weight>0), select randomly based on totalWeight.
-            int offsetWeight = random.nextInt(totalWeight);
-            // Return a invoker based on the random value.
-            for (int i = 0; i < leastCount; i++) {
-                int leastIndex = leastIndexs[i];
-                offsetWeight -= getWeight(invokers.get(leastIndex), invocation);
-                if (offsetWeight <= 0)
-                    return invokers.get(leastIndex);
-            }
-        }
-        // If all invokers have the same weight value or totalWeight=0, return evenly.
-        return invokers.get(leastIndexs[random.nextInt(leastCount)]);
-    }
-}
-```
-### ConsistentHashLoadBalance
-```java
-public class ConsistentHashLoadBalance extends AbstractLoadBalance {
-
-    private final ConcurrentMap<String, ConsistentHashSelector<?>> selectors = new ConcurrentHashMap<String, ConsistentHashSelector<?>>();
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        String key = invokers.get(0).getUrl().getServiceKey() + "." + invocation.getMethodName();
-        int identityHashCode = System.identityHashCode(invokers);
-        ConsistentHashSelector<T> selector = (ConsistentHashSelector<T>) selectors.get(key);
-        if (selector == null || selector.identityHashCode != identityHashCode) {
-            selectors.put(key, new ConsistentHashSelector<T>(invokers, invocation.getMethodName(), identityHashCode));
-            selector = (ConsistentHashSelector<T>) selectors.get(key);
-        }
-        return selector.select(invocation);
-    }
-
-    private static final class ConsistentHashSelector<T> {
-
-        private final TreeMap<Long, Invoker<T>> virtualInvokers;
-
-        private final int replicaNumber;
-
-        private final int identityHashCode;
-
-        private final int[] argumentIndex;
-
-        ConsistentHashSelector(List<Invoker<T>> invokers, String methodName, int identityHashCode) {
-            this.virtualInvokers = new TreeMap<Long, Invoker<T>>();
-            this.identityHashCode = identityHashCode;
-            URL url = invokers.get(0).getUrl();
-            this.replicaNumber = url.getMethodParameter(methodName, "hash.nodes", 160);
-            String[] index = Constants.COMMA_SPLIT_PATTERN.split(url.getMethodParameter(methodName, "hash.arguments", "0"));
-            argumentIndex = new int[index.length];
-            for (int i = 0; i < index.length; i++) {
-                argumentIndex[i] = Integer.parseInt(index[i]);
-            }
-            for (Invoker<T> invoker : invokers) {
-                String address = invoker.getUrl().getAddress();
-                for (int i = 0; i < replicaNumber / 4; i++) {
-                    byte[] digest = md5(address + i);
-                    for (int h = 0; h < 4; h++) {
-                        long m = hash(digest, h);
-                        virtualInvokers.put(m, invoker);
-                    }
-                }
-            }
-        }
-
-        public Invoker<T> select(Invocation invocation) {
-            String key = toKey(invocation.getArguments());
-            byte[] digest = md5(key);
-            return selectForKey(hash(digest, 0));
-        }
-
-        private String toKey(Object[] args) {
-            StringBuilder buf = new StringBuilder();
-            for (int i : argumentIndex) {
-                if (i >= 0 && i < args.length) {
-                    buf.append(args[i]);
-                }
-            }
-            return buf.toString();
-        }
-
-        private Invoker<T> selectForKey(long hash) {
-            Invoker<T> invoker;
-            Long key = hash;
-            if (!virtualInvokers.containsKey(key)) {
-                SortedMap<Long, Invoker<T>> tailMap = virtualInvokers.tailMap(key);
-                if (tailMap.isEmpty()) {
-                    key = virtualInvokers.firstKey();
-                } else {
-                    key = tailMap.firstKey();
-                }
-            }
-            invoker = virtualInvokers.get(key);
-            return invoker;
-        }
-
-        private long hash(byte[] digest, int number) {
-            return (((long) (digest[3 + number * 4] & 0xFF) << 24)
-                    | ((long) (digest[2 + number * 4] & 0xFF) << 16)
-                    | ((long) (digest[1 + number * 4] & 0xFF) << 8)
-                    | (digest[number * 4] & 0xFF))
-                    & 0xFFFFFFFFL;
-        }
-
-        private byte[] md5(String value) {
-            MessageDigest md5;
-            try {
-                md5 = MessageDigest.getInstance("MD5");
-            } catch (NoSuchAlgorithmException e) {
-                throw new IllegalStateException(e.getMessage(), e);
-            }
-            md5.reset();
-            byte[] bytes;
-            try {
-                bytes = value.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalStateException(e.getMessage(), e);
-            }
-            md5.update(bytes);
-            return md5.digest();
-        }
-
-    }
-}
-
-```
 
 # 负载均衡扩展
 Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。
