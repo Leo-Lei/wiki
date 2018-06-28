@@ -47,9 +47,13 @@ Netty中的关键对象有：
 
 ```
 
+# ChannelHandler
 
-
-
+|         Status      |                    Desc                |
+| ------------------- | -------------------------------------- |
+| handlerAdded        | ChannelHandler添加到ChannelPipeline     |
+| handlerRemoved      | ChannelHandler从ChannelPipeline移除     |
+| exceptionCaught     | 当ChannelPipeline执行抛出异常时          |
 
 
 
