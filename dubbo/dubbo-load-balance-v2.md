@@ -160,6 +160,8 @@ if (! sameWeight && totalWeight > 0) {
 <dubbo:parameter key="hash.nodes" value="320" />
 ```
 
+一致性Hash算法可以和缓存机制配合起来使用。比如根据参数，所有上海的用户都路由到同一个Provider。而这个Provider上可以在内存中缓存上海用户相关的信息。减少访问数据库的次数。
+
 # 负载均衡配置
 如果不指定负载均衡，默认使用随机负载均衡。我们也可以根据自己的需要，显式指定一个负载均衡。        
 可以在多个地方类来配置负载均衡，比如Provider端，Consumer端，服务级别，方法级别等。
