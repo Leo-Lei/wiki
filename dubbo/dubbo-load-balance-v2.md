@@ -142,27 +142,29 @@ public class RandomLoadBalance extends AbstractLoadBalance {
 ```xml
 <dubbo:service interface="..." loadbalance="roundrobin" />
 ```
-
-
+该服务的所有方法都使用roundrobin负载均衡。
 
 ### 客户端服务级别
 ```xml
 <dubbo:reference interface="..." loadbalance="roundrobin" />
 ```
+该服务的所有方法都使用roundrobin负载均衡。
 
 ### 服务端方法级别
 ```xml
 <dubbo:service interface="...">
-    <dubbo:method name="..." loadbalance="roundrobin"/>
+    <dubbo:method name="hello" loadbalance="roundrobin"/>
 </dubbo:service>
 ```
+只有该服务的hello方法使用roundrobin负载均衡。
 
 ### 客户端方法级别
 ```xml
 <dubbo:reference interface="...">
-    <dubbo:method name="..." loadbalance="roundrobin"/>
+    <dubbo:method name="hello" loadbalance="roundrobin"/>
 </dubbo:reference>
 ```
+只有该服务的hello方法使用roundrobin负载均衡。
 
 和Dubbo其他的配置类似，多个配置是有覆盖关系的：
 1. 方法级优先，接口级次之，全局配置再次之。
