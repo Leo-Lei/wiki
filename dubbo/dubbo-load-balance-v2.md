@@ -122,11 +122,17 @@ public class RandomLoadBalance extends AbstractLoadBalance {
 例如，每个服务维护一个活跃数计数器。当A机器开始处理请求，该计数器加1，此时A还未处理完成。若处理完毕则计数器减1。而B机器接受到请求后很快处理完毕。那么A,B的活跃数分别是1，0。当又产生了一个新的请求，则选择B机器去执行(B活跃数最小)，这样使慢的机器A收到少的请求。
 
 ### 一致性Hash算法
-使用一致性 Hash，让相同参数的请求总是发到同一提供者。
-当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。
+使用一致性 Hash，让相同参数的请求总是发到同一提供者。        
+当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。        
 算法参见：http://en.wikipedia.org/wiki/Consistent_hashing
-缺省只对第一个参数 Hash，如果要修改，请配置 <dubbo:parameter key="hash.arguments" value="0,1" />
-缺省用 160 份虚拟节点，如果要修改，请配置 <dubbo:parameter key="hash.nodes" value="320" />
+缺省只对第一个参数 Hash，如果要修改，请配置 
+```xml
+<dubbo:parameter key="hash.arguments" value="0,1" />
+```
+缺省用 160 份虚拟节点，如果要修改，请配置 
+```xml
+<dubbo:parameter key="hash.nodes" value="320" />
+```
 
 # 负载均衡配置
 如果不指定负载均衡，默认使用随机负载均衡。我们也可以根据自己的需要，显式指定一个负载均衡。        
@@ -136,6 +142,8 @@ public class RandomLoadBalance extends AbstractLoadBalance {
 ```xml
 <dubbo:service interface="..." loadbalance="roundrobin" />
 ```
+
+
 
 ### 客户端服务级别
 ```xml
