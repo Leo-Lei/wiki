@@ -37,12 +37,12 @@ Dubbo内置了4种负载均衡策略:
 3. LeastActiveLoadBalance:最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。
 4. ConsistentHashLoadBalance:一致性哈希负载均衡。相同参数的请求总是落在同一台机器上。
 
-# 随机负载均衡
+### 随机负载均衡
 顾名思义，随机负载均衡策略就是从多个Provider中随机选择一个。但是Dubbo中的随机负载均衡有一个权重的概念，即按照权重设置随机概率。比如说，有10个Provider，并不是说，每个Provider的概率都是一样的，而是要结合这10个provider的权重来分配概率。
 
 Dubbo中，可以对Provider设置权重。比如机器性能好的，可以设置大一点的权重，性能差的，可以设置小一点的权重。权重会对负载均衡产生影响。可以在Dubbo Admin中对provider进行权重的设置。
 
-### 基于权重的负载均衡算法
+**基于权重的负载均衡算法**
 随机策略会先判断所有的invoker的权重是不是一样的，如果都是一样的，那么处理就比较简单了。使用random.nexInt(length)就可以随机生成一个invoker的序号。如果没有在Dubbo Admin中对服务提供者设置权重，那么所有的invoker的权重就是一样的，默认是100。        
 如果权重不一样，那就需要结合权重来设置随机概率了。算法大概如下：
 假如有4个invoker
@@ -68,7 +68,7 @@ A，B，C和D总的权重是10 + 20 + 20 + 30 = 80。将80个数分布在如下�
 ```
 上面的图中一共有4块区域，长度分别是A，B，C和D的权重。使用random.nextInt(10 + 20 + 20 + 30)，从80个数中随机选择一个。然后再判断该数分布在哪个区域。比如，如果随机到37，37是分布在C区域的，那么就选择inboker C。
 
-### 随机负载均衡源码
+**随机负载均衡源码**
 下面是随机负载均衡的源码，为了方便阅读和理解，我把无关部分都去掉了。
 ```java
 public class RandomLoadBalance extends AbstractLoadBalance {
@@ -106,45 +106,59 @@ public class RandomLoadBalance extends AbstractLoadBalance {
 }
 ```
 
-# 轮循负载均衡
+### 轮循负载均衡
 轮询负载均衡，就是依次的调用所有的Provider。但是和随机负载均衡策略一样，轮询负载均衡策略也有权重的概念。设置权重的比例算法和随机负载均衡类似，假设有3个Provider，权重依次是2：2：3。那么第1，2次RPC请求会调用Provider1，第3，4次会调用Provider2，第5，6，7次会调用Provider3。        
 轮询负载均衡算法可以让RPC调用严格按照我们设置的比例来分配。不管是少量的调用还是大量的调用。但是轮询负载均衡算法也有不足的地方，存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上，导致整个系统变慢
 
+### 最少活跃调用数负载均衡
+官方解释：最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差，使慢的机器收到更少。
+这个解释好像说的不是太明白。知道了目的是让慢的机器收到更少，但具体怎么实现的还是不太清楚。让我来举个例子吧：        
+例如，每个服务维护一个活跃数计数器。当A机器开始处理请求，该计数器加1，此时A还未处理完成。若处理完毕则计数器减1。而B机器接受到请求后很快处理完毕。那么A,B的活跃数分别是1，0。当又产生了一个新的请求，则选择B机器去执行(B活跃数最小)，这样使慢的机器A收到少的请求。
 
+### 一致性Hash算法
+使用一致性 Hash，让相同参数的请求总是发到同一提供者。
+当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。
+算法参见：http://en.wikipedia.org/wiki/Consistent_hashing
+缺省只对第一个参数 Hash，如果要修改，请配置 <dubbo:parameter key="hash.arguments" value="0,1" />
+缺省用 160 份虚拟节点，如果要修改，请配置 <dubbo:parameter key="hash.nodes" value="320" />
 
+# 负载均衡配置
+如果不指定负载均衡，默认使用随机负载均衡。我们也可以根据自己的需要，显式指定一个负载均衡。        
+可以在多个地方类来配置负载均衡，比如Provider端，Consumer端，服务级别，方法级别等。
 
+### 服务端服务级别
+```xml
+<dubbo:service interface="..." loadbalance="roundrobin" />
+```
 
+### 客户端服务级别
+```xml
+<dubbo:reference interface="..." loadbalance="roundrobin" />
+```
 
-# 负载均衡扩展
+### 服务端方法级别
+```xml
+<dubbo:service interface="...">
+    <dubbo:method name="..." loadbalance="roundrobin"/>
+</dubbo:service>
+```
+
+### 客户端方法级别
+```xml
+<dubbo:reference interface="...">
+    <dubbo:method name="..." loadbalance="roundrobin"/>
+</dubbo:reference>
+```
+
+和Dubbo其他的配置类似，多个配置是有覆盖关系的：
+1. 方法级优先，接口级次之，全局配置再次之。
+2. 如果级别一样，则消费方优先，提供方次之。
+
+# 扩展负载均衡
 Dubbo的4种负载均衡的实现，大多数情况下能满足要求。有时候，因为业务的需要，我们可能需要实现自己的负载均衡策略。
 
 1. 实现LoadBalance接口
-```java
-package com.leibangzhu.test.dubbo.consumer;
-public class MyLoadBalance implements LoadBalance {
-    @Override
-    public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
-        System.out.println("Select the first invoker...");
-        return invokers.get(0);
-    }
-}
-```
-2. 添加资源文件
-添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。这是一个简单的文本文件。文件内容如下:
-```text
-my=my=com.leibangzhu.test.dubbo.consumer.MyLoadBalance
-```
-3. 配置使用自定义LoadBalance
-```xml
-<dubbo:reference id="helloService" interface="com.leibangzhu.test.dubbo.api.IHelloService" loadbalance="my" />
-```
-在consumer端的<dubbo:reference>中配置<loadbalance="my">
-
-经过上面的3个步骤，我们编写了一个自定义的LoadBalance，并告诉Dubbo使用它了。启动Dubbo，我们就能看到Dubbo已经使用了自定义的MyLoadBalance。
-
-
-# 扩展Dubbo的负载均衡策略
-### LoadBalance:
+以下是Dubbo的LoadBalance接口:
 ```java
 @SPI(RandomLoadBalance.NAME)
 public interface LoadBalance {
@@ -156,6 +170,26 @@ public interface LoadBalance {
 * invokers: 所有的服务提供者列表。
 * url: 一些配置信息，比如接口名，是否check，序列化方式。
 * invocation: RPC调用的信息，包括方法名，方法参数类型，方法参数。
+下面是我们自己实现的一个LoadBalance，实现很简单，选择第一个invoker:
+```java
+package com.demo.dubbo;
+public class DemoLoadBalance implements LoadBalance {
+    @Override
+    public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException {
+        System.out.println("[DemoLoadBalance]Select the first invoker...");
+        return invokers.get(0);
+    }
+}
+```
+2. 添加资源文件
+添加文件:`src/main/resource/META-INF/dubbo/com.alibaba.dubbo.rpc.cluster.LoadBalance`。这是一个简单的文本文件。文件内容如下:
+```text
+demo=my=com.demo.dubbo.DemoLoadBalance
+```
+3. 配置使用自定义LoadBalance
+```xml
+<dubbo:reference id="helloService" interface="com.demo.dubbo.api.IHelloService" loadbalance="demo" />
+```
+在consumer端的<dubbo:reference>中配置<loadbalance="demo">
 
-
-
+经过上面的3个步骤，我们编写了一个自定义的LoadBalance，并告诉Dubbo使用它了。启动Dubbo，我们就能看到Dubbo已经使用了自定义的DemoLoadBalance。
