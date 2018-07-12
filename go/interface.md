@@ -32,3 +32,19 @@ func (mysql *mysqlRepo) save(s string) {
 	fmt.Println("Mysql save",s)
 }
 ```
+
+**使用接口**
+```go
+func saveData(repo repository){
+	repo.save("hello")
+}
+```
+```go
+mongo := mongoRepo{}
+saveData(mongo)
+saveData(&mongo)
+
+mysql := mysqlRepo{}
+//saveData(mysql)     // 编译错误
+saveData(&mysql)
+```
