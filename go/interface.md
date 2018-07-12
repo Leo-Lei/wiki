@@ -34,11 +34,13 @@ func (mysql *mysqlRepo) save(s string) {
 ```
 
 # 使用接口
+假设有如下的方法，方法接收一个repository接口
 ```go
 func saveData(repo repository){
 	repo.save("hello")
 }
 ```
+下面的代码中实例化了一些对象，然后把它传递给saveData方法:
 ```go
 mongo := mongoRepo{}
 saveData(mongo)
@@ -48,7 +50,11 @@ mysql := mysqlRepo{}
 //saveData(mysql)     // 编译错误
 saveData(&mysql)
 ```
+**注意**: saveData(mysql)出现了编译错误，因为我们在定义mysql实现repository接口时，使用的是指针接受者。在调用saveData(repo repository)方法时，必须要传递一个mysqlRepository的指针。不能穿mysqlRepository的值。
 
+可以这么来理解:
+1. 使用指针接受者实现接口时，只有指针类型实现了该接口，值类型没有实现该接口。
+2. 使用值类型接受者实现接口时，值类型和指针类型都实现了该接口。
 
 |  实现接口时的方法接收者  |    值和指针哪些实现了该接口    |          
 | ---------------------- | ---------------------------- |
