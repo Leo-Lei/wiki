@@ -33,7 +33,7 @@ func (mysql *mysqlRepo) save(s string) {
 }
 ```
 
-**使用接口**
+# 使用接口
 ```go
 func saveData(repo repository){
 	repo.save("hello")
@@ -48,3 +48,14 @@ mysql := mysqlRepo{}
 //saveData(mysql)     // 编译错误
 saveData(&mysql)
 ```
+
+
+|  实现接口时的方法接收者  |      可接受的参数类型     |          
+| ---------------------- | ------------------------ |
+| `(t T)`                | `T` 和 `*T`              |
+| `(t *T)`               | `*T`                     |
+
+
+
+
+
