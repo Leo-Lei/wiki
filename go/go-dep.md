@@ -19,5 +19,13 @@ Gopkg.lock文件取决于源代码中的import语句和Gopkg.toml。
 
 ![](https://blog.boatswain.io/img/manage-go-dependencies-using-dep-01.png)
 
+# 安装dep
+```bash
+go get -u github.com/golang/dep/cmd/dep
+```
+安装完后，执行`dep version`验证是否安装成功。
+
+> 注意：如果`$GOPATH/bin`不在`PATH`下，需要将生成的`dep`文件复制到`$GOBIN`下。
+
 # Gopkg.toml语法
 **required**
