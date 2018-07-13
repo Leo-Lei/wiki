@@ -20,6 +20,7 @@ Gopkg.lock文件取决于源代码中的import语句和Gopkg.toml。
 ![](https://blog.boatswain.io/img/manage-go-dependencies-using-dep-01.png)
 
 # 安装dep
+截止到Go1.10.1，dep也没被包含在Go的工具包中，需要独立安装。可以执行以下命令来安装:
 ```bash
 go get -u github.com/golang/dep/cmd/dep
 ```
