@@ -15,3 +15,7 @@ Dep通过两个文件来管理依赖:
 2. `Gopkg.lock`
 
 其中`Gopkg`通过命令生成，也可以被用户根据需要手动修改。`Gopkg.lock`是自动生成的，不可修改。
+Gopkg.lock文件取决于源代码中的import语句和Gopkg.toml。
+
+# Gopkg.toml语法
+**required**
