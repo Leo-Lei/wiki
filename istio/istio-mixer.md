@@ -36,9 +36,9 @@ Envoy -> Mixer -> adapter。不同的adapter接收不同类型的input数据来�
 
 # Mixer的模型配置
 Mixer的yaml配置可以抽象成三种模型:
-1. Handler
-2. Instance
-3. Rule
+1. **Handler**
+2. **Instance**
+3. **Rule**
 这3种模型主要通过yaml中的kind字段进行区分。kind值有如下几种:
 * [adapter kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/adapters/) : 表示此配置是Handler
 * [template kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/templates/): 表示此配置是Template
