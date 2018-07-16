@@ -107,7 +107,6 @@ spec:
     - requestduration.metric.istio-system
 ```
 上述例子中，定义了这样一个Rule:        
-对目标服务为service1.ns.svc.cluster.local且request.headers["x-user"]为user1的请求，Instance:requestduration.metric.istio-system才调用Handler:handler.prometheus。
-
+当目标是service1，header中的x-user=user1时，把requestduration的metric发送到prometheus的handler来处理。
 
 
