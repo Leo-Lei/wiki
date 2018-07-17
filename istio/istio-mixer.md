@@ -32,7 +32,7 @@ b). 定义接口规范，这个接口能够识别并处理template定义的数�
 将哪些instances数据传给哪个handler实例，是通过创建rule来指定的。rule规则需要指定某个handler以及需要发送给这个handler的一系列的instances。rule还需要指定匹配规则，上传的attributes需要满足这个匹配规则才会执行将instances传给handler处理的操作。
 
 
-
+# Template
 以下面的yaml为例:
 ```yaml
 apiVersion: "config.istio.io/v1alpha2"
@@ -57,9 +57,7 @@ kind是metric，那metric到底是个什么呢？Handler？Instance还是rule？
 
 > 是不是可以这样？yaml中提供kind和subkind，kind=template，subkind=metric?至少这样比较清晰。
 
-
-
-# Mixer Handler
+# Handler
 一个Handler是一个配置好的Adapter实例。Handler从yaml配置文件中取出Adapter需要的配置数据。一个典型的Prometheus Handler配置如下所示：
 ```yaml
 apiVersion: config.istio.io/v1alpha2
@@ -81,7 +79,7 @@ spec:
 Handler的完全名称是{metadata.name}.{kind}.{metadata.namespace}。是全局唯一的。    
 每个adapter配置的格式都不一样，可以在[这里](https://istio.io/docs/reference/config/policy-and-telemetry/adapters/)查看相关配置。上述Handler中引用了requestduration.metric.istio-system这个Instance。
 
-# Mixer Instance
+# Instance
 Instance定义了attributes到adapter输入的映射，一个处理requestduration metric数据的Instance配置如下:
 ```yaml
 apiVersion: config.istio.io/v1alpha2
