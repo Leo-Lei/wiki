@@ -33,15 +33,6 @@ b). 定义接口规范，这个接口能够识别并处理template定义的数�
 
 
 
-
-
-
-
-
-* [adapter kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/adapters/) : 表示此配置是Handler
-* [template kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/templates/): 表示此配置是Template
-
-
 以下面的yaml为例:
 ```yaml
 apiVersion: "config.istio.io/v1alpha2"
