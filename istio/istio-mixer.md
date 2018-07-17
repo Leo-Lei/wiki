@@ -11,19 +11,36 @@ Istio中每个请求，每个Envoy会调用两次Mixer:
 1. 转发前，调用Mixer，进行前置检查
 2. 转发后，调用Mixer，上报日志和监控数据
 
-# Templates
-Envoy -> Mixer -> adapter。不同的adapter接收不同类型的input数据来进行处理。一个logging adapter需要一个log数据，一个metric adapter需要一个metric数据。Istio使用Mixer template来描述adapter需要的具体数据。        
 
-# Mixer的模型配置
-Mixer的yaml配置可以抽象成三种模型:
-1. **Handler**
-2. **Instance**
-3. **Rule**
 
-这3种模型主要通过yaml中的kind字段进行区分。kind值有如下几种:
+# 基本概念:
+* Adapter：
+业务自身的基础设施模块（比如Prometheus、ACL控制等）需要接入Istio，需要在Mixer组件中开发相应的adapter插件，这个adapter插件负责承接Mixer流转过来的运行时信息，然后以各自的协议与相应的基础设施模块进行交互。
+
+* Handler：
+每个adapter需要配置一些参数才能使用，比如配置后端的链接URL、证书、缓存等参数（配置参数用protobuf格式描述）。每个处于配置完成状态的adapter被称为一个handler，可以对同一个adapter配置多次，对应成多个handler实例（除了配置不同以外，每个handler都有自己的name和namespace），在不同的场景下使用。无论是CHECK还是REPORT请求，Mixer会调用一个或多个handler实例，具体看Rule Configurer的配置。
+
+* Template：
+不同的adapter的处理需要不同格式的输入数据。这些格式信息由Template资源来描述。Adapter在设计阶段可以指定依赖多个Template资源。总结Template的作用：
+a). 定义adapter组件需要处理的数据格式。
+b). 定义接口规范，这个接口能够识别并处理template定义的数据格式，依赖这个Template的adapter组件需要实现这个接口规范。
+
+* Instance：
+如前所述，传输给adapter处理的数据格式需要由Template资源来描述，具体过程：在运行时，Mixer将Envoy上报的属性数据（attributes）按照Template的格式以及Rule Configurer配置（指定哪些填充字段）封装成instance对象，然后将instance对象传输给依赖这种Template的adapter实例（handler对象），instance可以理解为template的实例（Rule Configurer在配置时通过kind指定为template的name来关联）。
+
+* Rule：
+将哪些instances数据传给哪个handler实例，是通过创建rule来指定的。rule规则需要指定某个handler以及需要发送给这个handler的一系列的instances。rule还需要指定匹配规则，上传的attributes需要满足这个匹配规则才会执行将instances传给handler处理的操作。
+
+
+
+
+
+
+
+
 * [adapter kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/adapters/) : 表示此配置是Handler
 * [template kind](https://preliminary.istio.io/docs/reference/config/policy-and-telemetry/templates/): 表示此配置是Template
-* "rule":表示是规则
+
 
 以下面的yaml为例:
 ```yaml
