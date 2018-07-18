@@ -122,4 +122,105 @@ f2.o: f2.c
 
 **变量和赋值**
 
+Makefile允许使用等号自定义变量。
+```bash
+txt = Hello World
+test:
+    echo $(txt)
+```
+上面代码中，变量txt等于Hello World。调用时，变量需要放在$()之中。    
+调用Shell变量，需要在美元符号前，再加上一个美元符号，因为Make命令会对美元进行符号转义。
+```bash
+test:
+    echo $$HOME
+```
+
+Makefile一共提供了4个赋值运算符:
+```bash
+VARIABLE = value
+# 在执行时扩展，允许递归扩展。
+
+VARIABLE := value
+# 在定义时扩展。
+
+VARIABLE ?= value
+# 只有在该变量为空时才设置值。
+
+VARIABLE += value
+# 将值追加到变量的尾端。
+```
+
+```bash
+HELLO = world
+HELLO_WORLD = $(HELLO) world!
+
+# This echoes "world world!"
+echo $(HELLO_WORLD)
+
+HELLO = hello
+
+# This echoes "hello world!"
+echo $(HELLO_WORLD)
+```
+
+```bash
+HELLO = world
+HELLO_WORLD := $(HELLO) world!
+
+# This echoes "world world!"
+echo $(HELLO_WORLD)
+
+HELLO = hello
+
+# Still echoes "world world!"
+echo $(HELLO_WORLD)
+
+HELLO_WORLD := $(HELLO) world!
+
+# This echoes "hello world!"
+echo $(HELLO_WORLD)
+```
+
+```bash
+HELLO_WORLD = hello
+HELLO_WORLD += world!
+
+# This echoes "hello world!"
+echo $(HELLO_WORLD)
+```
+
+
+**内置变量**
+
+Make命令提供一系列内置变量，比如$(CC)指向当前使用的编译器，$(MAKE)指向当前使用的Make工具。
+
+**自动变量**
+$@:指代当前目标，比如make foo的$@就指代foo
+```bash
+a.txt:
+    touch $@
+```
+
+```bash
+a.txt:
+    touch a.txt
+```
+
+$<: 指代第一个前置条件。比如规则是t: p1 p2,那么$<就指代p1。
+```bash
+a.txt: b.txt c.txt
+    cp $< $@
+```
+等同于:
+```bash
+a.txt: b.txt c.txt
+    cp b.txt a.txt
+```
+
+$? 指代比目标更新的所有前置条件，之间以空格分隔。比如，规则为 t: p1 p2，其中 p2 的时间戳比 t 新，$?就指代p2。
+
+$^ 指代所有前置条件，之间以空格分隔。比如，规则为 t: p1 p2，那么 $^ 就指代 p1 p2 。
+
+$* 指代匹配符 % 匹配的部分， 比如% 匹配 f1.txt 中的f1 ，$* 就表示 f1。
+
 
