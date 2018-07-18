@@ -42,4 +42,4 @@ clean:
 result.txt: source.txt
     cp source.txt result.txt
 ```
-上面代码
+上面代码中，构建result.txt的前置条件是source.txt。如果当前目录中，source.txt存在，那么make result.txt可以正常运行。否则
