@@ -224,3 +224,19 @@ $^ 指代所有前置条件，之间以空格分隔。比如，规则为 t: p1 p
 $* 指代匹配符 % 匹配的部分， 比如% 匹配 f1.txt 中的f1 ，$* 就表示 f1。
 
 
+
+
+**函数**
+
+Makefile还可以使用函数，格式如下:
+```bash
+$(function arguments)
+或者
+${function arguments}
+```
+
+
+
+
+
+
