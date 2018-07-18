@@ -42,4 +42,37 @@ clean:
 result.txt: source.txt
     cp source.txt result.txt
 ```
-上面代码中，构建result.txt的前置条件是source.txt。如果当前目录中，source.txt存在，那么make result.txt可以正常运行。否则
+上面代码中，构建result.txt的前置条件是source.txt。如果当前目录中，source.txt存在，那么make result.txt可以正常运行。否则必须再写一个规则，来生成source.txt。
+
+
+**命令**
+
+命令表示如何更新目标文件。由一行或多行的Shell命令组成。它是构建目标的具体命令。它的运行结果通常就是生成目标文件。    
+每行命令之前必须有一个Tab键。如果想用其他键，可以用内置变量.RECIPEPREFIX声明。
+```bash
+.RECIPEPREFIX = >
+someTarget:
+> echo Hello, world
+```
+ 注意，每行命令在一个单独的shell中执行。这些shell之间没有继承关系。
+ ```bash
+ someTarget:
+     export foo=bar
+     echo "foo=[$$foo]"
+ ```
+上面的代码，make someTarget，取不到foo的值。因为两个命令在两个不同的进程中运行。一个解决办法是将两行命令写在一起
+```bash
+ someTarget:
+     export foo=bar; echo "foo=[$$foo]"
+```
+另一个解决办法是在换行符前加反斜杠转义
+```bash
+ someTarget:
+     export foo=bar; \
+     echo "foo=[$$foo]"
+ ```
+
+
+
+
+
