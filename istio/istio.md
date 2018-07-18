@@ -8,6 +8,11 @@ categories: Windows
 ---
 
 
+|                              Command                                     |                   Desc                    |
+| ------------------------------------------------------------------------ | ----------------------------------------- |
+| `istioctl get routerules`                                                |                                           | 
+| `istioctl delete routerule recommendation-default -n tutorial`           |                                           |
+| `istioctl get routerule recommendation-default -o yaml -n tutorial`      |                                           |
 
 
 ```text
