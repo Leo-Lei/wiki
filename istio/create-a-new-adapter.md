@@ -117,11 +117,65 @@ mysampleadapter目前不包含任何功能，只是实现了一个adapter的基�
 * mysampleadapter定义了一个GetInfo方法，这个方法并没有实现任何接口，但Istio中的每一个Adapter都必须要有这样一个方法，方法名叫GetInfo，返回adapter.Info对象。即返回adapter的相关信息。
 
 
+进入MIXER_REPO目录，执行命令:
+```go
+go build ./...
+```
+确保没有报错。
 
+# 步骤2： 编写adapter的配置
 
+Istio中每个adapter都会有自己的配置，比如，后端server的地址等。本文章中我们要创建的mysampleadapter比较简单，会将从Mixer接收到的数据写入到一个文件中，所以，我们需要配置一个文件地址，这样adapter才知道将数据写入到哪个文件。在创建mysampleadapter的时候，需要把文件地址传给mysampleadapter。
 
+创建一个config目录`$MIXER_REPO/adapter/mysampleadapter/config`。在config目录新建一个文件:`$MIXER_REPO/adapter/mysampleadapter/config/config.proto`，内容如下:
 
+```proto
+syntax = "proto3";
 
+package adapter.mysampleadapter.config;
+
+import "google/protobuf/duration.proto";
+import "gogoproto/gogo.proto";
+
+option go_package="config";
+
+message Params {
+    // Path of the file to save the information about runtime requests.
+    string file_path = 1;
+}
+```
+
+我们创建了一个标准的protobuff文件，来表示mysampleadapter需要的配置信息，有一个file_path字段。表示mysampleadapter将数据写入哪个文件。    
+接下来，我们需要根据这个config.proto文件来生成一些go文件。
+
+> Istio中经常会先定义一个proto文件，然后再根据proto文件自动生成一些go文件。大家要习惯。。。
+
+为了能够自动生成go文件，我们还需要在mysampleadapter.go文件中添加一些go generate的注释。如下所示:
+
+```go
+//go:generate $GOPATH/src/istio.io/istio/bin/mixer_codegen.sh -f mixer/adapter/mysampleadapter/config/config.proto
+package mysampleadapter
+
+import (
+  "context"
+
+  "github.com/gogo/protobuf/types"
+  "istio.io/istio/mixer/pkg/adapter"
+  "istio.io/istio/mixer/template/metric"
+)
+..
+..
+```
+
+添加完了注释后，就可以来生成go文件了。进入$ISTIO目录，执行命令:
+```bash
+go generate ./...
+go build ./...
+```
+执行完命令后，你能在`$MIXER_REPO/adapter/mysampadapter/config`目录看到自动生成的文件:
+* adapter.mysampleradapter.config.pb.html：一个html问价，没什么用
+* config.pb.go：生成的go代码，包含一个Params结构体
+* config.proto_descriptor：一个纯文本文件，貌似也没什么用
 
 
 
