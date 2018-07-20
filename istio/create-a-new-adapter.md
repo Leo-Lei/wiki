@@ -33,7 +33,8 @@ Istio中的template，adapter等代码都是根据proto文件来生成的，所�
 ### 设置一些环境变量
 为了方便操作，和统一路径的描述，我们定义一些环境变量:
 * MIXER_REPO: `export MIXER_REPO=$GOPATH/src/istio.io/istio/mixer`
-* ISTIO: `export $ISTIO=$GOPATH/src/istio.io`
+* ISTIO: `export $ISTIO=$GOPATH/src/istio.io/istio`
+* PATH: `export PATH=$GOPATH/out/darwin_amd64/release:$PATH`
 
 # 步骤1： 编写基本的adapter框架代码
 
@@ -444,7 +445,7 @@ cp $MIXER_REPO/testdata/config/attributes.yaml $MIXER_REPO/adapter/mysampleadapt
 步骤7： 启动Mixer Server
 执行以下命令来启动Mixer Server:
 ```bash
-cd $ISTIO/istio
+cd $ISTIO
 make mixs
 // locate mixs binary, should be $GOPATH/out/linux_amd64/release/mixs on linux os and 
 // $GOPATH/out/darwin_amd64/release/mixs on mac os. 
@@ -486,7 +487,7 @@ cd $ISTIO
 make mixc
 mixc report -s destination.service="svc.cluster.local" -t request.time="2017-02-01T10:12:14Z"
 ```
-命令执行完后，可以在`$ISTIO/istio`目录看到一个out.txt文件。内容大概如下:
+命令执行完后，可以在`$ISTIO`目录看到一个out.txt文件。内容大概如下:
 ```text
 HandleMetric invoke for
        Instance Name  : requestcount.metric.istio-system
@@ -500,11 +501,4 @@ cd $ISTIO
 make mixc
 mixc report -s="destination.service=svc.cluster.local,destination.service=mySrvc" -i="response.code=400" --stringmap_attributes="destination.labels=app:dummyapp"
 ```
-
-
-
-
-
-
-
 
