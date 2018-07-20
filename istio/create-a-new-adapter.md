@@ -22,6 +22,7 @@ categories: Windows
     - Instance
     - Type
     - HandlerBuilder
+    
    之前看Java框架的源码，可以调试进去一步一步看调用流程，非常清晰。但Istio需要k8s环境，这个方法行不通了。
 
 参考了[https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough](https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough)，一步一步的实现了一个自己的adapter，并在本地启动Mixer Server和Mixer Client来进行测试。
