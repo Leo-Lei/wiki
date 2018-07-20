@@ -114,5 +114,3 @@ spec:
 ```
 上述例子中，定义了这样一个Rule:        
 当目标是service1，header中的x-user=user1时，把requestduration的metric发送到prometheus的handler来处理。
-
-
