@@ -11,26 +11,24 @@ categories: Windows
 
 # 背景
 在看Istio源码时，一开始的时候有点一头雾水。主要是有以下几个原因:
-1. Go中接口的Duck interface，在看接口的实现关系时，有点不清晰
-2. 看Istio源码时，遇到很多自动生成的代码,比如:
+1. 看Istio源码时，遇到很多自动生成的代码,比如:
     - `mixer/template/metric/template_handler.gen.go`
     - `mixer/template/metric/template_handler_service.pb.go`
     - `mixer/adapter/prometheus/config/config.pb.go`
-3. Istio中的很多概念看文档还是比较模糊，比如：
+2. Istio中的很多概念看文档还是比较模糊，比如：
     - Adapter
     - Handler
     - Template
     - Instance
     - Type
     - HandlerBuilder
-4. 之前看Java框架的源码，可以调试进去一步一步看调用流程，但Istio需要k8s环境，这一招行不通了。和Istio之间始终隔着一段距离。
+   之前看Java框架的源码，可以调试进去一步一步看调用流程，非常清晰。但Istio需要k8s环境，这个方法行不通了。
 
-在Istio的Github上看到了这样一篇文章：[https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough](https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough)，里面描述了如何在Istio中创建一个自己的Adapter。并且不需要k8s，在本地直接启动Mixer Server和Mixer Client来进行测试。可以加深我们对Mixer的理解，而且，我们也可以通过在本地启动Mixer来进行调试，来学习Istio相关的源码了。
+参考了[https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough](https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough)，一步一步的实现了一个自己的adapter，并在本地启动Mixer Server和Mixer Client来进行测试。
 
-本文章会介绍如何在Istio中新建一个Adapter。该Adapter:
+本文章会介绍如何在Istio中新建一个Adapter，名字叫mysampleadapter。该Adapter:
 1. 支持Istio自带的metric模板
 2. 对于每个请求，Adapter会把它接收到的数据打印到一个文件中
-
 
 # 准备工作
 ### 安装go
