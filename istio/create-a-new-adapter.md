@@ -34,7 +34,7 @@ Istio中的template，adapter等代码都是根据proto文件来生成的，所�
 为了方便操作，和统一路径的描述，我们定义一些环境变量:
 * MIXER_REPO: `export MIXER_REPO=$GOPATH/src/istio.io/istio/mixer`
 * ISTIO: `export $ISTIO=$GOPATH/src/istio.io/istio`
-* PATH: `export PATH=$GOPATH/out/darwin_amd64/release:$PATH`
+* PATH: `export PATH=$GOPATH/out/darwin_amd64/release:$PATH`。mixs和mixc编译的二进制文件在`$GOPATH/out/darwin_amd64`目录中。
 
 # 步骤1： 编写基本的adapter框架代码
 
