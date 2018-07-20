@@ -26,6 +26,8 @@ categories: Windows
 
 参考了[https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough](https://github.com/istio/istio/wiki/Mixer-Adapter-Walkthrough)，一步一步的实现了一个自己的adapter，并在本地启动Mixer Server和Mixer Client来进行测试。
 
+另外，Go中可以使用[delve](https://github.com/derekparker/delve)来进行调试，支持类似于Java的远程调试。GoLand中也是使用delve来进行远程调试的。
+
 本文章会介绍如何在Istio中新建一个Adapter，名字叫mysampleadapter。该Adapter:
 1. 支持Istio自带的metric模板
 2. 对于每个请求，Adapter会把它接收到的数据打印到一个文件中
