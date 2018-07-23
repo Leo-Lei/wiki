@@ -19,7 +19,10 @@ categories: Linux
 1. Go的debug工具有GDB，但是对Go的支持不好。
 2. Delve是一个比GDB更好的调试go应用的工具。
 
-截止到本文编写的时候，Delve是调试Go应用的最好的工具。Go官方文档中推荐了Delve，GoLand这款IDE也使用Delve来进行Go应用的调试(比如远程调试，attach进程调试等)。
+GDB不是一款专门用于调试Go的工具，它还可以调试C++代码，它对Go中的协程等支持不好，所以基本认为使用GDB来调试Go代码不可用。截止到本文编写的时候(2018年7月23日)，Delve是调试Go应用的最好的工具:
+1. Delve对Go协程的调试支持很好
+2. Go官方文档中推荐了Delve
+3. GoLand这款IDE也使用Delve来进行Go应用的调试(比如远程调试，attach进程调试等)。
 
 # 安装Delve
 
