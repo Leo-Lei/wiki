@@ -15,6 +15,8 @@ categories: Windows
     - `mixer/template/metric/template_handler.gen.go`
     - `mixer/template/metric/template_handler_service.pb.go`
     - `mixer/adapter/prometheus/config/config.pb.go`
+    
+    也不清楚这些go文件是怎么生成的。
 2. Istio中的很多概念看文档还是比较模糊，比如：
     - Adapter
     - Handler
