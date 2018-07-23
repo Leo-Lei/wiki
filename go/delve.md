@@ -46,4 +46,57 @@ func main()  {
 dlv debug hello.go
 ```
 运行这个命令，dlv会去编译hello.go代码，然后传一些参数给编译器，好让编译器编译出来更加方便调试的可执行文件，然后启动了你的程序，并且attach上去，这样，我们的终端或命令行就会停留在debug模式，应用只是启动了，但还没有开始执行，下面就可以进行调试了。
+```bash
+$ dlv debug hello.go
+Type 'help' for list of commands.
+(dlv) help
+
+```
+在main函数上设置一个断点:
+```bash
+(dlv) break main.main
+Breakpoint 1 set at 0x1050123 for main.main() ./hello.go:3
+```
+输出信息里有设置的断点的信息，有断点位置，函数名，文件名和所在行数。用continue命令让程序运行到我们设置的断点位置:
+```bash
+> main.main() ./hello.go:3 (hits goroutine(1):1 total:1) (PC: 0x1050123)
+     1: package main
+     2: 
+=>   3: func main()  {
+     4:         s := "Hello"
+     5:         s += " world"
+     6:         println(s)
+     7: }
+     8: 
+
+```
+continue命令可以让程序运行到下一个断点的位置。
+接下来可以使用next命令让程序运行到下一句话。就是单步测试了。如果想继续向下，可以再执行next或直接按回车。如果按回车，Delve会重复执行上一条命令。
+```bash
+(dlv) next
+> main.main() ./hello.go:5 (PC: 0x1050146)
+     1: package main
+     2: 
+     3: func main()  {
+     4:         s := "Hello"
+=>   5:         s += " world"
+     6:         println(s)
+     7: }
+     8: 
+     9: 
+(dlv) print s
+"Hello"
+(dlv) 
+
+```
+可以使用print把变量的值打印出来:
+```bash
+(dlv) print s
+"Hello"
+(dlv)
+```
+
+
+
+
 
