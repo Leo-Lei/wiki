@@ -32,10 +32,18 @@ go get github.com/derekparker/delve/cmd/dlv
 ```
 注：本文章使用的Go版本为Go1.8。
 
-
-
-
-
-
-
+# Delve调试之Hello World
+编写一个如下的hello.go文件：
+```go
+func main()  {
+	s := "Hello"
+	s += " world"
+	println(s)
+}
+```
+文件很简单，只有一个main方法，打印一条"Hello World"。下面来使用Delve启动程序
+```bash
+dlv debug hello.go
+```
+运行这个命令，dlv会去编译hello.go代码，然后传一些参数给编译器，好让编译器编译出来更加方便调试的可执行文件，然后启动了你的程序，并且attach上去，这样，我们的终端或命令行就会停留在debug模式，应用只是启动了，但还没有开始执行，下面就可以进行调试了。
 
