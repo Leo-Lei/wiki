@@ -147,6 +147,8 @@ dlv --listen=:2345 --headless=true --api-version=2 exec ./hello
 使用dlv启动了hello进程，并立即attach到hello进程，同时开启了一个debug server，暴露了端口2345来进行远程调试。
 
 3. 在GoLand中配置Remote Debug
+![GoLand Remote Debug](https://raw.githubusercontent.com/vangoleo/file-repo/master/goland_remote_debug.png)
+
 
 
 
