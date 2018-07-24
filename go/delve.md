@@ -153,3 +153,15 @@ Run -> Edit Configurations -> Add new Configuration -> Go Remote:
 4. 在hello.go中设置断点
 5. 点击GoLand中的debug按钮，开始调试
 
+### 调试带命令行参数的进程
+假设hello进程启动时有参数如下:
+```bash
+./hello --id=2 --name=tom
+```
+那么在用dlv调试该带参数的进程如何做呢?
+```bash
+dlv --listen=:2345 --headless=true --api-version=2 exec ./hello -- --id=2 --name=tom
+```
+使用`--`来分隔dlv命令和hello的命令行参数。可以看到`exec ./hello`和`--id=2 --name=tom`之间有一个` -- `进行分隔。
+
+
