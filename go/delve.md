@@ -108,6 +108,13 @@ continue命令可以让程序运行到下一个断点的位置。
 * 安装好了GoLand。
 * 安装好了delve，并将dlv添加到$PATH中。
 
+```bash
+go build -gcflags='all -N -l' github.com/app/demo
+```
+ 
+```bash
+dlv --listen=:2345 --headless=true --api-version=2 exec ./demo
+```
 
 
 
