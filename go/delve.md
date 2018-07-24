@@ -139,12 +139,15 @@ go build -gcflags=all="-N -l" hello.go
 > ```
 > 在网上绝大部分的blog都说加上`go build -gcflags='all -N -l'`。进测试，这个参数会导致go编译器错误。而且GoLand的调试页面也提供的是这个错误的参数，不知道是什么情况，难道大家都不用go调试的吗。。。
 
+2. 使用delve启动hello
 
-
- 
 ```bash
-dlv --listen=:2345 --headless=true --api-version=2 exec ./demo
+dlv --listen=:2345 --headless=true --api-version=2 exec ./hello
 ```
+使用dlv启动了hello进程，并立即attach到hello进程，同时开启了一个debug server，暴露了端口2345来进行远程调试。
+
+3. 在GoLand中配置Remote Debug
+
 
 
 
