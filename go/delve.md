@@ -104,13 +104,43 @@ continue命令可以让程序运行到下一个断点的位置。
 # GoLand + Delve：Attach到进程调试(远程调试)
 前面的例子有使用Delve启动应用或attach到应用进行调试，但添加断点，运行到下一步，查看变量值等操作都是在终端中，输入delve命令来进行的。这种调试方式也太古老了，效率低下。真实场景下，几乎不会使用这种方式来进行调试。我们还是希望借助IDE进行更高效的调试。    
 下面就介绍如何在GoLand中配合delve进行调试。包括附加到进程调试和远程调试。其实附加到本地进程和远程调试原理是一样的，待调试的进程是通过delve启动的，delve会启动进程，并立即附加到进程，开启一个debug session。并且启动一个debug server，暴露某个端口，客户端IDE可以通过该端口连接到debug server进行调试。        
-### 准备条件:
+***准备条件:***
 * 安装好了GoLand。
 * 安装好了delve，并将dlv添加到$PATH中。
+### 附加到进程调试
+假设需要调试如下的应用,我们会在本地运行该应用，附加到进程调试:
+`hello.go`:
+```go
+func main()  {
 
-```bash
-go build -gcflags='all -N -l' github.com/app/demo
+	ok := flag.Bool("ok", false, "is ok")
+	id := flag.Int("id", 0, "id")
+	port := flag.String("port", ":8080", "http listen port")
+	var name string
+	flag.StringVar(&name, "name", "123", "name")
+
+	flag.Parse()
+
+	fmt.Println("ok:", *ok)
+	fmt.Println("id:", *id)
+	fmt.Println("port:", *port)
+	fmt.Println("name:", name)
+}
 ```
+1. 编译`hello.go`
+```bash
+go build -gcflags=all="-N -l" hello.go 
+```
+其中-gcflags='all -N -l'是告诉go编译器不要进行编译器优化，不然可能会导致调试不对。编译器优化后可能会对代码进行重排序等。所以，为了调试，编译时最好带上-gcflags='all -N -l'。
+> 注意：本文使用Go版本是:go1.10.1
+> ```bash
+> $go version
+> go version go1.10.1 darwin/amd64
+> ```
+> 在网上绝大部分的blog都说加上`go build -gcflags='all -N -l'`。进测试，这个参数会导致go编译器错误。而且GoLand的调试页面也提供的是这个错误的参数，不知道是什么情况，难道大家都不用go调试的吗。。。
+
+
+
  
 ```bash
 dlv --listen=:2345 --headless=true --api-version=2 exec ./demo
