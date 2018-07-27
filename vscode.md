@@ -11,5 +11,5 @@ categories: Text Editor
 
 |           Command            |                   Desc                       |
 | ---------------------------- | -------------------------------------------- |
-| `Command` + `Shift` + P .    | 打开命令面板                                  |
+| `Command` + `Shift` + P      | 打开命令面板                                  |
 
