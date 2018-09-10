@@ -22,6 +22,9 @@ categories: Java
 | `yum list | grep gcc`        | 搜索可用的gcc包                 |
 | `yum info gcc`               | 显示安装包gcc的信息              |
 | `yum makecache`              | 更新yum缓存                     |
+| `cat /etc/redhat-release`    | 查看redhat,centOS版本            |
+
+
 
 # CentOS7 修改hostname
 
