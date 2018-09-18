@@ -82,7 +82,21 @@ categories: Linux
 | `ntpdate 1.cn.pool.ntp.org`                              | 从服务器同步系统时间                                   |
 | `clock -w`                                               | 把系统时间写入CMOS                                    |
 | `iptables -L -nv`                                        | 查看iptables配置                                     |
-| `/usr/sbin/sestatus -v`                                  | 查看SELinux状态                                      |
+| `/usr/sbin/sestatus -v`                                  | 查看SELinux状态                                                         |
+| `cmd > file`                                             | Redirect the standard output(stdout) of cmd to a file.                  |
+| `cmd 1> file`                                            | The same as `cmd > file`.                                               |
+| `cmd 2> file`                                            | Redirect the standard error(stderr) of cmd to a file.                   |
+| `cmd >> file`                                            | Append output of cmd to a file.                                         |
+| `cmd 2>> file`                                           | Append stderr of cmd to a file.                                         |
+| `cmd &> file`                                            | Redirect stdout and stderr of cmd to a file.                            |
+| `cmd | tee file`                                         | Redirect stdout of cmd to a file and print it to screen                 |
+| `cmd  2>&1 | tee -a  file`                               | Append stdout and stderr of cmd to a file and print it to screen.       |
+| `cmd1 | cmd2`                                            | Redirect stdout of cmd1 to stdin of cmd2. The same as cmd1 >> (cmd2)    |
+| `cmd1 |& cmd2`                                           | Redirect stdout and stderr of cmd1 to stdin of cmd2(bash 4.0+ only).    |
+| `cmd1 2>&1 | cmd2`                                       | The same as  `cmd1 |& cmd2`. Use this for older bashes.                 |
+
+
+
 
 
 
