@@ -16,5 +16,11 @@ categories: Linux
 
 
 
-
+```shell
+if [ -z "${DEBUG}" ]; then
+    echo "hello"
+else
+    echo "DEBUG: print yaml"
+fi
+```
 
