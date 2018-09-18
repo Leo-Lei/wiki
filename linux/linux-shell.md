@@ -20,7 +20,7 @@ categories: Linux
 if [ -z "${DEBUG}" ]; then
     echo "hello"
 else
-    echo "DEBUG: print yaml"
+    echo "world"
 fi
 ```
 
