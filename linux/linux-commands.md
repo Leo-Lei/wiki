@@ -89,11 +89,11 @@ categories: Linux
 | `cmd >> file`                                            | Append output of cmd to a file.                                         |
 | `cmd 2>> file`                                           | Append stderr of cmd to a file.                                         |
 | `cmd &> file`                                            | Redirect stdout and stderr of cmd to a file.                            |
-| `cmd | tee file`                                         | Redirect stdout of cmd to a file and print it to screen                 |
-| `cmd  2>&1 | tee -a  file`                               | Append stdout and stderr of cmd to a file and print it to screen.       |
-| `cmd1 | cmd2`                                            | Redirect stdout of cmd1 to stdin of cmd2. The same as cmd1 >> (cmd2)    |
-| `cmd1 |& cmd2`                                           | Redirect stdout and stderr of cmd1 to stdin of cmd2(bash 4.0+ only).    |
-| `cmd1 2>&1 | cmd2`                                       | The same as  `cmd1 |& cmd2`. Use this for older bashes.                 |
+| `cmd \| tee file`                                         | Redirect stdout of cmd to a file and print it to screen                 |
+| `cmd  2>&1 \| tee -a  file`                               | Append stdout and stderr of cmd to a file and print it to screen.       |
+| `cmd1 \| cmd2`                                            | Redirect stdout of cmd1 to stdin of cmd2. The same as cmd1 >> (cmd2)    |
+| `cmd1 \|& cmd2`                                           | Redirect stdout and stderr of cmd1 to stdin of cmd2(bash 4.0+ only).    |
+| `cmd1 2>&1 \| cmd2`                                       | The same as  `cmd1 |& cmd2`. Use this for older bashes.                 |
 
 
 
