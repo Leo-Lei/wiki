@@ -94,9 +94,9 @@ categories: Linux
 | `cmd1 \| cmd2`                                            | 重定向cmd1的stdout到cmd2的stdin. 效果等于cmd1 >> (cmd2)    |
 | `cmd1 \|& cmd2`                                           | 重定向cmd1的stdout和stderr到cmd2的stdin。(bash 4.0+ only)    |
 | `cmd1 2>&1 \| cmd2`                                       | 效果等于`cmd1 |& cmd2`. 在老版本的shell上使用                 |
-
-
-
+| `ifconfig`                                                | 查看ip地址                                                  |
+| `/sbin/ifconfig`                                          | `ifconfig`                                                 |
+| `ip addr`                                                 | 查看ip地址                                                  |
 
 
 
