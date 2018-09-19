@@ -97,7 +97,7 @@ categories: Linux
 | `ifconfig`                                                | 查看ip地址                                                  |
 | `/sbin/ifconfig`                                          | `ifconfig`                                                 |
 | `ip addr`                                                 | 查看ip地址                                                  |
-
+| `umask 022`                                               | 也可以使用八进制数值来设置mode。由于在umask中所指定的权限是要从文件中删除的，所以，如果该文件原来的初始化权限是777，那么执行命令umask 022以后，该文件的权限将变为755：如果该文件原来的初始化权限是666，那么该文件的权限将变为644。 |
 
 
 ### curl
