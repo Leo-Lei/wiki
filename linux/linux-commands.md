@@ -108,10 +108,9 @@ categories: Linux
 | `curl -X POST --data "data=xxx" example.com/form.cgi`   | POST                               |
 
 
-
-
-
-
+```shell
+curl http://100.100.100.100:8080/some/path/sayHi -X POST -H "Content-Type:application/json" -H "Http-Rpc-Type:JsonContent" -d '{"args":["java.lang.String"],"argsObjs":["tom"]}'
+```
 
 # 时间函数
 
