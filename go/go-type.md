@@ -7,6 +7,13 @@ tags:
 categories: Linux
 ---
 
+# Go类型系统
+
+
+
+
+
+
 # Go type
 ```go
 type 类型名字 底层类型
