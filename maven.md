@@ -139,7 +139,7 @@ For example, the servlet-api is *provided* scope.
 
 
 # Profile配置
-```
+```xml
 <project>
     <properties>...</properties>
     <dependencyManagement>...</dependencyManagement>
