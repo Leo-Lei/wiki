@@ -21,6 +21,7 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:get -DartifactId=jersey
 | `mvn clean install`                                     | Install artifact(jar or war) to local maven repository.       |
 | `mvn dependency:tree -Dverbose -Dincludes=asm:asm`      | 检查maven依赖树                                                 |
 | `mvn install -Dmaven.test.skip=true`                    | 跳过单元测试                                                    |
+| `mvn clean install -U`                                  | 使用`-U`强制更新依赖                                            |
 
 # 4. Maven dependency
 In the pom file, you can specify the dependency.
