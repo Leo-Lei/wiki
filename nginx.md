@@ -296,6 +296,22 @@ server {
 }
 ```
 
+# 配置静态web站点
+```bash
+server {
+	#监听8089端口下的www.aabbccdd.com服务请求进行处理
+        listen       8890;
+        server_name  localhost;
+
+        location / {
+          # root /Users/leiwei/tmp/blog/public;
+           root /Users/leiwei/workspace/github/blog/public;
+            #默认请求转到root路径下的index.html页面。
+	    index index.html;
+        }
+}
+```
+
 # Resources     
 [http://www.cnblogs.com/Gukw/archive/2012/05/13/2498328.html](http://www.cnblogs.com/Gukw/archive/2012/05/13/2498328.html)     
 [http://www.codepool.biz/how-to-configure-and-install-nginx-on-mac-os-x.html](http://www.codepool.biz/how-to-configure-and-install-nginx-on-mac-os-x.html)
