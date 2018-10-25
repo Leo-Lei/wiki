@@ -138,5 +138,42 @@ For example, the servlet-api is *provided* scope.
 ```
 
 
+# Profile配置
+```
+<project>
+    <properties>...</properties>
+    <dependencyManagement>...</dependencyManagement>
+    <dependencies>...</dependencies>
+    <build>...</build>
+    <profiles>
+        <profile>
+            <id>foo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                    <version>1.0.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>bar</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>1.0.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+</project>
 
+```
 
