@@ -57,5 +57,8 @@ iptables中已经内置了一些链，可可以自定义一些链。
 | nat           | PREROUTING, OUTPUT, POSTROUTING, INPUT            |
 | filter        | INPUT, FORWARD, OUTPUT                            |
 
+# 表的优先级
 
-
+一个链中有多个规则，这些规则可以分布在多张表中。当报文到达链时，会将当前所有链都匹配一遍。这时候，有一个优先级的问题。
+4张表的优先级顺序如下：
+raw --> mangle --> nat --> filter
