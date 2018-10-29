@@ -40,3 +40,22 @@ iptables中已经内置了一些链，可可以自定义一些链。
 
 
 
+|        链的规则       |                   可存在的表                      |   
+| -------------------- | ------------------------------------------------ |
+| PREROUTING           | raw，mangle，nat                                 |
+| INPUT                | mangle, filter, nat                              |
+| FORWARD              | mangle, filter                                   |
+| OUTPUT               | raw, mangle, nat, filter                         |
+| POSTROUTING          | mangle, nat                                      |
+
+在实际的使用过程中，通常是以“表”作为操作入口，来操作规则的。
+
+|       表       |                      链                          |        
+| ------------- | ------------------------------------------------- |
+| raw           | PREROUTING, OUTPUT                                |
+| mangle        | PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING   |
+| nat           | PREROUTING, OUTPUT, POSTROUTING, INPUT            |
+| filter        | INPUT, FORWARD, OUTPUT                            |
+
+
+
