@@ -18,6 +18,7 @@ categories: Linux
 | `iptables -t filter -vL INPUT`            | 查看filter表中INPUT链的规则。`-v`查看更详细的信息                    |
 | `iptables -t filter -nvL INPUT`           | 查看filter表中INPUT链的规则。`-n`不对IP地址进行名称反解，直接显示IP地址。比如不显示`anywhere`，显示`0.0.0.0/0`    |
 | `iptables --line-number -L`               | 查看filter表的规则。`--linenumber`显示规则编号                       |                                                    |
+| `iptables --line -L`                      | `--line`等价于`--line-number`                                      |
 
 # 规则中的字段信息
 使用如下命令来查看filter表中的规则：
