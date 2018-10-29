@@ -39,6 +39,8 @@ pkts  bytes  target    prot   opt   in   out    source         destination
 * `out`: 表示数据包由哪个接口(网卡)流出。
 * `source`: 表示规则对应的源地址，可以是一个IP，也可以是一个网段。
 * `destination`: 表示规则对应的目标地址。可以是一个IP，也可以是一个网段。
-
+* `POLICY ACCEPT`: 当前链的默认策略, 默认动作。
+* `0 packets`: 当前链默认策略匹配到的包数量。
+* `0 bytes`: 当前链默认策略匹配到的所有包的大小总和。
 
 
