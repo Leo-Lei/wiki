@@ -42,4 +42,4 @@ target     prot   opt   in    out    source         destination
 DROP       all    --    *     *      192.168.1.100  0.0.0.0/0
 DROP       all    --    *     *      192.168.1.100  0.0.0.0/0
 ```
-* -A: append的意思，在当前链的尾部追加一个规则。
+* -A: append的意思，在当前链的尾部追加一个规则。此时，在100机器上ping机器200。发现任然ping不通。
