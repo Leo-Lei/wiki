@@ -16,5 +16,16 @@ LVS是Linux Virtual Server的缩写，是Linux内核中一个四层的负载均�
 
 LVS有多种模式，在不同模式下，LVS实现负载均衡的方式不同。先来了解一下LVS的NAT模型。此模型比较容易理解。
 
+# LVS的NAT模型
+
 ![LVS的NAT模型](http://www.zsythink.net/wp-content/uploads/2017/07/070617_0124_1.png)
 
+
+
+http://www.zsythink.net/wp-content/uploads/2017/07/070617_0124_3.png
+
+
+
+
+# 参考资料
+* [http://www.zsythink.net/archives/2134](http://www.zsythink.net/archives/2134)
