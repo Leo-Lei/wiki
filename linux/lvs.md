@@ -22,8 +22,7 @@ LVS有多种模式，在不同模式下，LVS实现负载均衡的方式不同�
 
 
 
-http://www.zsythink.net/wp-content/uploads/2017/07/070617_0124_3.png
-
+![LVS的NAT模型IP转换流程](http://www.zsythink.net/wp-content/uploads/2017/07/070617_0124_3.png)
 
 
 
