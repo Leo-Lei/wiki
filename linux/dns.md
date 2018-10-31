@@ -18,8 +18,8 @@ DNS使用的是`53`端口。
 
 # 通过DNS查询IP的流程
 DNS以类似于树状目录的形态来进行主机名的管理。所以，每一步DNS服务器都仅管理自己的下一层主机名的解析。至于下层的下层，则授权给下层的DNS来管理。
-下面就来举例说明：
-首先，在浏览器中输入http://www.ksu.edu.tw时，计算机会依据相关设定(在Linux中是利用/etc/resolv.conf这个文件)所提供的DNS去进行查询。
+下面就来举例说明：    
+首先，在浏览器中输入http://www.ksu.edu.tw时，计算机会依据相关设定(在Linux中是利用/etc/resolv.conf这个文件)所提供的DNS去进行查询。    
 假设`/etc/resolve.conf`中配置了:
 ```bash
 nameserver 168.95.1.1
