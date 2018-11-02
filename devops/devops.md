@@ -9,8 +9,6 @@ categories: Text Editor
 
 # 1. Devops
 
-![运维发展过程](https://yqfile.alicdn.com/95bb11cdf0e424fb1d15aef6c990e6f9b7631b7b.png)
-
 第一阶段：黑屏，三角形是代表整个运维给用户的一些体感或者给研发的体感，人工运维，目前很多企业可能还是这样。
 
 第二阶段：白屏，自动化运维，以前把脚本做成工具去弄，有什么特征，人push机器去干活，自助运维。
