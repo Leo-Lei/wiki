@@ -189,6 +189,281 @@ Cluster中包含的字段如下:
 | `address`             | `core.Address`       | Administration server监听的TCP地址。如果不指定，Envoy不会启动administration server。                                               |
 
 
+### config.bootstrap.v2.ClusterManager
+
+```json
+{
+  "local_cluster_name": "...",
+  "outlier_detection": "{...}",
+  "upstream_bind_config": "{...}",
+  "load_stats_config": "{...}"
+}
+```
+
+|             字段             |         类型                                           |                                                             说明                            |
+| --------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `local_cluster_name`        | `string`                                              | Envoy所属的cluster。如果想实现`zone aware routing`,必须要设置该值。                               |
+| `outlier_detection`         | `config.bootstrap.v2.ClusterManager.OutlierDetection` | outlier检测。                                                                                |
+| `upstream_bind_config`      | `core.BindConfig`                                     | Optional configuration used to bind newly established upstream connections                  |
+
+### config.bootstrap.v2.ClusterManager.OutlierDetection
+
+```json
+{
+  "event_log_path": "..."
+}
+```
+
+|             字段             |         类型          |              说明                 |
+| --------------------------- | -------------------- | --------------------------------- |
+| `event_log_path`            | `string`             | outlier event log path            |
+
+
+
+
+# Listener
+
+```json
+{
+  "name": "...",
+  "address": "{...}",
+  "filter_chains": [],
+  "use_original_dst": "{...}",
+  "per_connection_buffer_limit_bytes": "{...}",
+  "metadata": "{...}",
+  "drain_type": "...",
+  "listener_filters": [],
+  "transparent": "{...}",
+  "freebind": "{...}",
+  "socket_options": [],
+  "tcp_fast_open_queue_length": "{...}"
+}
+```
+
+
+|                  字段                 |              类型              |                            说明                              |
+| ------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
+| `name`                               | `string`                       | Listener的名字。如果不指定，Envoy分配一个UUID。                   |
+| `address`                            | `core.Address`                 | Listener监听的地址。通常，Listener监听的地址是唯一的。             |
+| `filter_chains`                      | `listener.FilterChain`         | Listener包含的filter链                                        |
+| `use_original_dst`                   | `BoolValue`                    | 这个字段被废弃了，请使用`original_dst listener filter`           |
+| `per_connection_buffer_limit_bytes`  | `UInt32Value`                  | 读和写的buffers大小，默认1M                                     |
+| `metadata`                           | `core.Metadata`                | Listener metadata                                            |
+| `drain_type`                         | `Listener.DrainType`           |                                                              |
+| `listener_filters`                   | `listener.ListenerFilter`      |                                                              |
+| `transparent`                        | `BoolValue`                    |                                                              |
+| `freebind`                           | `BoolValue`                    |                                                              |
+| `socket_options`                     | `core.SocketOption`            |                                                              |
+| `tcp_fast_open_queue_length`         | `UInt32Value`                  |                                                              |
+
+
+### listener.FilterChain
+
+```json
+{
+  "filter_chain_match": "{...}",
+  "tls_context": "{...}",
+  "filters": [],
+  "use_proxy_proto": "{...}",
+  "transport_socket": "{...}"
+}
+```
+
+|                  字段                 |              类型              |                            说明                              |
+| ------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
+| `filter_chain_match`                 | `listener.FilterChainMatch`    | 指定connection匹配filter chain的条件                           |
+| `tls_context`                        | `auth.DownstreamTlsContext`    | TLS上下文                                                     |
+| `filters`                            | `listener.Filter`              | listener chain包含的filter列表。                               |
+| `use_proxy_proto`                    | `BoolValue`                    |                                                              |
+| `transport_socket`                   | `core.TransportSocket`         |                                                              |
+
+
+### listener.Filter
+
+```json
+{
+  "name": "...",
+  "config": "{...}"
+}
+```
+
+|          字段       |              类型              |                                                     说明                                               |
+| ------------------ | ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `name`             | `string`                       | filter类型的名字。必须是内置filter中的某一种。比如`envoy.tcp_proxy`或`envoy.http_connection_manager`         |
+| `config`           | `Struct`                       | filter的配置。取决于filter的类型。                                                                        |
+
+1. `name`字段必须是一个Envoy支持的filter。内置的filter有：
+    * envoy.client_ssl_auth
+    * envoy.echo
+    * envoy.http_connection_manager
+    * envoy.mongo_proxy
+    * envoy.ratelimit
+    * envoy.redis_proxy
+    * envoy.tcp_proxy
+
+# HTTP connection manager
+
+### config.filter.network.http_connection_manager.v2.HttpConnectionManager
+
+```json
+{
+  "codec_type": "...",
+  "stat_prefix": "...",
+  "rds": "{...}",
+  "route_config": "{...}",
+  "http_filters": [],
+  "add_user_agent": "{...}",
+  "tracing": "{...}",
+  "http_protocol_options": "{...}",
+  "http2_protocol_options": "{...}",
+  "server_name": "...",
+  "idle_timeout": "{...}",
+  "stream_idle_timeout": "{...}",
+  "request_timeout": "{...}",
+  "drain_timeout": "{...}",
+  "delayed_close_timeout": "{...}",
+  "access_log": [],
+  "use_remote_address": "{...}",
+  "xff_num_trusted_hops": "...",
+  "internal_address_config": "{...}",
+  "skip_xff_append": "...",
+  "via": "...",
+  "generate_request_id": "{...}",
+  "forward_client_cert_details": "...",
+  "set_current_client_cert_details": "{...}",
+  "proxy_100_continue": "...",
+  "represent_ipv4_remote_address_as_ipv4_mapped_ipv6": "...",
+  "upgrade_configs": [],
+  "bugfix_reverse_encode_order": "{...}"
+}
+```
+
+
+|                 字段                 |                                                 类型                                                  |                  说明                |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `codec_type`                        | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.CodecType`                    | 使用的编码，解码类型                    |
+| `stat_prefix`                       | `string`                                                                                              | statistics前缀                       |
+| `rds`                               | `config.filter.network.http_connection_manager.v2.Rds`                                                | route table通过RDS API动态加载        |
+| `route_config`                      | `RouteConfiguration`                                                                                  | 静态配置route table                   |
+| `http_filters`                      | `config.filter.network.http_connection_manager.v2.HttpFilter`                                         | Http filter列表                      |
+| `add_user_agent`                    | `BoolValue`                                                              | 是否添加`user-agent`和` x-envoy-downstream-service-cluster`header。 |
+| `tracing`                           | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.Tracing`                      | tracing配置                         |   
+| `http_protocol_options`             | `core.Http1ProtocolOptions`                                                                           | 额外的HTTP1配置，会传递给HTTP1 codec   | 
+| `http2_protocol_options`            | `core.Http2ProtocolOptions`                                                                           | 额外的HTTP2配置，会传递给HTTP1 codec   |
+| `server_name`                       | `string`                                                                                              | 默认值是envoy                        |
+| `idle_timeout`                      | `Duration`                                                                                            |                                     |
+| `stream_idle_timeout`               | `Duration`                                                                                            |                                     |
+| `request_timeout`                   | `Duration`                                                                                            |                                     |
+| `drain_timeout`                     | `Duration`                                                                                            |                                     |
+| `delayed_close_timeout`             | `Duration`                                                                                            |                                     |
+| `access_log`                        | `config.filter.accesslog.v2.AccessLog`                                                                | HTTP access logs配置                 |
+| `use_remote_address`                | `BoolValue`                                                                                           |                                     |
+| `xff_num_trusted_hops`              | `uint32`                                                                                              |                                     |
+| `internal_address_config`           | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.InternalAddressConfig`        |                                     |
+| `skip_xff_append`                   | `bool`                                                                                                |                                     |
+| `via`                               | `string`                                                                                              |                                     |
+| `generate_request_id`               | `BoolValue`                                                                                           | 是否生成x-request-id                 |
+| `fowward_client_cert_details`       | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.ForwardClientCertDetails`     |                                     |
+| `set_current_client_cert_details`   | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.SetCurrentClientCertDetails`  |                                     |
+| `proxy_100_continue`                | `bool`                                                                                                |                                     |
+| `represent_ipv4_remote_address_as_ipv4_mapped_ipv6` | `bool`                                                                                |                                     |
+| `upgrade_configs`                   | `config.filter.network.http_connection_manager.v2.HttpConnectionManager.UpgradeConfig`                |                                     |
+| `bugfix_reverse_encode_order`       | `BoolValue`                                                                                           |                                     |
+
+1. `rds`和`route_config`必须有一个被指定
+
+
+
+
+
+
+### config.filter.network.http_connection_manager.v2.HttpFilter
+
+```json
+{
+  "name": "...",
+  "config": "{...}"
+}
+```
+
+
+|      字段      |       类型     |                         说明                    |
+| ------------- | -------------- | ---------------------------------------------- |
+| `name`        | `string`       | filter类型的名字。必须是envoy支持的一种filter。     |
+| `config`      | `struct`       | filter的配置。取决于具体的filter类型。             |
+
+
+1. filter类型的名字必须是envoy支持的一种。内置的filter有:
+    * envoy.buffer
+    * envoy.cors
+    * envoy.fault
+    * envoy.gzip
+    * envoy.http_dynamo_filter
+    * envoy.grpc_http1_bridge
+    * envoy.grpc_json_transcoder
+    * envoy.grpc_web
+    * envoy.health_check
+    * envoy.header_to_metadata
+    * envoy.ip_tagging
+    * envoy.lua
+    * envoy.rate_limit
+    * envoy.router
+    * envoy.spuash
+
+
+
+
+###  Router
+
+[https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/router_filter#config-http-filters-router](https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/router_filter#config-http-filters-router)
+
+### config.filter.http.router.v2.Router
+
+```json
+{
+  "dynamic_stats": "{...}",
+  "start_child_span": "...",
+  "upstream_log": [],
+  "suppress_envoy_headers": "..."
+}
+```
+
+|             字段           |                      类型              |                         说明                    |
+| ------------------------- | -------------------------------------- | ---------------------------------------------- |
+| `dynamic_stats`           | `BoolValue`                            | 是否生成动态statistics数据。                      |
+| `start_child_span`        | `bool`                                 |                                                |
+| `upstream_log`            | `config.filter.accesslog.v2.AccessLog` |                                                |
+| `suppress_envoy_headers`  | `bool`                                 |                                                |
+
+
+
+# HTTP route configuration
+
+```json
+{
+  "name": "...",
+  "virtual_hosts": [],
+  "internal_only_headers": [],
+  "response_headers_to_add": [],
+  "response_headers_to_remove": [],
+  "request_headers_to_add": [],
+  "request_headers_to_remove": [],
+  "validate_clusters": "{...}"
+}
+```
+
+
+|               字段             |             类型              |                          说明                      |
+| ----------------------------- | ----------------------------- | ------------------------------------------------- |
+| `name`                        | `string`                      | route的名字。                                      |
+| `virtual_hosts`               | `route.VirtualHost`           | virtual host列表。                                 |
+| `internal_only_headers`       | `string`                      | 指定内部的header。                                  |
+| `response_headers_to_add`     | `core.HeaderValueOption`      | 指定header列表，被添加到response header中。           |
+| `response_headers_to_remove`  | `string`                      | 指定HTTP header列表，将被从response header中移除。    |
+| `request_headers_to_add`      | `core.HeaderValueOption`      | 指定HTTP header列表，将被添加到request中              |
+| `request_headers_to_remove`   | `string`                      | 指定HTTP header列表，将从request中被移除。            |
+| `validate_clusters`           | `BoolValue`                   | 是否验证cluster                                    |
+
 # 资源链接
 * [http://www.servicemesher.com/envoy/](http://www.servicemesher.com/envoy/)
 * [https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cds.proto#envoy-api-msg-cluster](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cds.proto#envoy-api-msg-cluster)
