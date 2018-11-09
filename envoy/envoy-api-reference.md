@@ -49,7 +49,8 @@ Cluster中包含的字段如下:
 }
 ```
 * `name`: Cluster的名字。必须全局唯一。
-* `alt_stat_name`: `alt`是`alternative`的意思。
+* `alt_stat_name`: `alt`是`alternative`的意思。`stat`是`statistics`的意思。
+* `type`: DiscoveryType，即服务发现的类型。有STATIC, STRICT_DNS, LOGICAL_DNS, EDS, ORIGINAL_DST。
 
 
 
@@ -64,8 +65,5 @@ Cluster中包含的字段如下:
 
 # 资源链接
 * [https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cds.proto#envoy-api-msg-cluster](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cds.proto#envoy-api-msg-cluster)
-
-
-
-
+* [https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/service_discovery#arch-overview-service-discovery-types](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/service_discovery#arch-overview-service-discovery-types)
 
