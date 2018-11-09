@@ -8,7 +8,9 @@ categories: Java
 ---
 
 # Clusters
-Cluster
+### Cluster
+Cluster代表一个上游的集群。一个集群中包含多个提供相同功能的Host。Cluster内部通过LoadBalance来选出一个Host。    
+Cluster中包含的字段如下:
 ```json
 {
   "name": "...",
@@ -46,8 +48,8 @@ Cluster
   "drain_connections_on_host_removal": "..."
 }
 ```
-
-
+* `name`: Cluster的名字。必须全局唯一。
+* `alt_stat_name`: `alt`是`alternative`的意思。
 
 
 
