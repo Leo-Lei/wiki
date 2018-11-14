@@ -34,6 +34,9 @@ categories:
 | `mysqldump -uroot -pdbpasswd dbname test>db.sql`                                   | 导出数据某张表的schema和数据        |
 | `mysql -h 127.0.0.1 -uroot -p123456 -e "select * from table" > /opt/sql.optput`    | 导出查询结果到文件                 |
 | `mysql> select * from table into outfile '/data/test.xls'`                         | 导出查询结果到文件                 |
+| `mysql> show databases`                                                            | 查看数据库                        |
+| `mysql> use my-db`                                                                 | 选择数据库进行操作                 |
+| `mysql> show tables`                                                               | 查看数据库表                      |
 
 # Mysql配置
 Mysql的配置文件在`/etc/my.cnf`。
