@@ -590,3 +590,15 @@ select * from tb where code in (100,200)        # 可能使用索引
 mysqlbinlog --base64-output=decode-rows -v mysql-bin.001405 | less
 ```
 
+# Mac安装MySql
+
+下载mysql 5.7版本：
+https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.24-macos10.14-x86_64.dmg
+
+安装好之后，Mysql会为root用户创建一个临时密码，注意要保存下来，待会儿要用到。
+
+第一次操作，需要修改root的密码。
+```sql
+alter user 'root'@'localhost' IDENTIFIED BY 'root';
+```
+
