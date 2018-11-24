@@ -17,6 +17,12 @@ Protobuf的一些劣势：
 2. 改动协议字段，需要重新生成文件。
 3. 使用不方便，要想使用Protobuf，必须先定义IDL文件，安装Protobuf编译器，生成对应语言的代码文件。
 
+# protobuf的使用流程
+使用protobuf和XML，JSON不太一样，流程会比较麻烦。大概流程是定义proto文件，编译生成对应语言的代码文件，然后将生成的代码文件拷贝到项目中使用。
+1. 定义一个proto文件，比如user.proto。proto文件就是一个纯文本文件。
+2. 安装protobuf编译器。可以从protobuf的官方主页下载。
+3. 安装对应语言的库文件和插件
+4. 使用protoc命令编译proto文件，生成对应语言的代码文件。
 
 # 安装
 在go中使用protobuf，有两个可选用的包goprotobuf（go官方出品）和gogoprotobuf。
