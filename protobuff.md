@@ -25,25 +25,27 @@ gogoprotobuf完全兼容google protobuf，它生成的代码质量和编解码�
 * go: github.com/golang/protobuf/
 * gogo: github.com/gogo/protobuf/
 
-### 安装protoc
+### 安装protoc编译器
 从[https://github.com/google/protobuf/releases](https://github.com/google/protobuf/releases)下载protobuf的编译器protoc。然后将可自行文件拷贝到$GOPATH的bin目录下。
 
-### golang/protobuf    
+### 安装protobuf库文件和插件
+
+##### golang/protobuf    
+1. 安装库文件
 ```bash
 go get github.com/golang/protobuf/proto
 ```
 
-golang/protobuf
-安装插件
+2. 安装插件
 ```bash
 go get github.com/golang/protobuf/protoc-gen-go
 ```
-生成go文件
+3. 生成go文件
 ```bash
 # 编译当前目录的hello.proto文件，会生成一个hello.proto.go文件，生成的文件在当前目录
 protoc --go_out=. hello.proto
 ```
-### gogo/protobuf
+##### gogo/protobuf
 1. 安装gogo/protobuf的库文件
 ```bash
 go get github.com/gogo/protobuf/proto
