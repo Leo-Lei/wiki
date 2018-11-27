@@ -71,3 +71,5 @@ static_resources:
 
 # 资源链接
 * [https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#config-overview-v2-bootstrap](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#config-overview-v2-bootstrap)
+* [https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#bootstrap-configuration](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#bootstrap-configuration)
+
