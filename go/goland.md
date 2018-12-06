@@ -7,6 +7,14 @@ tags:
 categories: Linux
 ---
 
+# 快捷键
+
+|                                |                                                         |
+| ------------------------------ | ------------------------------------------------------- |
+| `Command` + `N`                | Open Type                                               |
+| `Control` + `Option` + `H`     | Call Hierarchy                                          |
+
+
 # 保存Go文件时自动格式化
 
 GoLand --> Preferences -->  Tools --> File Watchers
