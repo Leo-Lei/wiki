@@ -12,6 +12,8 @@ categories: Linux
 |            Key                 |                     Desc                                |
 | ------------------------------ | ------------------------------------------------------- |
 | `Command` + `N`                | Open Type                                               |
+| `Command` + `Shift` + `N`      | Open File                                               |
+| `Command` + `B`                | Declaration                                             |
 | `Control` + `Option` + `H`     | Call Hierarchy                                          |
 
 
