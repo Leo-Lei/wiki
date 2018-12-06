@@ -9,7 +9,7 @@ categories: Linux
 
 # 快捷键
 
-|                                |                                                         |
+|            Key                 |                     Desc                                |
 | ------------------------------ | ------------------------------------------------------- |
 | `Command` + `N`                | Open Type                                               |
 | `Control` + `Option` + `H`     | Call Hierarchy                                          |
