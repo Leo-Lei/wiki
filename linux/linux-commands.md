@@ -20,6 +20,7 @@ categories: Linux
 | `pwd`                                                    | print working directory                                | 
 | <code>cat app.log &#124; less</code>                     | 分页查看                                                | 
 | `cd <path/to/directory>`                                 | chande directory                                       | 
+| `cat /etc/redhat-release`                                | 查看操作系统版本                                        |
 
 ### Debina/Ubuntu命令
 |                           command                        |                                                        |
