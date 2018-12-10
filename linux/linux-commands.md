@@ -123,6 +123,19 @@ curl http://100.100.100.100:8080/some/path/sayHi -X POST -H "Content-Type:applic
 | `date -d '2 days ago' +%Y-%m-%d`                         | 显示2天前的日期，格式为2017-02-13                          | 
 
 
+
+
+# vim
+
+|                Command                  |                     Desc                      |
+| --------------------------------------- | --------------------------------------------- |
+| `/`                                     | 进入搜索模式                                   |
+| `/` => `n`                              | `/`进入搜索模式, 按`n`定位到下一个              |
+| `/` => `N`                              | `/`进入搜索模式, 按`N`定位到上一个              |
+| `i`                                     | 进入编辑(insert)模式                           |
+| `Esc`                                   | 退出编辑模式                                   |
+
+
 ## rm
 `rm` command has some options:
 * -r: Delete the directory recursively.
