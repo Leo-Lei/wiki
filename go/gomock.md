@@ -6,7 +6,7 @@ tags:
 - Linux
 categories: Linux
 ---
-
+# 安装gomock
 
 ```bash
 go get github.com/golang/mock/gomock
@@ -16,13 +16,12 @@ go get github.com/golang/mock/gomock
 cd $GOPATH/src/github.com/golang/mock/mockgen
 go install
 ```
-
+输入mockgen，确认mockgen命令可用
 ```bash
 mockgen
 ```
 
-
-
+# 新建用于mock的接口
 新建一个接口：
 `GOPATH/go-tutorial/repo/repository.go`
 ```go
@@ -43,7 +42,7 @@ type Repository interface {
 
 ```
 
-
+使用mockgen命令自动生成mock代码
 ```bash
 mockgen go-tutorial/repo Repository
 ```
@@ -55,6 +54,7 @@ mockgen命令支持如下选项:
 * -destination: 存放生成的代码文件路径。如果没有设置，代码将被打印到标准输出
 * -package: 指定mock类源文件的包名。如果没有设置该选项，包名由`mock_`和输入文件的包名组成
 
+# 使用mock对象
 
 ```go
 import (
