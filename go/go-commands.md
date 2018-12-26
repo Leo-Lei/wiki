@@ -76,14 +76,9 @@ type Course struct {
 
 ```
 
-使用`go test -c`编译test为二进制文件profile.test。但不运行测试。
-使用`go test -test.run=Test_Json1`运行测试Test_Json1。会生成cpu-profile.prof文件。
-使用`go tool pprof profile.test cpu-profile.prof`。进入命令行交互模式。
-使用`top`显示消耗cpu时间片最多的方法。
-使用`top -cum`显示累计消耗cpu时间片最多的方法。
-使用`list Test_Json1`显示Test_Json1方法哪一行消耗cpu时间片最多。
-
-
-
-
-
+* 使用`go test -c`编译test为二进制文件profile.test。但不运行测试。
+* 使用`go test -test.run=Test_Json1`运行测试Test_Json1。会生成cpu-profile.prof文件。
+* 使用`go tool pprof profile.test cpu-profile.prof`。进入命令行交互模式。
+* 使用`top`显示消耗cpu时间片最多的方法。
+* 使用`top -cum`显示累计消耗cpu时间片最多的方法。
+* 使用`list Test_Json1`显示Test_Json1方法哪一行消耗cpu时间片最多。
