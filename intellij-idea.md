@@ -27,3 +27,7 @@ On Mac, open the dmg file, and drag the app file to the `Applicaiton` folder, th
 
 # 关掉method parameter hint
 Editor -> Appearance -> Show parameter name hints.
+
+
+# Ctrl + Shift + F失效
+检查下是不是和sougou输入法的快捷键冲突了。sougou有很多的快捷键，理论上使用频率很低，可以将这些快捷键禁用掉。避免和其他软件冲突。
