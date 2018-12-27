@@ -8,11 +8,15 @@ categories: Windows
 ---
 
 
+git的`rebase`命令可以用来合并多个commit为一个commit。
 
-
+下面的操作中有4个commit：
+1. 新建一个hello.txt
+2. 向hello.txt写入11111
+3. 向hello.txt写入22222
+4. 向hello.txt写入33333
 
 ```bash
-
 touch hello.txt
 git add hello.txt
 git commit -m "add hello.txt"
@@ -46,12 +50,13 @@ add 11111 to hello.txt
 commit b47ddd8c039e1180c3c81ccf4c3263dcce134233
 add hello.txt
 ```
-
+现在希望将写入11111，22222，33333这3个commit合并为一个。
+可以使用rebase命令。rebase命令需要一个-i参数，意思是从哪个commit(不包含)开始合并。这里我们选择新建hello.txt这个commit的hash。
 
 ```bash
 git rebase -i b47ddd8c039e1180c3c81ccf4c3263dcce134233
 ```
-
+进入vim编辑模式:
 ```bash
 pick 0a456e add 11111 to hello.txt
 pick fe6e69 add 22222 to hello.txt
@@ -72,17 +77,16 @@ pick c75fa6 add 33333 to hello.txt
  15 #
 ```
 
-
-```bash
-git rebase -i b47ddd8c039e1180c3c81ccf4c3263dcce134233
-```
+将写入22222和33333的commit编辑为square。
 
 ```bash
 pick 0a456e add 11111 to hello.txt
 squash fe6e69 add 22222 to hello.txt
 squash c75fa6 add 33333 to hello.txt
 ```
-`wq`保存并退出。
+
+输入`wq`保存并退出。
+这时候会出现一个编辑窗口，来输入commit注释。
 
 ```bash
 # This is a combination of 3 commits.
@@ -114,6 +118,7 @@ Add 11111, 22222, 33333 to hello.txt
 # with '#' will be ignored, and an empty message aborts the commit.
 ```
 
+输入`wq`保存并退出。
 
 ```bash
 git log
@@ -123,5 +128,3 @@ Add 11111, 22222, 33333 to hello.txt
 commit b47ddd8c039e1180c3c81ccf4c3263dcce134233
 add hello.txt
 ```
-
-
