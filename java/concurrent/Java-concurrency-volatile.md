@@ -11,6 +11,7 @@ categories: Java
 Volatile有2个作用：
 1. 保证共享变量的可见性
 2. 解决重排序问题(在一定程度上保证)
+3. Java基本类型中，除了Long和Double，其他类型的写操作都是原子的。volatile可以保证Long和Double的原子性。
 
 注意： Volatile不能保证原子性。
 
