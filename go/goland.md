@@ -22,6 +22,9 @@ categories: Linux
 GoLand --> Preferences -->  Tools --> File Watchers
 添加一个`go fmt`即可。
 
+# GoLand 
+
+
 
 # GoLand设置Project级别的GOPATH
 
