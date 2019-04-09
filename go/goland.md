@@ -14,7 +14,7 @@ categories: Linux
 | `Command` + `N`                | Open Type                                               |
 | `Command` + `Shift` + `N`      | Open File                                               |
 | `Command` + `B`                | Declaration                                             |
-| `Control` + `Option` + `H`     | Call Hierarchy                                          |
+| `Control` + `Option` + `H`     | Call Hierarchy，查看方法的调用关系                        |
 
 
 # 保存Go文件时自动格式化
